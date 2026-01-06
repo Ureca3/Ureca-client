@@ -38,6 +38,14 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: description
+    attributes:
+      label: '📝 상세 내용(Description)'
+      description: '이슈에 대한 간략한 설명'
+    validations:
+      required: true
+
   - type: textarea
     id: tasks
     attributes:
