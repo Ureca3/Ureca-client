@@ -1,0 +1,31 @@
+name: '이슈 생성'
+description: 'Repo에 이슈 생성, 생성된 이슈는 Jira와 연동'
+title: '[type] 이슈 이름'
+body:
+  - type: input
+    id: parentKey
+    attributes:
+      label: '상위 작업(Ticket Number)'
+      description: 'Jira에서 상위 작업의 Ticket Number를 기입'
+      placeholder: 'URECA-00'
+    validations:
+      required: true
+
+- type: input
+  id: branch
+  attributes:
+    label: '브랜치명(Branch)'
+    description: '영어로 브랜치명 작성'
+  validations:
+    required: true
+
+- type: input
+  id: tasks
+  attibutes:
+    label: '체크리스트(Tasks)'
+    description:'해당 이슈에 대해 필요한 작업 목록을 작성'
+    value: |
+      - [ ] Task1
+      - [ ] Task2
+    validations:
+      required: true
