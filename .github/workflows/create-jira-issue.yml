@@ -43,6 +43,29 @@ jobs:
             ${{ github.event.issue.body }}
           mode: md2jira
 
+      - name: Resolve Jira Reporter accountId
+        id: reporter
+        run: |
+          GH_USER="${{ github.event.issue.user.login }}"
+          EMAIL=$(jq -r ".\"$GH_USER\"" .github/jira-users.json)
+          
+          if [ "$EMAIL" = "null" ]; then
+            echo "❌ No Jira email mapping for $GH_USER"
+            exit 1
+          fi
+          
+          RESPONSE=$(curl -s \
+            -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
+            -H "Accept: application/json" \
+            "${{ secrets.JIRA_BASE_URL }}/rest/api/3/user/search?query=$EMAIL")
+            
+          ACCOUNT_ID=$(echo "$RESPONSE" | jq -r '.[0].accountId')
+          if [ "$ACCOUNT_ID" = "null" ] || [ -z "$ACCOUNT_ID" ]; then
+            echo "❌ Jira user not found for $EMAIL"
+            exit 1
+          fi
+          echo "accountId=$ACCOUNT_ID" >> $GITHUB_OUTPUT
+
       - name: Create Jira Issue
         id: create
         uses: atlassian/gajira-create@v3
@@ -53,6 +76,9 @@ jobs:
           description: '${{ steps.md2jira.outputs.output-text }}'
           fields: |
             {
+              "reporter": {
+                "id": "${{ steps.reporter.outputs.accountId }}"
+              },
               "parent": {
                 "key": "${{ steps.issue-parser.outputs.issueparser_parentKey }}"
               }
