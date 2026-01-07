@@ -52,7 +52,7 @@ body:
       label: '✅체크리스트(Tasks)'
       description: 해당 이슈에 대해 필요한 작업 목록을 작성
       value: |
-        - [] Task 1
-        - [] Task 2
+        - [ ] Task 1
+        - [ ] Task 2
     validations:
       required: true
