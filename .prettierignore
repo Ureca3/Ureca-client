@@ -1,0 +1,21 @@
+# build artifacts
+build
+dist
+coverage
+.next
+out
+
+# dependencies
+node_modules
+.pnp.*
+.yarn
+
+# logs
+*.log
+
+# generated files
+*.min.js
+*.snap
+
+# 아직 포맷 원치 않는 파일
+**/*.html
