@@ -1,0 +1,5 @@
+echo "─────── ⋆⋅✶⋅⋆ ───────"
+echo "⭐ lint-staged 실행 ⭐"
+echo "─────── ⋆⋅✶⋅⋆ ───────"
+
+yarn exec lint-staged
