@@ -48,12 +48,12 @@ jobs:
         run: |
           GH_USER="${{ github.event.issue.user.login }}"
           EMAIL=$(jq -r ".\"$GH_USER\"" .github/jira-users.json)
-          
+
           if [ "$EMAIL" = "null" ]; then
             echo "❌ No Jira email mapping for $GH_USER"
             exit 1
           fi
-          
+
           RESPONSE=$(curl -s \
             -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
             -H "Accept: application/json" \
@@ -105,7 +105,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "${BRANCH_NAME}"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git "${BRANCH_NAME}"
-          
+
       - name: Update issue title
         uses: actions-cool/issues-helper@v3
         with:
@@ -120,4 +120,3 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
           body: 'Jira Issue Created: [${{ steps.create.outputs.issue }}](${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create.outputs.issue }})'
-      

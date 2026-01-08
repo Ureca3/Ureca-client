@@ -8,7 +8,7 @@ jobs:
   close-issue:
     name: Close Jira issue
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Login
         uses: atlassian/gajira-login@v3
