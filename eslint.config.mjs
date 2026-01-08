@@ -1,6 +1,7 @@
 // @ts-check
 import eslint from '@eslint/js';
 import { defineConfig } from 'eslint/config';
+import nextPlugin from '@next/eslint-plugin-next';
 import prettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -18,11 +19,8 @@ export default defineConfig(
       '**/build/**',
       '**/coverage/**',
       '*.config.{js,mjs,cjs,ts}',
-      '*.config.*',
       '*.mjs',
       '*.cjs',
-      '*.js',
-      '*.ts',
     ],
   },
 
@@ -36,6 +34,7 @@ export default defineConfig(
       'jsx-a11y': jsxA11y,
       import: importPlugin,
       react: reactPlugin,
+      '@next/next': nextPlugin,
     },
     settings: {
       react: { version: 'detect' },
@@ -89,6 +88,8 @@ export default defineConfig(
         },
       ],
       'simple-import-sort/exports': 'warn',
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
     },
   },
 
