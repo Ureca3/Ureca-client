@@ -1,4 +1,5 @@
 'use client';
+import type { ButtonHTMLAttributes } from 'react';
 
 type ButtonVariant = 'solid' | 'outline' | 'text';
 type ButtonTone = 'primary' | 'secondary' | 'error';
@@ -33,13 +34,12 @@ const sizeStyle: Record<ButtonSize, string> = {
   l: 'px-4 py-2 text-base',
 };
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: ButtonVariant;
   tone: ButtonTone;
   size: ButtonSize;
   children: React.ReactNode;
   className?: string;
-  disabled?: boolean;
   loading?: boolean;
 }
 
@@ -66,7 +66,7 @@ export const Button = ({
     .join(' ');
 
   return (
-    <button className={buttonStyle} disabled={isDisabled} aria-busy={loading}>
+    <button type="button" className={buttonStyle} disabled={isDisabled} aria-busy={loading}>
       {children}
     </button>
   );
