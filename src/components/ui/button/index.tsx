@@ -39,7 +39,6 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   tone: ButtonTone;
   size: ButtonSize;
   children: React.ReactNode;
-  className?: string;
   loading?: boolean;
 }
 
@@ -49,8 +48,10 @@ export const Button = ({
   size,
   children,
   className,
+  type = 'button',
   disabled = false,
   loading = false,
+  ...rest
 }: Props) => {
   const isDisabled = disabled || loading;
 
@@ -66,7 +67,7 @@ export const Button = ({
     .join(' ');
 
   return (
-    <button type="button" className={buttonStyle} disabled={isDisabled} aria-busy={loading}>
+    <button type={type} className={buttonStyle} disabled={isDisabled} aria-busy={loading} {...rest}>
       {children}
     </button>
   );
