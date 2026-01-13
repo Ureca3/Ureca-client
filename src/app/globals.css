@@ -9,8 +9,8 @@
   --spacing-mobile: 480px;
   --spacing-navbar: 64px;
 
-  --font-pretendard: var(--font-pretendard);
-  --font-gowun-dodum: var(--font-gowun-dodum);
+  --font-sans: var(--font-pretendard);
+  --font-gowun: var(--font-gowun-dodum);
 
   --color-primary-100: #fde6f2;
   --color-primary-200: #f9a3cf;
