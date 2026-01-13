@@ -1,5 +1,9 @@
 'use client';
 
 export const Modal = () => {
-  return <div></div>;
+  return (
+    <div>
+      <span></span>
+    </div>
+  );
 };
