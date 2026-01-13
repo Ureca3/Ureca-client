@@ -28,12 +28,6 @@ const gowunDodum = localFont({
   display: 'swap',
 });
 
-const kotraHope = localFont({
-  src: './fonts/KOTRA-HOPE.otf',
-  variable: '--font-kotra-hope',
-  display: 'swap',
-});
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
@@ -43,7 +37,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           geistMono.variable,
           pretendard.variable,
           gowunDodum.variable,
-          kotraHope.variable,
         ].join(' ')}
       >
         <Providers>{children}</Providers>

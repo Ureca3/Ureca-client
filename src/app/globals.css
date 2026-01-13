@@ -10,8 +10,7 @@
   --spacing-navbar: 64px;
 
   --font-pretendard: var(--font-pretendard);
-  --font-kotraHope: var(--font-kotra-hope);
-  --font-GowunDodum: var(--font-gowun-dodum);
+  --font-gowun-dodum: var(--font-gowun-dodum);
 
   --color-primary-100: #fde6f2;
   --color-primary-200: #f9a3cf;
@@ -36,5 +35,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-pretendard);
 }
