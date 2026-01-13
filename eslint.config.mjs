@@ -96,6 +96,12 @@ export default defineConfig(
       'react/function-component-definition': 'off',
     },
   },
+  {
+    files: ['**/*.stories.{js,jsx,ts,tsx}'],
+    rules: {
+      'import/no-default-export': 'off',
+    },
+  },
 
   {
     files: ['**/*.{jsx,tsx}'],
