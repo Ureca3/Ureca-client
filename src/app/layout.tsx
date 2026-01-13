@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 
+import { GlobalComponents } from '@/components/ui/global-components';
 import { Providers } from '@/provider';
 
 import './globals.css';
@@ -39,7 +40,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           gowunDodum.variable,
         ].join(' ')}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <GlobalComponents />
+        </Providers>
       </body>
     </html>
   );

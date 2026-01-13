@@ -37,3 +37,10 @@ body {
   color: var(--foreground);
   font-family: var(--font-pretendard);
 }
+
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
