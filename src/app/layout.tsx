@@ -38,6 +38,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           geistMono.variable,
           pretendard.variable,
           gowunDodum.variable,
+          'bg-[#f4e9ef]',
+          'min-h-screen',
         ].join(' ')}
       >
         <Providers>
