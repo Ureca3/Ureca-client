@@ -31,7 +31,7 @@ fi
 
 # commitlint 실행
 
-if ! yarn exec commitlint --edit "$TMP_FILE"; then
+if ! yarn commitlint --edit "$TMP_FILE"; then
   echo ""
   echo "🔴 커밋 메시지 규칙 위반"
   echo "👉 규칙 예시: [URECA-17] feat: 새로운 기능 추가 (#123)"
