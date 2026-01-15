@@ -34,7 +34,9 @@
   --color-secondary-700: #431ca2;
   --color-third-100: #f7eafa;
   --color-third-200: #bb72e5;
+  --shadow-third-200: 0 0 4px rgba(187, 114, 229, 0.3);
   --color-third-300: #d52eff;
+  --color-white-light: #ffffff;
   --color-white: #f4f4f4;
   --color-black: #2e2e2e;
   --color-gray: #8b8b8b;
