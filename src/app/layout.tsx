@@ -17,11 +17,11 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-const pretendard = localFont({
-  src: '../assets/fonts/PretendardVariable.woff2',
-  variable: '--font-pretendard',
-  display: 'swap',
-});
+// const pretendard = localFont({
+//   src: '../assets/fonts/PretendardVariable.woff2',
+//   variable: '--font-pretendard',
+//   display: 'swap',
+// });
 
 const gowunDodum = localFont({
   src: '../assets/fonts/GowunDodum.ttf',
@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={[
           geistSans.variable,
           geistMono.variable,
-          pretendard.variable,
+          // pretendard.variable,
           gowunDodum.variable,
         ].join(' ')}
       >
