@@ -11,7 +11,7 @@ export default function OnboardingPage() {
   // const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
-    <main className="flex min-h-screen flex-col justify-evenly">
+    <main className="flex min-h-screen flex-col items-center justify-evenly">
       {/* 인디케이터 */}
       <OnboardingIndicator currentIndex={currentIndex} onChangeIndex={setCurrentIndex} />
 

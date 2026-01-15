@@ -14,7 +14,7 @@ export const OnboardingButton = ({ onClick }: Props) => {
       size="l"
       children="시작하기"
       onClick={onClick}
-      className="bg-primary-500 hover:bg-primary-700 rounded-r-xl font-bold"
+      className="bg-primary-500 hover:bg-primary-700 w-[384px] font-bold"
     />
   );
 };
