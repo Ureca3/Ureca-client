@@ -9,16 +9,14 @@ interface Props {
 }
 
 export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
+  const total = ONBOARDING_STEPS.length;
+
   const handlePrev = () => {
-    if (currentIndex > 0) {
-      onChangeIndex(currentIndex - 1);
-    }
+    onChangeIndex((currentIndex - 1 + total) % total);
   };
 
   const handleNext = () => {
-    if (currentIndex < ONBOARDING_STEPS.length - 1) {
-      onChangeIndex(currentIndex + 1);
-    }
+    onChangeIndex((currentIndex + 1) % total);
   };
 
   return (
