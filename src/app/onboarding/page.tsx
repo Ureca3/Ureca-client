@@ -8,6 +8,7 @@ import { OnboardingSlider } from '@/components/onboarding/OnboardingSlider';
 
 export default function OnboardingPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  // const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
     <main className="flex min-h-screen flex-col justify-evenly">
@@ -18,10 +19,10 @@ export default function OnboardingPage() {
       <OnboardingSlider currentIndex={currentIndex} onChangeIndex={setCurrentIndex} />
 
       {/* 버튼 영역 */}
-      <button>로그인</button>
+      {/* <OnboardingButton onClick={() => setIsLoginOpen(true)} /> */}
 
       {/* 로그인 모달 */}
-      {/* <LoginModal />} */}
+      {/* {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />} */}
     </main>
   );
 }
