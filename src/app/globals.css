@@ -12,16 +12,18 @@
   --font-sans: var(--font-pretendard);
   --font-gowun: var(--font-gowun-dodum);
 
+  --color-primary-50: #fffafa;
   --color-primary-100: #fde6f2;
   --color-primary-200: #f9a3cf;
   --color-primary-300: #f565b3;
   --color-primary-500: #f12b95;
+  --shadow-primary-500-30: 0 0 4px rgba(241, 43, 149, 0.3);
   --color-primary-700: #7a0f4a;
   --color-secondary-300: #3b82f6;
   --color-secondary-500: #4f46e5;
   --color-third-100: #f7eafa;
   --color-third-200: #bb72e5;
-  --shadow-third-200: 0 0 4px rgba(187, 114, 229, 0.3);
+  --shadow-third-200-30: 0 0 4px rgba(187, 114, 229, 0.3);
   --color-third-300: #d52eff;
   --color-white-light: #ffffff;
   --color-white: #f4f4f4;
