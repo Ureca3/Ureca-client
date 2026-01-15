@@ -18,13 +18,13 @@ const geistMono = Geist_Mono({
 });
 
 const pretendard = localFont({
-  src: './fonts/PretendardVariable.woff2',
+  src: '../assets/fonts/PretendardVariable.woff2',
   variable: '--font-pretendard',
   display: 'swap',
 });
 
 const gowunDodum = localFont({
-  src: './fonts/GowunDodum.ttf',
+  src: '../assets/fonts/GowunDodum.ttf',
   variable: '--font-gowun-dodum',
   display: 'swap',
 });
