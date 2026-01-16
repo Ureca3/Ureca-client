@@ -13,19 +13,19 @@ const variantStyle: Record<ButtonVariant, string> = {
 
 const toneStyle: Record<ButtonVariant, Record<ButtonTone, string>> = {
   solid: {
-    primary: 'text-white bg-black hover:bg-black/90',
-    secondary: 'text-black bg-gray-100 hover:bg-gray-200',
-    error: 'text-white bg-red-600 hover:bg-red-700',
+    primary: 'text-white bg-primary-500 hover:bg-primary-300',
+    secondary: 'text-white bg-secondary-500 hover:bg-secondary-300',
+    error: 'text-white bg-danger-500 hover:bg-danger-300',
   },
   outline: {
-    primary: 'text-black border-black hover:bg-black/5',
-    secondary: 'text-gray-700 border-gray-300 hover:bg-gray-100',
-    error: 'text-red-600 border-red-600 hover:bg-red-50',
+    primary: 'text-primary-500 hover:bg-gray-light',
+    secondary: 'text-secondary-500 hover:bg-gray-light',
+    error: 'text-danger-500 border-danger-500 hover:bg-danger-100',
   },
   text: {
-    primary: 'text-black hover:bg-black/5',
-    secondary: 'text-gray-600 hover:bg-gray-100',
-    error: 'text-red-600 hover:bg-red-50',
+    primary: 'text-primary-500 hover:text-primary-300',
+    secondary: 'text-secondary-500 hover:text-secondary-300',
+    error: 'text-danger-500 hover:text-danger-300',
   },
 };
 

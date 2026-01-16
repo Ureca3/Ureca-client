@@ -32,10 +32,10 @@ import { Button } from '@/components/ui/button';
 export const NaverLoginButton = () => {
   return (
     <Button
+      className="gap-[8px] bg-[#03A94D] p-[20px] text-base font-semibold text-[#FFFFFF]"
       variant="solid"
       tone="primary"
       size="l"
-      className="gap-[8px] bg-[#03A94D] p-[20px] text-base font-semibold text-[#FFFFFF]"
     >
       <NaverLogo />
       네이버 로그인
