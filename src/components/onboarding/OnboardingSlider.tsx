@@ -28,7 +28,7 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
     }, 4000);
 
     return () => clearInterval(intervalId);
-  }, [onChangeIndex, total]);
+  }, [hoverDirection, onChangeIndex, total]);
 
   return (
     <div className="group relative w-full overflow-hidden">
