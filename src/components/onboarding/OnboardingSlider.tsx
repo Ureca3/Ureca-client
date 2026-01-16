@@ -23,19 +23,15 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
   };
 
   useEffect(() => {
-    // hover 중이면 자동 슬라이드 멈춤
-    if (hoverDirection !== null) return;
-
     const intervalId = setInterval(() => {
       onChangeIndex((prev) => (prev + 1) % total);
-    }, 4000); // 4초
+    }, 4000);
 
     return () => clearInterval(intervalId);
-  }, [hoverDirection, onChangeIndex, total]);
+  }, [onChangeIndex, total]);
 
   return (
     <div className="group relative w-full overflow-hidden">
-      {/* 슬라이드 이동을 위한 클릭 영역 */}
       <div className="absolute inset-0 z-10 flex">
         <button
           type="button"
@@ -54,7 +50,6 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
         />
       </div>
 
-      {/* 슬라이드 영역 */}
       <div
         className="flex transition-transform duration-750 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
