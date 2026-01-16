@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { OnboardingSlide } from '@/components/onboarding/OnboardingSlide';
 import { ONBOARDING_STEPS } from '@/constants/onboarding';
 
@@ -10,6 +12,7 @@ interface Props {
 
 export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
   const total = ONBOARDING_STEPS.length;
+  const [hoverDirection, setHoverDirection] = useState<'left' | 'right' | null>(null);
 
   const handlePrev = () => {
     onChangeIndex((currentIndex - 1 + total) % total);
@@ -20,23 +23,23 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
   };
 
   return (
-    <div className="overflow-hidden">
+    <div className="group relative w-full overflow-hidden">
       {/* 슬라이드 이동을 위한 클릭 영역 */}
       <div className="absolute inset-0 z-10 flex">
         <button
           type="button"
-          className="h-full w-[33%]"
+          className="h-full w-[40%]"
           onClick={handlePrev}
-          aria-label="이전 슬라이드"
+          onMouseEnter={() => setHoverDirection('left')}
+          onMouseLeave={() => setHoverDirection(null)}
         />
-
-        <div className="pointer-events-none h-full w-[34%]" />
-
+        <div className="pointer-events-none h-full w-[20%]" />
         <button
           type="button"
-          className="h-full w-[33%]"
+          className="h-full w-[40%]"
           onClick={handleNext}
-          aria-label="다음 슬라이드"
+          onMouseEnter={() => setHoverDirection('right')}
+          onMouseLeave={() => setHoverDirection(null)}
         />
       </div>
 
@@ -46,7 +49,7 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {ONBOARDING_STEPS.map((step) => (
-          <OnboardingSlide key={step.id} step={step} />
+          <OnboardingSlide key={step.id} step={step} hoverDirection={hoverDirection} />
         ))}
       </div>
     </div>
