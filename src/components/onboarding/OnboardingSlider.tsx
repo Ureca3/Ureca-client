@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { OnboardingSlide } from '@/components/onboarding/OnboardingSlide';
 import { ONBOARDING_STEPS } from '@/constants/onboarding';
 
 interface Props {
   currentIndex: number;
-  onChangeIndex: (index: number) => void;
+  onChangeIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
@@ -21,6 +21,17 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
   const handleNext = () => {
     onChangeIndex((currentIndex + 1) % total);
   };
+
+  useEffect(() => {
+    // hover 중이면 자동 슬라이드 멈춤
+    if (hoverDirection !== null) return;
+
+    const intervalId = setInterval(() => {
+      onChangeIndex((prev) => (prev + 1) % total);
+    }, 4000); // 4초
+
+    return () => clearInterval(intervalId);
+  }, [hoverDirection, onChangeIndex, total]);
 
   return (
     <div className="group relative w-full overflow-hidden">
