@@ -32,13 +32,13 @@ import { Button } from '@/components/ui/button';
 export const NaverLoginButton = () => {
   return (
     <Button
-      className="gap-[8px] bg-[#03A94D] p-[20px] text-base font-semibold text-[#FFFFFF]"
+      className="flex justify-center gap-2 bg-[#03A94D]! hover:opacity-60!"
       variant="solid"
-      tone="primary"
+      tone="secondary"
       size="l"
     >
       <NaverLogo />
-      네이버 로그인
+      <span className="text-base font-semibold text-[#FFFFFF]">네이버로 로그인 하기</span>
     </Button>
   );
 };

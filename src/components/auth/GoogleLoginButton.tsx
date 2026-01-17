@@ -50,10 +50,10 @@ export const GoogleLoginButton = () => {
       variant="solid"
       tone="primary"
       size="l"
-      className="gap-[8px] border border-[#747775] bg-[#FFFFFF] text-base font-semibold text-[#1F1F1F]"
+      className="flex justify-center gap-2 border! border-[#747775]! bg-[#FFFFFF]! hover:opacity-60!"
     >
       <GoogleLogo />
-      Google 로그인
+      <span className="text-base font-semibold text-[#1F1F1F]">Google로 로그인 하기</span>
     </Button>
   );
 };

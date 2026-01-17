@@ -49,10 +49,12 @@ export const KakaoLoginButton = () => {
       variant="solid"
       tone="primary"
       size="l"
-      className="gap-[8px] rounded-[12px] bg-[#FEE500] p-[20px] text-base font-semibold text-[#000000]"
+      className="flex justify-center gap-2 bg-[#FEE500]! hover:opacity-60!"
     >
-      <KakaoLogo />
-      카카오 로그인
+      <KakaoLogo className="text-[#000000]" />
+      <span className="text-base font-semibold text-[#000000] opacity-80">
+        카카오로 로그인 하기
+      </span>
     </Button>
   );
 };
