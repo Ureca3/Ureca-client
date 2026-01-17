@@ -39,7 +39,7 @@ export const ChattingScreen = () => {
 
   return (
     <div className="h-screen flex-1 flex-col overflow-y-auto">
-      <div className="bg-third-100 text-third-200 mx-3.5 my-2.75 rounded-lg px-6 py-3 text-center wrap-break-word break-keep">
+      <div className="bg-secondary-50 text-secondary-400 mx-3.5 my-2.75 rounded-lg px-6 py-3 text-center wrap-break-word break-keep">
         우리의 상담원은 고객님의 도움을 위해 최선을 다하는 누군가의 소중한 가족입니다. 따뜻한 말
         한마디가 다정한 관계를 만듭니다.
       </div>
@@ -51,11 +51,11 @@ export const ChattingScreen = () => {
             className={`mx-6 mt-3 flex items-start ${i.type === 'me' ? 'flex-row-reverse' : 'flex-row'}`}
           >
             {i.type === 'me' ? (
-              <div className="bg-primary-100 border-white-light flex h-13 w-13 items-center justify-center overflow-hidden rounded-full border shadow-(--shadow-third-200-30)">
+              <div className="bg-primary-100 border-white-light flex h-13 w-13 items-center justify-center overflow-hidden rounded-full border shadow-(--shadow-secondary-400-30)">
                 <UserOcto />
               </div>
             ) : (
-              <div className="bg-primary-100 border-white-light flex h-13 w-13 items-center justify-center overflow-hidden rounded-full border shadow-(--shadow-third-200-30)">
+              <div className="bg-primary-100 border-white-light flex h-13 w-13 items-center justify-center overflow-hidden rounded-full border shadow-(--shadow-secondary-400-30)">
                 <Chatting />
               </div>
             )}
@@ -74,14 +74,14 @@ export const ChattingScreen = () => {
               상담사 전화 연결
             </div>
           }
-          className="bg-third-200 text-white-light mb-2 w-full px-5 font-semibold"
+          className="bg-secondary-400 hover:bg-secondary-300 text-white-light mb-2 w-full px-5 font-semibold"
         />
         <Button
           variant="outline"
           tone="secondary"
           size="l"
-          children="채팅 상담만 종료"
-          className="mb-2 w-full px-5 font-semibold"
+          children={<div className="text-gray">채팅 상담만 종료</div>}
+          className="border-gray mb-2 w-full px-5 font-semibold"
         />
       </div>
       <div ref={bottomRef} />

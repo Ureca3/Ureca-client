@@ -28,7 +28,7 @@ export const Chat = ({
           className={`max-w-xs rounded-2xl p-3 wrap-break-word break-keep ${
             chat.type === 'me'
               ? 'bg-primary-50 self-end rounded-tr-none text-black shadow-(--shadow-primary-500-30)'
-              : 'bg-white-light self-start rounded-tl-none text-black shadow-(--shadow-third-200-30)'
+              : 'bg-white-light self-start rounded-tl-none text-black shadow-(--shadow-secondary-400-30)'
           }`}
         >
           {chat.text}

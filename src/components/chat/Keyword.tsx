@@ -11,7 +11,7 @@ export const Keyword = ({
 }) => {
   return (
     <button
-      className="border-third-100 hover:bg-third-100 flex h-18 w-23 cursor-pointer flex-col items-center justify-center gap-1 rounded-sm border p-1"
+      className="border-secondary-50 hover:bg-secondary-50 flex h-18 w-23 cursor-pointer flex-col items-center justify-center gap-1 rounded-sm border p-1"
       onClick={() => event(keyword)}
     >
       <div className="flex items-center justify-center">
