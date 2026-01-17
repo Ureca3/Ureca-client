@@ -1,8 +1,13 @@
+'use client';
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 import { MapHeader } from '@/components/map/MapHeader';
 
 export default function MapPage() {
+  const router = useRouter();
+
   return (
     <div className="relative h-screen w-full overflow-hidden">
       {/* 1. Map Layer */}
@@ -10,7 +15,12 @@ export default function MapPage() {
 
       {/* 2. Header Overlay */}
       <header className="absolute top-0 right-0 left-0 z-10">
-        <MapHeader />/
+        <MapHeader
+          onBack={() => router.push('/')}
+          onMenu={() => {
+            /* 사이드바 */
+          }}
+        />
       </header>
 
       {/* 3. Marker Layer */}

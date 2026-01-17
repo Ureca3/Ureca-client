@@ -1,14 +1,23 @@
 import React from 'react';
 
 import GoBack from '@/assets/map/chevron-left.svg';
+import Hamburger from '@/assets/map/menu.svg';
 
-export const MapHeader = () => {
+interface MapHeaderProps {
+  onBack: () => void;
+  onMenu: () => void;
+}
+
+export const MapHeader = ({ onBack, onMenu }: MapHeaderProps) => {
   return (
-    <div className="flex items-center gap-2 bg-[#FFFFFF]/90 px-4 py-3 shadow-sm">
-      <button className="text-sm">
+    <div className="flex items-center justify-center bg-[#FFFFFF] px-4 py-3 text-black shadow-sm">
+      <button className="w-[33%]" onClick={onBack} aria-label="뒤로가기">
         <GoBack />
       </button>
-      <h1 className="text-sm font-semibold">가까운 매장 찾기</h1>
+      <h1 className="text-md flex w-[33%] justify-center font-semibold">가까운 매장 찾기</h1>
+      <button className="flex w-[33%] justify-end" onClick={onMenu} aria-label="메뉴">
+        <Hamburger />
+      </button>
     </div>
   );
 };
