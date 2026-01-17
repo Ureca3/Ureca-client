@@ -2,8 +2,10 @@ import React from 'react';
 import type { Preview } from '@storybook/nextjs-vite';
 import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
+import { store } from '../src/store/store';
 
 import '../src/app/globals.css';
+import { Provider } from 'react-redux';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -36,11 +38,13 @@ const kotraHope = localFont({
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <div
-        className={`${geistSans.variable} ${geistMono.variable} ${pretendard.variable} ${gowunDodum.variable} ${kotraHope.variable} antialiased`}
-      >
-        <Story />
-      </div>
+      <Provider store={store}>
+        <div
+          className={`${geistSans.variable} ${geistMono.variable} ${pretendard.variable} ${gowunDodum.variable} ${kotraHope.variable} antialiased`}
+        >
+          <Story />
+        </div>
+      </Provider>
     ),
   ],
   parameters: {
