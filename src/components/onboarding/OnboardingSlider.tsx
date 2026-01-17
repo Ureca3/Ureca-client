@@ -51,7 +51,7 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
       </div>
 
       <div
-        className="flex transition-transform duration-750 ease-in-out"
+        className="my-8 flex transition-transform duration-750 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {ONBOARDING_STEPS.map((step) => (
