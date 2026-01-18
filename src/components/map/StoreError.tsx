@@ -11,10 +11,10 @@ interface StoreErrorProps {
 
 export const StoreError = ({ onRetry }: StoreErrorProps) => {
   return (
-    <div className="bg-white px-4 pb-4">
+    <div className="px-4 pb-4">
       <div className="bg-primary-100 flex flex-col items-center justify-center gap-2 rounded-xl py-2">
         <div className="relative flex h-40 w-40 justify-center">
-          <Image src={ErrorPng} alt="로딩 중" fill className="object-contain" />
+          <Image src={ErrorPng} alt="에러" fill className="object-contain" />
         </div>
 
         <StoreErrorRetryButton onClick={onRetry} />

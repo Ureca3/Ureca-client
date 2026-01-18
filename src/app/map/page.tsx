@@ -28,7 +28,7 @@ export default function MapPage() {
   const handleMarkerClick = () => {
     setFooterState({ status: 'loading' });
 
-    // mock API 흉내
+    // mock API
     setTimeout(() => {
       const mockStore: Partial<Store> = {
         name: 'LG U+ 강남점',
@@ -81,9 +81,7 @@ export default function MapPage() {
       <div className="absolute right-0 bottom-0 left-0 z-20">
         <MapFooter>
           {footerState.status === 'loading' && <StoreLoading />}
-          {footerState.status === 'error' && (
-            <StoreError onRetry={() => setFooterState({ status: 'loading' })} />
-          )}
+          {footerState.status === 'error' && <StoreError onRetry={handleMarkerClick} />}
           {footerState.status === 'selected' && (
             <StoreInfo {...footerState.store} onClose={() => setFooterState({ status: 'idle' })} />
           )}

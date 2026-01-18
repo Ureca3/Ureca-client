@@ -25,7 +25,7 @@ export const StoreInfo = ({
   onClose,
 }: StoreInfoProps) => {
   return (
-    <div className="max-h-auto px-4 pb-4 text-black">
+    <div className="px-4 pb-4 text-black">
       {/* Border */}
       <div className="border-primary-500 flex flex-col gap-3 rounded-xl border p-4">
         {/* Header */}
@@ -38,7 +38,8 @@ export const StoreInfo = ({
               aria-label="닫기"
             />
           </div>
-          <div className="justify-starter flex items-center gap-4">
+
+          <div className="flex items-center justify-start gap-4">
             <div className="flex items-center gap-2">
               <span className={`h-2 w-2 rounded-full ${isOpen ? 'bg-green-600' : 'bg-gray-400'}`} />
               <span className={`text-sm ${isOpen ? 'text-green-600' : 'text-gray-400'}`}>
