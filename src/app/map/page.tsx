@@ -1,54 +1,32 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
+
+import { useQuery } from '@tanstack/react-query';
 
 import { MapFooter } from '@/components/map/MapFooter';
 import { MapHeader } from '@/components/map/MapHeader';
 import { StoreError } from '@/components/map/StoreError';
 import { StoreInfo } from '@/components/map/StoreInfo';
 import { StoreLoading } from '@/components/map/StoreLoading';
-import type { FooterState, Store } from '@/types/map';
-import { isValidStore } from '@/utils/map';
+import { fetchStoreMock } from '@/services/map/mapApi';
 
 export default function MapPage() {
   const router = useRouter();
-  const [footerState, setFooterState] = useState<FooterState>({
-    status: 'idle',
-    // store: {
-    //   name: 'LG U+ 강남점',
-    //   address: '서울 강남구 테헤란로',
-    //   phone: '02-1234-5678',
-    //   isOpen: true,
-    //   distance: 0.15,
-    //   businessHours: '10:00 - 21:00',
-    // },
+  const {
+    data: store,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ['store', 'selected'],
+    queryFn: fetchStoreMock,
+    enabled: false,
   });
 
   const handleMarkerClick = () => {
-    setFooterState({ status: 'loading' });
-
-    // mock API
-    setTimeout(() => {
-      const mockStore: Partial<Store> = {
-        name: 'LG U+ 강남점',
-        address: '서울 강남구 테헤란로',
-        phone: '02-1234-5678',
-        isOpen: true,
-        distance: 0.15,
-        businessHours: '10:00 - 21:00',
-      };
-
-      if (!isValidStore(mockStore)) {
-        setFooterState({ status: 'error' });
-        return;
-      }
-
-      setFooterState({
-        status: 'selected',
-        store: mockStore,
-      });
-    }, 1000);
+    refetch();
   };
 
   return (
@@ -80,11 +58,9 @@ export default function MapPage() {
       {/* 풋터 레이어 */}
       <div className="absolute right-0 bottom-0 left-0 z-20">
         <MapFooter>
-          {footerState.status === 'loading' && <StoreLoading />}
-          {footerState.status === 'error' && <StoreError onRetry={handleMarkerClick} />}
-          {footerState.status === 'selected' && (
-            <StoreInfo {...footerState.store} onClose={() => setFooterState({ status: 'idle' })} />
-          )}
+          {isLoading && <StoreLoading />}
+          {isError && <StoreError onRetry={handleMarkerClick} />}
+          {store && <StoreInfo {...store} />}
         </MapFooter>
       </div>
     </div>
