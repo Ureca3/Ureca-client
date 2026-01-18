@@ -8,36 +8,48 @@ import { MapHeader } from '@/components/map/MapHeader';
 import { StoreError } from '@/components/map/StoreError';
 import { StoreInfo } from '@/components/map/StoreInfo';
 import { StoreLoading } from '@/components/map/StoreLoading';
-
-interface Store {
-  name: string;
-  address: string;
-  phone: string;
-  isOpen: boolean;
-  distance?: number;
-  businessHours?: string;
-}
-
-type FooterState =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'error' }
-  | { status: 'selected'; store: Store };
+import type { FooterState, Store } from '@/types/map';
+import { isValidStore } from '@/utils/map';
 
 export default function MapPage() {
   const router = useRouter();
-
   const [footerState, setFooterState] = useState<FooterState>({
-    status: 'selected',
-    store: {
-      name: 'LG U+ 강남점',
-      address: '서울 강남구 테헤란로',
-      phone: '02-1234-5678',
-      isOpen: true,
-      distance: 0.15,
-      businessHours: '10:00 - 21:00',
-    },
+    status: 'idle',
+    // store: {
+    //   name: 'LG U+ 강남점',
+    //   address: '서울 강남구 테헤란로',
+    //   phone: '02-1234-5678',
+    //   isOpen: true,
+    //   distance: 0.15,
+    //   businessHours: '10:00 - 21:00',
+    // },
   });
+
+  const handleMarkerClick = () => {
+    setFooterState({ status: 'loading' });
+
+    // mock API 흉내
+    setTimeout(() => {
+      const mockStore: Partial<Store> = {
+        name: 'LG U+ 강남점',
+        address: '서울 강남구 테헤란로',
+        phone: '02-1234-5678',
+        isOpen: true,
+        distance: 0.15,
+        businessHours: '10:00 - 21:00',
+      };
+
+      if (!isValidStore(mockStore)) {
+        setFooterState({ status: 'error' });
+        return;
+      }
+
+      setFooterState({
+        status: 'selected',
+        store: mockStore,
+      });
+    }, 1000);
+  };
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
@@ -53,7 +65,12 @@ export default function MapPage() {
 
       {/* 지도 레이어 */}
       <div className="bg-gray absolute inset-0 flex flex-col">
-        <p className="flex flex-1 items-center justify-center">지도 화면</p>
+        <button
+          className="flex flex-1 cursor-pointer items-center justify-center"
+          onClick={handleMarkerClick}
+        >
+          지도 화면 (마커 클릭 mock)
+        </button>
         <div className="flex-1"></div>
       </div>
 
