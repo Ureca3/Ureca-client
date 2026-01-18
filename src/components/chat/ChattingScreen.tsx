@@ -1,25 +1,29 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Chatting from '@/assets/chat/chatting.svg';
 import PhoneIcon from '@/assets/chat/phone.svg';
 import UserOcto from '@/assets/chat/user_octo.svg';
 import { Chat } from '@/components/chat/Chat';
 import { defaultChats } from '@/services/chat/mockupChattingApi.client';
+import { openModal } from '@/store/slices/ModalSlice';
 import type { KeywordProps } from '@/types/chat/dto';
 
 import { Button } from '../ui/button';
+
+import { CallModal } from './CallModal';
 
 export const ChattingScreen = () => {
   const [chatList, setChatList] = useState(defaultChats);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const isFirstRender = useRef(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({
       behavior: isFirstRender.current ? 'auto' : 'smooth',
     });
-
     isFirstRender.current = false;
   }, [chatList]);
 
@@ -34,7 +38,7 @@ export const ChattingScreen = () => {
         keywords: null,
       },
     ]);
-    //get next message and set on chat list
+    //get next message and set on chat list... api 연결하면?
   };
 
   return (
@@ -68,21 +72,29 @@ export const ChattingScreen = () => {
           variant="solid"
           tone="secondary"
           size="l"
-          children={
-            <div className="flex">
-              <PhoneIcon className="mr-1" />
-              상담사 전화 연결
-            </div>
+          onClick={() =>
+            dispatch(
+              openModal({
+                type: 'CALL',
+                content: <CallModal content={chatList.filter((i) => i.type === 'me')} />,
+              }),
+            )
           }
           className="bg-secondary-400 hover:bg-secondary-300 text-white-light mb-2 w-full px-5 font-semibold"
-        />
+        >
+          <div className="flex">
+            <PhoneIcon className="mr-1" />
+            상담사 전화 연결
+          </div>
+        </Button>
         <Button
           variant="outline"
           tone="secondary"
           size="l"
-          children={<div className="text-gray">채팅 상담만 종료</div>}
           className="border-gray mb-2 w-full px-5 font-semibold"
-        />
+        >
+          <div className="text-gray">채팅 상담만 종료</div>
+        </Button>
       </div>
       <div ref={bottomRef} />
     </div>
