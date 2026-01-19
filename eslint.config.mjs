@@ -21,6 +21,7 @@ export default defineConfig(
       '*.config.{js,mjs,cjs,ts}',
       '*.mjs',
       '*.cjs',
+      '**/svgr.d.ts',
       '**/.storybook/**',
       '**/.husky/**',
       '**/.github/**',
@@ -94,6 +95,12 @@ export default defineConfig(
     rules: {
       'import/no-default-export': 'off',
       'react/function-component-definition': 'off',
+    },
+  },
+  {
+    files: ['**/*.stories.{js,jsx,ts,tsx}'],
+    rules: {
+      'import/no-default-export': 'off',
     },
   },
 

@@ -1,0 +1,6 @@
+set -eu
+echo "🔍 빌드 검사 실행"
+npm run build
+echo "✅ 빌드 성공"
+
+echo "🚀 push 진행"
