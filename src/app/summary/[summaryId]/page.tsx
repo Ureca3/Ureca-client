@@ -6,13 +6,18 @@ import { SummaryFailPage } from '@/components/summary/detail/SummaryFailPage';
 import { SummaryLoadingPage } from '@/components/summary/detail/SummaryLoadingPage';
 import { SummarySuccessPage } from '@/components/summary/detail/SummarySuccessPage';
 
-type SummaryStatus = 'LOADING' | 'FAIL' | 'SUCCESS';
+const VALID_STATUS = ['LOADING', 'FAIL', 'SUCCESS'] as const;
+type SummaryStatus = (typeof VALID_STATUS)[number];
 
-export default function SummaryDetailPage() {
-  // Next 15 규칙 대응
+function isSummaryStatus(value: string | null): value is SummaryStatus {
+  return value !== null && VALID_STATUS.includes(value as SummaryStatus);
+}
+
+export default function SummaryDetailClient() {
   const searchParams = useSearchParams();
+  const rawStatus = searchParams.get('status');
 
-  const status = searchParams.get('status') as SummaryStatus;
+  const status: SummaryStatus = isSummaryStatus(rawStatus) ? rawStatus : 'SUCCESS';
 
   if (status === 'LOADING') {
     return <SummaryLoadingPage />;
