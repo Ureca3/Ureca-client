@@ -2,17 +2,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import Chatting from '@/assets/chat/chatting.svg';
-import PhoneIcon from '@/assets/chat/phone.svg';
-import UserOcto from '@/assets/chat/user_octo.svg';
-import { Chat } from '@/components/chat/Chat';
+import Chatting from '@/assets/images/chat/chatting.svg';
+import PhoneIcon from '@/assets/images/chat/phone.svg';
+import UserOcto from '@/assets/images/chat/user_octo.svg';
+import { ChatBox } from '@/components/chat/ChatBox';
 import { defaultChats } from '@/services/chat/mockupChattingApi.client';
 import { openModal } from '@/store/slices/ModalSlice';
 import type { KeywordProps } from '@/types/chat/dto';
 
-import { Button } from '../ui/button';
-
-import { CallModal } from './CallModal';
+import { Button } from '../../ui/button';
+import { CallModal } from '../CallModal';
 
 export const ChattingScreen = () => {
   const [chatList, setChatList] = useState(defaultChats);
@@ -55,15 +54,15 @@ export const ChattingScreen = () => {
             className={`mx-6 mt-3 flex items-start ${i.type === 'me' ? 'flex-row-reverse' : 'flex-row'}`}
           >
             {i.type === 'me' ? (
-              <div className="bg-primary-100 border-white-light flex h-13 w-13 items-center justify-center overflow-hidden rounded-full border shadow-(--shadow-secondary-400-30)">
+              <div className="bg-primary-100 flex h-13 w-13 items-center justify-center overflow-hidden rounded-full border border-white shadow-(--shadow-secondary-400-30)">
                 <UserOcto />
               </div>
             ) : (
-              <div className="bg-primary-100 border-white-light flex h-13 w-13 items-center justify-center overflow-hidden rounded-full border shadow-(--shadow-secondary-400-30)">
+              <div className="bg-primary-100 flex h-13 w-13 items-center justify-center overflow-hidden rounded-full border border-white shadow-(--shadow-secondary-400-30)">
                 <Chatting />
               </div>
             )}
-            <Chat chat={i} onClick={onKeywordClick} />
+            <ChatBox chat={i} onClick={onKeywordClick} />
           </div>
         ))}
       </div>
@@ -80,7 +79,7 @@ export const ChattingScreen = () => {
               }),
             )
           }
-          className="bg-secondary-400 hover:bg-secondary-300 text-white-light mb-2 w-full px-5 font-semibold"
+          className="bg-secondary-400! hover:bg-secondary-300! text-white-light mb-2 w-full px-5 font-semibold"
         >
           <div className="flex">
             <PhoneIcon className="mr-1" />

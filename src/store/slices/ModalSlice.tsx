@@ -29,7 +29,7 @@ const modalSlice = createSlice({
     closeModal: (state) => {
       state.isOpen = false;
       state.type = null;
-      state.content = undefined;
+      state.content = null;
     },
   },
 });

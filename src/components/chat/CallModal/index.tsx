@@ -2,11 +2,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import Phone from '@/assets/chat/phone.svg';
+import Phone from '@/assets/images/chat/phone.svg';
+import { Button } from '@/components/ui/button';
 import { closeModal } from '@/store/slices/ModalSlice';
 import type { ChatProps } from '@/types/chat/dto';
-
-import { Button } from '../ui/button';
 
 export const CallModal = ({ content }: { content: ChatProps[] }) => {
   const dispatch = useDispatch();
@@ -44,7 +43,7 @@ export const CallModal = ({ content }: { content: ChatProps[] }) => {
           tone={'secondary'}
           size={'m'}
           onClick={() => dispatch(closeModal())}
-          className="w-32.75"
+          className="border-gray! text-gray! w-32.75"
         >
           취소
         </Button>
