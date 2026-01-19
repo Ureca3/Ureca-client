@@ -31,7 +31,7 @@ export default function SummaryPage() {
   return (
     <>
       {/* 메인 콘텐츠 */}
-      <main className="space-y-3 pb-24">
+      <div className="space-y-3 pb-24">
         <Header />
 
         {MOCK_SUMMARIES.map((summary) => (
@@ -47,7 +47,7 @@ export default function SummaryPage() {
             />
           </Link>
         ))}
-      </main>
+      </div>
       <BottomNav />
     </>
   );
