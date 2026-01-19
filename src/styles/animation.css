@@ -1,0 +1,19 @@
+@tailwind utilities;
+
+/* Tailwind 공식 방식으로 커스텀 애니메이션 정의 */
+@layer utilities {
+  @theme {
+    --animate-bounce-color: bounceColor 1.4s ease-in-out infinite both;
+
+    @keyframes bounceColor {
+      0%, 80%, 100% {
+        transform: translateY(0);
+        background-color: var(--color-gray-light);
+      }
+      40% {
+        transform: translateY(-5px);
+        background-color: var(--color-primary-500);
+      }
+    }
+  }
+}

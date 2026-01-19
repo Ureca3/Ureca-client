@@ -1,5 +1,5 @@
 'use client';
 
-export const BottomNavigation = () => {
+export const BottomNav = () => {
   return <div></div>;
 };
