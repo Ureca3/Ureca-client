@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 import Chatting from '@/assets/images/chat/chatting.svg';
 import PhoneIcon from '@/assets/images/chat/phone.svg';
@@ -18,6 +19,7 @@ export const ChattingScreen = () => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const isFirstRender = useRef(true);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({
@@ -39,7 +41,6 @@ export const ChattingScreen = () => {
         keywords: null,
       },
     ]);
-    //get next message and set on chat list... api 연결하면?
   };
 
   return (
@@ -53,7 +54,9 @@ export const ChattingScreen = () => {
         {chatList.map((i, inx) => (
           <div
             key={inx}
-            className={`mx-6 mt-3 flex items-start ${i.type === 'me' ? 'flex-row-reverse' : 'flex-row'}`}
+            className={`mx-6 mt-3 flex items-start ${
+              i.type === 'me' ? 'flex-row-reverse' : 'flex-row'
+            }`}
           >
             {i.type === 'me' ? (
               <div className="bg-primary-100 flex h-13 w-13 items-center justify-center overflow-hidden rounded-full border border-white shadow-(--shadow-secondary-400-30)">
@@ -68,6 +71,7 @@ export const ChattingScreen = () => {
           </div>
         ))}
       </div>
+
       <div className="px-5">
         <Button
           variant="solid"
@@ -88,15 +92,18 @@ export const ChattingScreen = () => {
             상담사 전화 연결
           </div>
         </Button>
+
         <Button
           variant="outline"
           tone="secondary"
           size="l"
+          onClick={() => router.push('/summary')}
           className="border-gray mb-2 w-full px-5 font-semibold"
         >
           <div className="text-gray">채팅 상담만 종료</div>
         </Button>
       </div>
+
       <div ref={bottomRef} />
     </div>
   );
