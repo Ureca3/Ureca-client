@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 
 import { GlobalComponents } from '@/components/ui/global-components';
-import { Providers } from '@/provider';
+import { Providers } from '@/providers';
 
 import './globals.css';
 
