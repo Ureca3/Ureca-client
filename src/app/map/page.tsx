@@ -15,6 +15,7 @@ export default function MapPage() {
     data: store,
     isLoading,
     isError,
+    isFetching,
     refetch,
   } = useQuery({
     queryKey: ['store', 'selected'],
@@ -45,9 +46,12 @@ export default function MapPage() {
       {/* 풋터 레이어 */}
       <div className="absolute right-0 bottom-0 left-0 z-20">
         <MapFooter>
-          {isLoading && <StoreLoading />}
-          {isError && <StoreError onRetry={handleMarkerClick} />}
-          {store && <StoreInfo {...store} />}
+          {(() => {
+            if (isLoading || isFetching) return <StoreLoading />;
+            if (isError) return <StoreError onRetry={handleMarkerClick} />;
+            if (store) return <StoreInfo {...store} />;
+            return null;
+          })()}
         </MapFooter>
       </div>
     </div>
