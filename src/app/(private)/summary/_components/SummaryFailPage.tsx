@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import Back from '@/assets/icons/summary/Back.png';
-import SummaryFail from '@/assets/icons/summary/SummaryFail.png';
+import SummaryFail from '@/assets/images/summary/SummaryFail.png';
 
 export const SummaryFailPage = () => {
   const router = useRouter();
