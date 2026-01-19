@@ -11,7 +11,8 @@ export const ChatBox = ({
   chat: ChatProps;
   onClick: (keyword: KeywordProps) => void;
 }) => {
-  const timeString = chat.time.toLocaleTimeString('ko-KR', {
+  const timeObj = chat.time instanceof Date ? chat.time : new Date(chat.time);
+  const timeString = timeObj.toLocaleTimeString('ko-KR', {
     hour: '2-digit',
     minute: '2-digit',
     hour12: true,

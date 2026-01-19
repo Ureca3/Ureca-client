@@ -47,7 +47,15 @@ export const CallModal = ({ content }: { content: ChatProps[] }) => {
         >
           취소
         </Button>
-        <Button variant={'solid'} tone={'primary'} size={'m'} className="w-32.75">
+        <Button
+          variant={'solid'}
+          tone={'primary'}
+          size={'m'}
+          className="w-32.75"
+          onClick={() => {
+            // TODO: 전화 로직 구현
+          }}
+        >
           연결하기
         </Button>
       </div>

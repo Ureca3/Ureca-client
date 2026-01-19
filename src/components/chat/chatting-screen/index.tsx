@@ -26,11 +26,13 @@ export const ChattingScreen = () => {
     isFirstRender.current = false;
   }, [chatList]);
 
+  const generateMessageId = () => Date.now() + Math.random();
+
   const onKeywordClick = (key: KeywordProps) => {
     setChatList([
       ...chatList,
       {
-        message_id: 0,
+        message_id: generateMessageId(),
         type: 'me',
         text: key.text,
         time: new Date(),
