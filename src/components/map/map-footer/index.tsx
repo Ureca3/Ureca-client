@@ -22,7 +22,7 @@ export const MapFooter = ({ children }: MapFooterProps) => {
           isExpanded ? 'max-h-[50vh] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        {children}
+        <div className="flex min-h-[40vh] flex-col justify-center">{children}</div>
       </div>
     </div>
   );

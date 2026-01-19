@@ -1,9 +1,7 @@
 import React from 'react';
 
+import { Button as CallButton } from '@/components/ui/button';
 import type { Store } from '@/types/map';
-
-import { StoreInfoCallButton } from './StoreInfoCallButton';
-import { StoreInfoDirectionsButton } from './StoreInfoDirectionsButton';
 
 type StoreInfoProps = Store;
 
@@ -47,9 +45,10 @@ export const StoreInfo = ({
         </section>
 
         {/* Buttons */}
-        <section className="flex gap-2">
-          <StoreInfoCallButton />
-          <StoreInfoDirectionsButton />
+        <section className="flex justify-center">
+          <CallButton variant="solid" tone="primary" size="m">
+            전화하기
+          </CallButton>
         </section>
       </div>
     </div>

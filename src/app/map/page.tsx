@@ -1,13 +1,11 @@
 'use client';
 
-import React from 'react';
-
 import { useQuery } from '@tanstack/react-query';
 
-import { MapFooter } from '@/components/map/MapFooter';
-import { StoreError } from '@/components/map/StoreError';
-import { StoreInfo } from '@/components/map/StoreInfo';
-import { StoreLoading } from '@/components/map/StoreLoading';
+import { Loading as StoreLoading } from '@/components/loading';
+import { MapFooter } from '@/components/map/map-footer';
+import { StoreError } from '@/components/map/store-error';
+import { StoreInfo } from '@/components/map/store-info';
 import { fetchStoreMock } from '@/services/map/mapApi';
 
 export default function MapPage() {
