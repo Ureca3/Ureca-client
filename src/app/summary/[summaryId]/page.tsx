@@ -2,9 +2,10 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { SummaryFailPage } from '@/components/summary/detail/SummaryFailPage';
-import { SummaryLoadingPage } from '@/components/summary/detail/SummaryLoadingPage';
-import { SummarySuccessPage } from '@/components/summary/detail/SummarySuccessPage';
+import { SummaryFailPage } from '@/app/summary/components/SummaryFailPage';
+
+import { SummaryLoadingPage } from '../components/SummaryLoadingPage';
+import { SummarySuccessPage } from '../components/SummarySuccessPage';
 
 const VALID_STATUS = ['LOADING', 'FAIL', 'SUCCESS'] as const;
 type SummaryStatus = (typeof VALID_STATUS)[number];
