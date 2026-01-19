@@ -1,16 +1,11 @@
 import React from 'react';
 
+import type { Store } from '@/types/map';
+
 import { StoreInfoCallButton } from './StoreInfoCallButton';
 import { StoreInfoDirectionsButton } from './StoreInfoDirectionsButton';
 
-interface StoreInfoProps {
-  name: string;
-  address: string;
-  phone: string;
-  isOpen: boolean;
-  distance?: number;
-  businessHours?: string;
-}
+type StoreInfoProps = Store;
 
 export const StoreInfo = ({
   name,
