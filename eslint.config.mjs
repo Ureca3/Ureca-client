@@ -21,6 +21,7 @@ export default defineConfig(
       '*.config.{js,mjs,cjs,ts}',
       '*.mjs',
       '*.cjs',
+      '**/svgr.d.ts',
       '**/.storybook/**',
       '**/.husky/**',
       '**/.github/**',
