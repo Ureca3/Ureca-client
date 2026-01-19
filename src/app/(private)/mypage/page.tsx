@@ -1,7 +1,7 @@
 'use client';
 
-import { SettingsGroup } from '@/app/(private)/mypage/_components/settings-group/SettingsGroup';
-import { SettingsRow } from '@/app/(private)/mypage/_components/settings-row/SettingsRow';
+import { SettingsGroup } from '@/app/(private)/mypage/_components/settings-group';
+import { SettingsRow } from '@/app/(private)/mypage/_components/settings-row';
 import ThemeIcon from '@/assets/icons/mypage/accessibility.svg';
 import LogoutIcon from '@/assets/icons/mypage/account.svg';
 import BookmarkIcon from '@/assets/icons/mypage/bookmark.svg';
