@@ -3,9 +3,9 @@
 import type { StaticImageData } from 'next/image';
 import Image from 'next/image';
 
-import ForwardIcon from '@/assets/summary/Forward.png';
-import GrayProfile from '@/assets/summary/GrayProfile.png';
-import ProfileIcon from '@/assets/summary/Profile.png';
+import ForwardIcon from '@/assets/icons/summary/Forward.png';
+import GrayProfile from '@/assets/icons/summary/GrayProfile.png';
+import ProfileIcon from '@/assets/icons/summary/Profile.png';
 
 const CARD_BASE_STYLE = `
   w-full

@@ -3,12 +3,12 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import Back from '@/assets/summary/Back.png';
-import BoxText from '@/assets/summary/BoxText.png';
-import Check from '@/assets/summary/Check.png';
-import File1 from '@/assets/summary/File1.png';
-import Profile from '@/assets/summary/Profile.png';
-import Topic from '@/assets/summary/Topic.png';
+import Back from '@/assets/icons/summary/Back.png';
+import BoxText from '@/assets/icons/summary/BoxText.png';
+import Check from '@/assets/icons/summary/Check.png';
+import File1 from '@/assets/icons/summary/File1.png';
+import Profile from '@/assets/icons/summary/Profile.png';
+import Topic from '@/assets/icons/summary/Topic.png';
 import { BottomNav } from '@/components/layout/bottom-navigation';
 
 export const SummarySuccessPage = () => {
