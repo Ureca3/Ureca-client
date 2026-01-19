@@ -1,7 +1,7 @@
 'use client';
 import { useAppSelector } from '@/store/hooks';
 
-export const ModalRoot = () => {
+export const ModalViewport = () => {
   const { isOpen, content } = useAppSelector((s) => s.modal);
 
   if (!isOpen || !content) return null;

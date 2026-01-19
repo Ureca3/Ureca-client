@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 
 import { GlobalComponents } from '@/components/ui/global-components';
-import { ModalRoot } from '@/components/ui/modal';
 import { Providers } from '@/providers';
 
 import './globals.css';
@@ -44,7 +43,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Providers>
           {children}
           <GlobalComponents />
-          <ModalRoot />
         </Providers>
       </body>
     </html>
