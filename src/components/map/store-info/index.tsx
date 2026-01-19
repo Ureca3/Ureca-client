@@ -14,7 +14,7 @@ export const StoreInfo = ({
   businessHours,
 }: StoreInfoProps) => {
   return (
-    <div className="px-4 pb-4 text-black">
+    <div className="px-4 text-black">
       {/* Border */}
       <div className="border-primary-500 flex flex-col gap-4 rounded-xl border p-4">
         {/* Header */}
@@ -46,7 +46,7 @@ export const StoreInfo = ({
 
         {/* Buttons */}
         <section className="flex justify-center">
-          <CallButton variant="solid" tone="primary" size="m">
+          <CallButton variant="solid" tone="primary" size="m" className="flex-1">
             전화하기
           </CallButton>
         </section>

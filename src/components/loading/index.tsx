@@ -3,8 +3,8 @@ import Image from 'next/image';
 import loadingPng from '@/assets/map/map-loading.png';
 export const Loading = () => {
   return (
-    <div className="px-4 pb-4">
-      <div className="bg-primary-100 flex flex-col items-center justify-center gap-3 rounded-xl py-2">
+    <div className="px-4">
+      <div className="bg-primary-100 flex flex-col items-center justify-center gap-3 rounded-xl py-8">
         <div className="relative flex h-40 w-40 justify-center">
           <Image src={loadingPng} alt="로딩 중" fill className="object-contain" />
         </div>
