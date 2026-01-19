@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import Back from '@/assets/summary/Back.png';
-import SummaryLoading from '@/assets/summary/SummaryIng.png';
+import Back from '@/assets/icons/summary/Back.png';
+import SummaryLoading from '@/assets/icons/summary/SummaryIng.png';
 
 export const SummaryLoadingPage = () => {
   const router = useRouter();
