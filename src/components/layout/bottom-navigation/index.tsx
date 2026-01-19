@@ -3,11 +3,11 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import Chatting from '@/assets/nav/Chatting.png';
-import Home from '@/assets/nav/Home.png';
-import My from '@/assets/nav/My.png';
-import Recommend from '@/assets/nav/Recommend.png';
-import SummaryMain from '@/assets/nav/SummaryMain.png';
+import Chatting from '@/assets/icons/nav/Chatting.png';
+import Home from '@/assets/icons/nav/Home.png';
+import My from '@/assets/icons/nav/My.png';
+import Recommend from '@/assets/icons/nav/Recommend.png';
+import SummaryMain from '@/assets/icons/nav/SummaryMain.png';
 
 export const BottomNav = () => {
   const router = useRouter();
