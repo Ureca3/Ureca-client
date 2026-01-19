@@ -18,9 +18,9 @@ const toneStyle: Record<ButtonVariant, Record<ButtonTone, string>> = {
     error: 'text-white bg-danger-500 hover:bg-danger-300',
   },
   outline: {
-    primary: 'text-primary-500 hover:bg-gray-light',
-    secondary: 'text-secondary-500 hover:bg-gray-light',
-    error: 'text-danger-500 border-danger-500 hover:bg-danger-100',
+    primary: 'hover:bg-gray-light',
+    secondary: 'hover:bg-gray-light',
+    error: 'border-danger-500 hover:bg-danger-100',
   },
   text: {
     primary: 'text-primary-500 hover:text-primary-300',

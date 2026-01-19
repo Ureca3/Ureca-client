@@ -3,18 +3,6 @@
 :root {
   --background: #fbf8fb;
   --foreground: #171717;
-
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-dim: 0 20px 60px rgba(0, 0, 0, 0.18);
-
-  --z-dropdown: 10;
-  --z-sticky: 20;
-  --z-overlay: 40;
-  --z-modal: 50;
-  --z-popover: 60;
-  --z-tooltip: 70;
 }
 
 @theme inline {
@@ -26,7 +14,8 @@
 
   --color-primary-50: #fffafa;
   --color-primary-100: #fde6f2;
-  --color-primary-300: #f9a3cf;
+  --color-primary-200: #f9a3cf;
+  --color-primary-300: #f565b3;
   --color-primary-500: #f12b95;
   --color-primary-700: #ee248a;
   --shadow-primary-500-30: 0 0 4px rgba(241, 43, 149, 0.3);
@@ -44,21 +33,6 @@
   --color-gray: #8b8b8b;
   --color-gray-dark: #4e4e4e;
   --color-gray-light: #ededed;
-
-  --color-danger-100: #fca5a5;
-  --color-danger-300: #f24452;
-  --color-danger-500: #dc2626;
-
-  --shadow-xs: var(--shadow-xs);
-  --shadow-sm: var(--shadow-sm);
-  --shadow-md: var(--shadow-md);
-  --shadow-dim: var(--shadow-dim);
-
-  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
-  --duration-fast: 120ms;
-  --duration-normal: 200ms;
-  --duration-slow: 360ms;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -78,6 +52,15 @@ button {
 }
 button:disabled {
   cursor: not-allowed;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 @keyframes loadingDot {
