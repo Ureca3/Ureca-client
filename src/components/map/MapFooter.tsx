@@ -9,7 +9,6 @@ export const MapFooter = ({ children }: MapFooterProps) => {
 
   return (
     <div className="rounded-t-2xl bg-white shadow-xl">
-      {/* Grab Handle */}
       <button
         onClick={() => setIsExpanded((prev) => !prev)}
         className="flex w-full justify-center py-2"

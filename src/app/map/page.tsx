@@ -1,19 +1,16 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 
 import { useQuery } from '@tanstack/react-query';
 
 import { MapFooter } from '@/components/map/MapFooter';
-import { MapHeader } from '@/components/map/MapHeader';
 import { StoreError } from '@/components/map/StoreError';
 import { StoreInfo } from '@/components/map/StoreInfo';
 import { StoreLoading } from '@/components/map/StoreLoading';
 import { fetchStoreMock } from '@/services/map/mapApi';
 
 export default function MapPage() {
-  const router = useRouter();
   const {
     data: store,
     isLoading,
@@ -31,16 +28,6 @@ export default function MapPage() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
-      {/* 헤더 레이어 */}
-      <header className="absolute top-0 right-0 left-0 z-10">
-        <MapHeader
-          onBack={() => router.push('/')}
-          onMenu={() => {
-            /* 사이드바 */
-          }}
-        />
-      </header>
-
       {/* 지도 레이어 */}
       <div className="bg-gray absolute inset-0 flex flex-col">
         <button
