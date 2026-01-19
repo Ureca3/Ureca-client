@@ -15,11 +15,11 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
   const [hoverDirection, setHoverDirection] = useState<'left' | 'right' | null>(null);
 
   const handlePrev = () => {
-    onChangeIndex((currentIndex - 1 + total) % total);
+    onChangeIndex((prev) => (prev - 1 + total) % total);
   };
 
   const handleNext = () => {
-    onChangeIndex((currentIndex + 1) % total);
+    onChangeIndex((prev) => (prev + 1) % total);
   };
 
   useEffect(() => {
@@ -39,6 +39,7 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
           onClick={handlePrev}
           onMouseEnter={() => setHoverDirection('left')}
           onMouseLeave={() => setHoverDirection(null)}
+          aria-label="이전 슬라이드"
         />
         <div className="pointer-events-none h-full w-[20%]" />
         <button
@@ -47,6 +48,7 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
           onClick={handleNext}
           onMouseEnter={() => setHoverDirection('right')}
           onMouseLeave={() => setHoverDirection(null)}
+          aria-label="다음 슬라이드"
         />
       </div>
 
