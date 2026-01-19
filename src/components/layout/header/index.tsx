@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 
-import Chat from '@/assets/header/Chat.png';
-import Logo from '@/assets/header/Logo.png';
+import Chat from '@/assets/icons/header/Chat.png';
+import Logo from '@/assets/icons/header/Logo.png';
 
 export const Header = () => {
   return (
