@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           pretendard.variable,
           gowunDodum.variable,
           'bg-[#FBF8FB]',
-          'min-h-screen',
+          'min-h-dvh',
         ].join(' ')}
       >
         <Providers>
