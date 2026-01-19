@@ -30,6 +30,7 @@ export interface SummaryNavigateCardProps {
   status: SummaryStatus;
   title?: string;
   badges?: string[];
+  onClick?: () => void;
 }
 
 /** 상태별 UI 정의 */
@@ -75,24 +76,31 @@ const STATUS_UI: Record<
   },
 };
 
-export const SummaryNavigateCard = ({ status, title, badges }: SummaryNavigateCardProps) => {
+export const SummaryNavigateCard = ({
+  status,
+  title,
+  badges,
+  onClick,
+}: SummaryNavigateCardProps) => {
   const ui = STATUS_UI[status];
 
   const displayTitle = status === 'SUCCESS' ? (title ?? '') : ui.title;
-
   const displayBadges = ui.badges ?? badges ?? [];
 
   return (
-    <div role="button" tabIndex={0} className={` ${CARD_BASE_STYLE} ${ui.cardBg} cursor-pointer`}>
+    <button
+      type="button"
+      onClick={onClick}
+      className={`${CARD_BASE_STYLE} ${ui.cardBg} cursor-pointer text-left`}
+    >
       {/* 문어 아이콘 */}
-      <div className={`flex h-10 w-10 items-center justify-center rounded-full ${ui.iconBg} `}>
+      <div className={`flex h-10 w-10 items-center justify-center rounded-full ${ui.iconBg}`}>
         <Image src={ui.icon} alt="문어 아이콘" width={30} height={30} priority />
       </div>
 
       {/* 텍스트 */}
-      <div className="flex-1 text-left">
+      <div className="flex-1">
         <p className="text-sm font-semibold text-gray-900">{displayTitle}</p>
-
         <p className="mt-0.5 text-xs text-gray-500">{ui.subText}</p>
 
         {displayBadges.length > 0 && (
@@ -107,6 +115,6 @@ export const SummaryNavigateCard = ({ status, title, badges }: SummaryNavigateCa
       </div>
 
       <Image src={ForwardIcon} alt="이동" width={20} height={20} />
-    </div>
+    </button>
   );
 };

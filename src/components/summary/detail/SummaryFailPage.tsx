@@ -6,11 +6,7 @@ import { useRouter } from 'next/navigation';
 import Back from '@/assets/summary/Back.png';
 import SummaryFail from '@/assets/summary/SummaryFail.png';
 
-interface Props {
-  summaryId: string;
-}
-
-export const SummaryFailPage = ({ summaryId }: Props) => {
+export const SummaryFailPage = () => {
   const router = useRouter();
 
   return (

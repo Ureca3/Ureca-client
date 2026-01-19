@@ -1,6 +1,5 @@
 'use client';
 
-import { use } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { SummaryFailPage } from '@/components/summary/detail/SummaryFailPage';
@@ -9,14 +8,8 @@ import { SummarySuccessPage } from '@/components/summary/detail/SummarySuccessPa
 
 type SummaryStatus = 'LOADING' | 'FAIL' | 'SUCCESS';
 
-interface Props {
-  params: Promise<{
-    summaryId: string;
-  }>;
-}
-
-export default function SummaryDetailPage({ params }: Props) {
-  const { summaryId } = use(params); // Next 15 규칙 대응
+export default function SummaryDetailPage() {
+  // Next 15 규칙 대응
   const searchParams = useSearchParams();
 
   const status = searchParams.get('status') as SummaryStatus;
@@ -26,8 +19,8 @@ export default function SummaryDetailPage({ params }: Props) {
   }
 
   if (status === 'FAIL') {
-    return <SummaryFailPage summaryId={summaryId} />;
+    return <SummaryFailPage />;
   }
 
-  return <SummarySuccessPage summaryId={summaryId} />;
+  return <SummarySuccessPage />;
 }
