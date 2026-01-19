@@ -16,12 +16,13 @@ export const ErrorComponent = () => {
         variant={'solid'}
         tone={'primary'}
         size={'m'}
-        children={'뒤로가기'}
         className="mt-5"
         onClick={() => {
           router.back();
         }}
-      />
+      >
+        뒤로가기
+      </Button>
     </div>
   );
 };
