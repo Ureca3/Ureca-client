@@ -23,7 +23,7 @@ export const RecommendCard = ({
         </div>
         {product.content?.split(', ').map((text, idx) => (
           <div key={idx} className="flex items-center">
-            <Check />
+            <Check aria-hidden="true" focusable="false" />
             &nbsp;{text}
           </div>
         ))}

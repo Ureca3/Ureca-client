@@ -6,7 +6,7 @@ import type { ProductProps } from '@/types/product/dto';
 
 export const ProductGoods = ({ product, monthly }: { product: ProductProps; monthly: boolean }) => {
   return (
-    <Link href={product.link} target="_blank">
+    <Link href={product.link} target="_blank" rel="noopener noreferrer">
       <div className="bg-white-light flex h-53 w-37 cursor-pointer flex-col items-center justify-between gap-1 rounded-[20px] p-3 shadow-[0_0_4px_rgba(0,0,0,0.25)]">
         <div className="bg-primary-300 relative h-28 w-28 overflow-hidden rounded-[20px]">
           <Image
