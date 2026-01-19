@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ProductList } from '@/components/recommend/ProductList';
+import { ProductList } from '@/components/recommend/product-list';
 import {
   dummyCategoriesApi,
   dummyProductsApi,
