@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ChatProps, KeywordProps } from '@/types/chat/dto';
 
-import { Keyword } from '../Keyword';
+import { Keyword } from '../keyword';
 
 export const ChatBox = ({
   chat,

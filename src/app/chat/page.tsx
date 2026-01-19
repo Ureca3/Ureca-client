@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ChattingFooter } from '@/components/chat/ChattingFooter';
-import { ChattingScreen } from '@/components/chat/ChattingScreen';
+import { ChattingFooter } from '@/components/chat/chatting-footer';
+import { ChattingScreen } from '@/components/chat/chatting-screen';
 
 const page = () => {
   return (

@@ -5,13 +5,13 @@ import { useDispatch } from 'react-redux';
 import Chatting from '@/assets/images/chat/chatting.svg';
 import PhoneIcon from '@/assets/images/chat/phone.svg';
 import UserOcto from '@/assets/images/chat/user_octo.svg';
-import { ChatBox } from '@/components/chat/ChatBox';
 import { defaultChats } from '@/services/chat/mockupChattingApi.client';
 import { openModal } from '@/store/slices/ModalSlice';
 import type { KeywordProps } from '@/types/chat/dto';
 
 import { Button } from '../../ui/button';
-import { CallModal } from '../CallModal';
+import { CallModal } from '../call-modal';
+import { ChatBox } from '../chat-box';
 
 export const ChattingScreen = () => {
   const [chatList, setChatList] = useState(defaultChats);
