@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import Chatting from '@/assets/images/chat/chatting.svg';
 import PhoneIcon from '@/assets/images/chat/phone.svg';
 import UserOcto from '@/assets/images/chat/user_octo.svg';
+import { BottomNav } from '@/components/layout/bottom-navigation';
+import { Header } from '@/components/layout/header';
 import { defaultChats } from '@/services/chat/mockupChattingApi.client';
 import { openModal } from '@/store/slices/ModalSlice';
 import type { KeywordProps } from '@/types/chat/dto';
@@ -45,6 +47,7 @@ export const ChattingScreen = () => {
 
   return (
     <div className="h-screen flex-1 flex-col overflow-y-auto">
+      <Header />
       <div className="bg-secondary-50 text-secondary-400 mx-3.5 my-2.75 rounded-lg px-6 py-3 text-center wrap-break-word break-keep">
         우리의 상담원은 고객님의 도움을 위해 최선을 다하는 누군가의 소중한 가족입니다. 따뜻한 말
         한마디가 다정한 관계를 만듭니다.
@@ -105,6 +108,7 @@ export const ChattingScreen = () => {
       </div>
 
       <div ref={bottomRef} />
+      <BottomNav />
     </div>
   );
 };
