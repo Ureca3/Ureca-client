@@ -1,7 +1,7 @@
 'use client';
 
-import Logo from '@/assets/auth/unity-logo.svg';
-import Cross from '@/assets/auth/x.svg';
+import Logo from '@/assets/icons/auth/unity-logo.svg';
+import Cross from '@/assets/icons/auth/x.svg';
 
 import { GoogleLoginButton } from './GoogleLoginButton';
 import { KakaoLoginButton } from './KakaoLoginButton';

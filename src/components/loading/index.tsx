@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import loadingPng from '@/assets/map/map-loading.png';
+import loadingPng from '@/assets/images/map/map-loading.png';
 export const Loading = () => {
   return (
     <div className="px-4">

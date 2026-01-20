@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import ErrorPng from '@/assets/map/map-error.png';
+import ErrorPng from '@/assets/images/map/map-error.png';
 import { RetryButton } from '@/components/retry-button';
 
 interface StoreErrorProps {

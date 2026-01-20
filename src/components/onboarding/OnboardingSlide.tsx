@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
-import ChevronLeft from '@/assets/onboarding/chevron-left.svg';
-import ChevronRight from '@/assets/onboarding/chevron-right.svg';
+import ChevronLeft from '@/assets/icons/onboarding/chevron-left.svg';
+import ChevronRight from '@/assets/icons/onboarding/chevron-right.svg';
 
 interface OnboardingStep {
   title: string;
