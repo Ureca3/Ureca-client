@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { dummyProductsApi } from '@/service/recommend/MockupRecommendApi.client';
+import { dummyProductsApi } from '@/services/recommend/MockupRecommendApi.client';
 
 import { RecommendCard } from '../recommend-card';
 
