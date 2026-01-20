@@ -8,6 +8,8 @@ import Calling from '@/assets/call/mooner_calling.svg';
 
 import { Button } from '../ui/button';
 
+import { VideoCall } from './VideoCall';
+
 export const CallComponent = () => {
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -40,6 +42,7 @@ export const CallComponent = () => {
     <div className="mx-4 flex h-full flex-col items-center justify-evenly">
       <div className="flex flex-col items-center">
         {/* <AudioCall /> */}
+        <VideoCall />
         <Calling />
         <div className="mt-5.5 text-[14px] font-bold">상담원과 통화중입니다.</div>
 
@@ -62,7 +65,7 @@ export const CallComponent = () => {
           variant="solid"
           tone="secondary"
           size="l"
-          className="bg-secondary-400 hover:bg-secondary-300 text-white-light mt-12.5 mb-2 w-full px-5 font-semibold"
+          className="bg-secondary-400! hover:bg-secondary-300! text-white-light mt-12.5 mb-2 w-full px-5 font-semibold"
         >
           <Call /> 상담 종료하기
         </Button>

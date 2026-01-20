@@ -86,5 +86,5 @@ button:disabled {
   animation-delay: 0.4s;
 }
 canvas {
-  background: var(--color-white-light);
+  background: var(--background);
 }
