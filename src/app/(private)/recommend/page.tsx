@@ -6,7 +6,7 @@ import { ProductList } from '@/components/recommend/product-list';
 import {
   dummyCategoriesApi,
   dummyProductsApi,
-} from '@/service/recommend/MockupRecommendApi.client';
+} from '@/services/recommend/MockupRecommendApi.client';
 
 const page = () => {
   const categories = dummyCategoriesApi;

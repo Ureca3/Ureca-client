@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { RecommendCardList } from '@/components/recommendOnCounseling/recommend-cardlist/RecommendCardList';
 import { TitleCard } from '@/components/recommendOnCounseling/titlecard/TitleCard';
 
