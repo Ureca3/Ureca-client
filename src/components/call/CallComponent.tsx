@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { FrequencyVisualizer } from 'react-audio-visualizer-pro';
 
 import Call from '@/assets/call/call.svg';
 import Calling from '@/assets/call/mooner_calling.svg';
@@ -9,6 +8,7 @@ import { useAgora } from '@/hooks/call/useAgora';
 
 import { Button } from '../ui/button';
 
+import { AgoraFrequencyVisualizer } from './AgoraVisualizer';
 import { AudioRecorder } from './AudioRecorder';
 
 const uid: number = Math.floor(Math.random() * 10000);
@@ -17,7 +17,7 @@ export const CallComponent = () => {
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const [channel] = useState('room1');
-  const { token } = useAgora(channel, uid);
+  const { token, localAudioTrack } = useAgora(channel, uid);
 
   useEffect(() => {
     let stream: MediaStream;
@@ -48,17 +48,8 @@ export const CallComponent = () => {
       <div className="flex flex-col items-center">
         <Calling />
         <div className="mt-5.5 text-[14px] font-bold">상담원과 통화중입니다.</div>
-        <div className="mt-11.5 h-15 [&>canvas]:bg-transparent">
-          <FrequencyVisualizer
-            useMicrophone={true}
-            width={800}
-            height={50}
-            backgroundColor="#ffffff"
-            gradientColors={['#f12b95', '#f9a3cf']}
-            barWidth={6}
-            barSpacing={1}
-            barRadius={2}
-          />
+        <div className="mt-11.5 flex h-15 items-center justify-center [&>canvas]:bg-transparent">
+          <AgoraFrequencyVisualizer localAudioTrack={localAudioTrack} />
         </div>
       </div>
       <AudioRecorder channel={channel} uid={uid} token={token} />

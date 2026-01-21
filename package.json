@@ -30,7 +30,6 @@
     "framer-motion": "^12.27.0",
     "next": "16.1.1",
     "react": "19.2.3",
-    "react-audio-visualizer-pro": "^0.4.1",
     "react-dom": "19.2.3",
     "react-redux": "^9.2.0"
   },
