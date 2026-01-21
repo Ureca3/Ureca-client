@@ -22,6 +22,7 @@ export const useAgora = (channel: string, uid: number): UseAgoraReturn => {
       if (typeof window === 'undefined') return;
       const AgoraRTC = (await import('agora-rtc-sdk-ng')).default;
       client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
+      client.enableAudioVolumeIndicator();
 
       const { data } = await axios.get(
         `http://localhost:8080/api/agora/token?channel=${channel}&uid=${uid}`,
