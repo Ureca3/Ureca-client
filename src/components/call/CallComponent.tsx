@@ -1,18 +1,23 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FrequencyVisualizer } from 'react-audio-visualizer-pro';
 
 import Call from '@/assets/call/call.svg';
 import Calling from '@/assets/call/mooner_calling.svg';
+import { useAgora } from '@/hooks/call/useAgora';
 
 import { Button } from '../ui/button';
 
-import { VideoCall } from './VideoCall';
+import { AudioRecorder } from './AudioRecorder';
+
+const uid: number = Math.floor(Math.random() * 10000);
 
 export const CallComponent = () => {
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
+  const [channel] = useState('room1');
+  const { token } = useAgora(channel, uid);
 
   useEffect(() => {
     let stream: MediaStream;
@@ -41,11 +46,8 @@ export const CallComponent = () => {
   return (
     <div className="mx-4 flex h-full flex-col items-center justify-evenly">
       <div className="flex flex-col items-center">
-        {/* <AudioCall /> */}
-        <VideoCall />
         <Calling />
         <div className="mt-5.5 text-[14px] font-bold">상담원과 통화중입니다.</div>
-
         <div className="mt-11.5 h-15 [&>canvas]:bg-transparent">
           <FrequencyVisualizer
             useMicrophone={true}
@@ -59,7 +61,7 @@ export const CallComponent = () => {
           />
         </div>
       </div>
-
+      <AudioRecorder channel={channel} uid={uid} token={token} />
       <div className="w-full">
         <Button
           variant="solid"

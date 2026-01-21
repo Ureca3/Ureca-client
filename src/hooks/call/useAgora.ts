@@ -1,44 +1,49 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import type { IAgoraRTCClient } from 'agora-rtc-sdk-ng';
+import type { IAgoraRTCClient, ILocalAudioTrack } from 'agora-rtc-sdk-ng';
 import axios from 'axios';
 
 let client: IAgoraRTCClient;
 
-export function useAgora(channel: string, uid: number = 0) {
+interface UseAgoraReturn {
+  ready: boolean;
+  localAudioTrack: ILocalAudioTrack | null;
+  token: string;
+}
+
+export const useAgora = (channel: string, uid: number): UseAgoraReturn => {
+  const [token, setToken] = useState<string>('');
   const [ready, setReady] = useState(false);
+  const [localAudioTrack, setLocalAudioTrack] = useState<ILocalAudioTrack | null>(null);
 
   useEffect(() => {
     async function init() {
-      // 브라우저 환경에서만 import
+      if (typeof window === 'undefined') return;
       const AgoraRTC = (await import('agora-rtc-sdk-ng')).default;
-
       client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
 
-      // 백엔드에서 토큰 요청
       const { data } = await axios.get(
         `http://localhost:8080/api/agora/token?channel=${channel}&uid=${uid}`,
       );
-
-      await client.join(data.appId, channel, data.token, uid);
-
-      const micTrack = await AgoraRTC.createMicrophoneAudioTrack();
-      await client.publish([micTrack]);
+      setToken(data.token);
 
       client.on('user-published', async (user, mediaType) => {
         await client.subscribe(user, mediaType);
         if (mediaType === 'audio') user.audioTrack?.play();
       });
 
+      await client.join(data.appId, channel, data.token, uid);
+
+      const audioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+      await client.publish([audioTrack]);
+
+      setLocalAudioTrack(audioTrack);
+
       setReady(true);
     }
-
-    // window 있는 브라우저 환경에서만 실행
-    if (typeof window !== 'undefined') {
-      init();
-    }
+    init();
   }, [channel, uid]);
 
-  return { client, ready };
-}
+  return { ready, token, localAudioTrack };
+};
