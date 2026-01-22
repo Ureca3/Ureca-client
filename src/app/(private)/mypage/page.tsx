@@ -11,22 +11,42 @@ import GroupIcon from '@/assets/icons/mypage/group.svg';
 import FileIcon from '@/assets/icons/mypage/paper-line.svg';
 import QuestionIcon from '@/assets/icons/mypage/question.svg';
 import { BottomNav } from '@/components/layout/bottom-navigation';
-import { apiClient } from '@/services/api';
+import { authApi } from '@/services/auth/authApi';
+import { useAppDispatch } from '@/store/hooks';
 import { authActions } from '@/store/slices/authSlice';
+import { toastActions } from '@/store/slices/ToastSlice';
 import { store } from '@/store/store';
 
 const Mypage = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const noop = () => {};
 
   const handleLogout = async () => {
     try {
-      await apiClient.post('/api/auth/logout'); // ✅ 쿠키 자동 포함(withCredentials)
+      await authApi.logout();
     } finally {
-      // 성공/실패 상관없이 프론트 상태는 비우는 게 깔끔
+      // 성공/실패 상관없이 프론트 상태는 비움
       store.dispatch(authActions.clearAuth());
       router.replace('/onboarding');
+    }
+  };
+
+  const handleWithdrawal = async () => {
+    try {
+      await authApi.withdrawal(); // POST /api/users/withdrawal
+      dispatch(authActions.clearAuth());
+      dispatch(toastActions.show({ text: '회원탈퇴가 완료되었습니다.', variant: 'success' }));
+      router.replace('/onboarding');
+    } catch (e) {
+      dispatch(
+        toastActions.show({
+          text: '회원탈퇴에 실패했습니다. 잠시 후 다시 시도해 주세요.',
+          variant: 'error',
+        }),
+      );
+      console.error(e);
     }
   };
 
@@ -67,6 +87,7 @@ const Mypage = () => {
       label: '회원 탈퇴',
       icon: <GroupIcon width="18px" height="18px" />,
       tone: 'danger' as const,
+      onClick: handleWithdrawal,
     },
   ];
 
