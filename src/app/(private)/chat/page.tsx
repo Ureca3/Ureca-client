@@ -1,18 +1,15 @@
-import dynamicImport from 'next/dynamic';
+import React from 'react';
 
 import { ChattingFooter } from '@/components/chat/chatting-footer';
 
-export const dynamic = 'force-static';
+import { ChattingClient } from './ChattingClient';
 
-const ChattingScreen = dynamicImport(
-  () => import('@/components/chat/chatting-screen').then((m) => m.ChattingScreen),
-  { ssr: false },
-);
+export const dynamic = 'force-static';
 
 export default function Page() {
   return (
     <div className="flex h-screen flex-col">
-      <ChattingScreen />
+      <ChattingClient />
       <ChattingFooter />
     </div>
   );

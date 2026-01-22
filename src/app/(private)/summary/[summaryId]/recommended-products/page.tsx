@@ -1,5 +1,5 @@
-import { RecommendCardList } from '@/components/recommendOnCounseling/recommend-cardlist/RecommendCardList';
-import { TitleCard } from '@/components/recommendOnCounseling/titlecard/TitleCard';
+import { RecommendCardList } from '@/components/counseling-recommend/recommend-cardlist/RecommendCardList';
+import { TitleCard } from '@/components/counseling-recommend/titlecard/TitleCard';
 
 const page = () => {
   return (
