@@ -11,8 +11,9 @@ import GroupIcon from '@/assets/icons/mypage/group.svg';
 import FileIcon from '@/assets/icons/mypage/paper-line.svg';
 import QuestionIcon from '@/assets/icons/mypage/question.svg';
 import { BottomNav } from '@/components/layout/bottom-navigation';
-
-const API = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { apiClient } from '@/services/api';
+import { authActions } from '@/store/slices/authSlice';
+import { store } from '@/store/store';
 
 const Mypage = () => {
   const router = useRouter();
@@ -21,24 +22,11 @@ const Mypage = () => {
 
   const handleLogout = async () => {
     try {
-      if (!API) throw new Error('NEXT_PUBLIC_API_BASE_URL is missing');
-
-      const res = await fetch(`${API}/api/auth/logout`, {
-        method: 'POST',
-        credentials: 'include', // ✅ HttpOnly refreshToken 쿠키 보내기
-      });
-
-      if (!res.ok) {
-        // 백엔드가 body를 안 주는 구조라 status만 체크
-        throw new Error(`Logout failed: ${res.status}`);
-      }
-
-      // ✅ 쿠키 삭제가 반영된 상태로 public로 이동
+      await apiClient.post('/api/auth/logout'); // ✅ 쿠키 자동 포함(withCredentials)
+    } finally {
+      // 성공/실패 상관없이 프론트 상태는 비우는 게 깔끔
+      store.dispatch(authActions.clearAuth());
       router.replace('/onboarding');
-      router.refresh(); // (선택) App Router 캐시/상태 정리용
-    } catch (e) {
-      console.error(e);
-      // 필요하면 토스트/모달로 “로그아웃 실패”만 보여줘도 됨
     }
   };
 
