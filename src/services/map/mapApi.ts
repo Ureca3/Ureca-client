@@ -1,4 +1,4 @@
-import type { Store } from '@/types/map';
+import type { Store } from '@/types/map/map';
 
 // mock fetch
 export const fetchStoreMock = async (): Promise<Store> => {

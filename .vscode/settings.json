@@ -10,10 +10,6 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
-  "files.eol": "\n",
-  "files.associations": {
-    "*.css": "tailwindcss"
+    "source.fixAll.eslint": true
   }
 }

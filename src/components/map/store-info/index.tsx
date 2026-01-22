@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button as CallButton } from '@/components/ui/button';
-import type { Store } from '@/types/map';
+import type { Store } from '@/types/map/map';
 
 type StoreInfoProps = Store;
 

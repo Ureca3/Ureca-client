@@ -1,6 +1,6 @@
 import React from 'react';
 
-import KakaoLogo from '@/assets/auth/kakao-login-logo.svg';
+import KakaoLogo from '@/assets/icons/auth/kakao-login-logo.svg';
 import { Button } from '@/components/ui/button';
 
 export const KakaoLoginButton = () => {

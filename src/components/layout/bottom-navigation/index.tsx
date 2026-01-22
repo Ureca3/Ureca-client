@@ -19,7 +19,7 @@ export const BottomNav = () => {
         <li>
           <button
             type="button"
-            onClick={() => router.push('/home')}
+            onClick={() => router.push('/')}
             className="flex flex-col items-center gap-1"
           >
             <Image src={Home} alt="홈" width={15} height={15} />
@@ -42,7 +42,7 @@ export const BottomNav = () => {
         <li className="-mt-8">
           <button
             type="button"
-            onClick={() => router.push('/consult')}
+            onClick={() => router.push('/chat')}
             className="flex flex-col items-center gap-1"
           >
             <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[#E30084] shadow-lg">
@@ -68,7 +68,7 @@ export const BottomNav = () => {
         <li>
           <button
             type="button"
-            onClick={() => router.push('/my')}
+            onClick={() => router.push('/mypage')}
             className="flex flex-col items-center gap-1"
           >
             <Image src={My} alt="MY" width={15} height={15} />

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NaverLogo from '@/assets/auth/naver-login-logo.svg';
+import NaverLogo from '@/assets/icons/auth/naver-login-logo.svg';
 import { Button } from '@/components/ui/button';
 
 export const NaverLoginButton = () => {
