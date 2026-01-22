@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 const API = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 async function buildCookieHeader() {
-  const store = await cookies(); // RequestCookies
+  const store = await cookies();
   return store
     .getAll()
     .map(({ name, value }) => `${name}=${value}`)

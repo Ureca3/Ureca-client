@@ -25,7 +25,7 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       onChangeIndex((prev) => (prev + 1) % total);
-    }, 4000);
+    }, 3000);
 
     return () => clearInterval(intervalId);
   }, [hoverDirection, onChangeIndex, total]);
@@ -35,16 +35,16 @@ export const OnboardingSlider = ({ currentIndex, onChangeIndex }: Props) => {
       <div className="absolute inset-0 z-10 flex">
         <button
           type="button"
-          className="h-full w-[40%]"
+          className="h-full w-[45%]"
           onClick={handlePrev}
           onMouseEnter={() => setHoverDirection('left')}
           onMouseLeave={() => setHoverDirection(null)}
           aria-label="이전 슬라이드"
         />
-        <div className="pointer-events-none h-full w-[20%]" />
+        <div className="pointer-events-none h-full w-[10%]" />
         <button
           type="button"
-          className="h-full w-[40%]"
+          className="h-full w-[45%]"
           onClick={handleNext}
           onMouseEnter={() => setHoverDirection('right')}
           onMouseLeave={() => setHoverDirection(null)}
