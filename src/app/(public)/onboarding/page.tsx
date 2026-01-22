@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { LoginModal } from '@/components/auth/LoginModal';
+import { LoginModal } from '@/components/auth/login-modal';
 import { OnboardingButton } from '@/components/onboarding/OnboardingButton';
 import { OnboardingIndicator } from '@/components/onboarding/OnboardingIndicator';
 import { OnboardingSlider } from '@/components/onboarding/OnboardingSlider';
