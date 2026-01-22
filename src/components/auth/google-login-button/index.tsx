@@ -13,7 +13,7 @@ export const GoogleLoginButton = () => {
       return;
     }
 
-    const redirectUri = `${appUrl}/oauth/callback/google`;
+    const redirectUri = `${appUrl}`;
 
     const params = new URLSearchParams({
       client_id: clientId,

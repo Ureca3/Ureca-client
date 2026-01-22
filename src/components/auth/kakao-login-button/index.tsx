@@ -13,7 +13,7 @@ export const KakaoLoginButton = () => {
       return;
     }
 
-    const redirectUri = `${appUrl}/oauth/callback/kakao`;
+    const redirectUri = `${appUrl}`;
     const state = crypto.randomUUID();
 
     sessionStorage.setItem('oauth_state_kakao', state);

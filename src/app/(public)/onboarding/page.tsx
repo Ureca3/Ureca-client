@@ -3,9 +3,9 @@
 import { useState } from 'react';
 
 import { LoginModal } from '@/components/auth/login-modal';
-import { OnboardingButton } from '@/components/onboarding/OnboardingButton';
-import { OnboardingIndicator } from '@/components/onboarding/OnboardingIndicator';
-import { OnboardingSlider } from '@/components/onboarding/OnboardingSlider';
+import { OnboardingButton } from '@/components/onboarding/onboarding-button';
+import { OnboardingIndicator } from '@/components/onboarding/onboarding-indicator';
+import { OnboardingSlider } from '@/components/onboarding/onboarding-slider';
 
 export default function OnboardingPage() {
   const [currentIndex, setCurrentIndex] = useState(0);

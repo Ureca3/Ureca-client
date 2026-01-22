@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { OnboardingSlide } from '@/components/onboarding/OnboardingSlide';
+import { OnboardingSlide } from '@/components/onboarding/onboarding-slide';
 import { ONBOARDING_STEPS } from '@/constants/onboarding';
 
 interface Props {

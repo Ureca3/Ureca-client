@@ -81,7 +81,7 @@ export default function OAuthCallbackPage() {
   }, [router, searchParams, params.provider]);
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-screen flex-col items-center justify-center">
       <Loading />
       <p className="text-sm text-gray-500">로그인 처리 중입니다...</p>
     </div>
