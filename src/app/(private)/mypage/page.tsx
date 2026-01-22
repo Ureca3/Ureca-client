@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { SettingsGroup } from '@/app/(private)/mypage/_components/settings-group';
 import { SettingsRow } from '@/app/(private)/mypage/_components/settings-row';
 import ThemeIcon from '@/assets/icons/mypage/accessibility.svg';
@@ -10,8 +12,35 @@ import FileIcon from '@/assets/icons/mypage/paper-line.svg';
 import QuestionIcon from '@/assets/icons/mypage/question.svg';
 import { BottomNav } from '@/components/layout/bottom-navigation';
 
+const API = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 const Mypage = () => {
+  const router = useRouter();
+
   const noop = () => {};
+
+  const handleLogout = async () => {
+    try {
+      if (!API) throw new Error('NEXT_PUBLIC_API_BASE_URL is missing');
+
+      const res = await fetch(`${API}/api/auth/logout`, {
+        method: 'POST',
+        credentials: 'include', // ✅ HttpOnly refreshToken 쿠키 보내기
+      });
+
+      if (!res.ok) {
+        // 백엔드가 body를 안 주는 구조라 status만 체크
+        throw new Error(`Logout failed: ${res.status}`);
+      }
+
+      // ✅ 쿠키 삭제가 반영된 상태로 public로 이동
+      router.replace('/onboarding');
+      router.refresh(); // (선택) App Router 캐시/상태 정리용
+    } catch (e) {
+      console.error(e);
+      // 필요하면 토스트/모달로 “로그아웃 실패”만 보여줘도 됨
+    }
+  };
 
   const 상담Rows = [
     {
@@ -44,6 +73,7 @@ const Mypage = () => {
       label: '로그아웃',
       icon: <LogoutIcon width="18px" height="18px" />,
       tone: 'danger' as const,
+      onClick: handleLogout,
     },
     {
       label: '회원 탈퇴',
@@ -102,7 +132,7 @@ const Mypage = () => {
                 key={row.label}
                 icon={row.icon}
                 label={row.label}
-                onClick={noop}
+                onClick={row.onClick ?? noop}
                 tone={row.tone}
               />
             ))}
