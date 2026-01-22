@@ -22,6 +22,13 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/chat/:path*', '/summary/:path*', '/settings/:path*'],
-  // matcher: ['/((?!onboarding|oauth).*)'],
+  matcher: [
+    '/',
+    '/chat/:path*',
+    '/map/:path*',
+    '/mypage/:path*',
+    '/recommend/:path*',
+    '/summary/:path*',
+    '/settings/:path*',
+  ],
 };
