@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import { authReducer } from './slices/authSlice';
 import { modalReducer } from './slices/ModalSlice';
 import { toastReducer } from './slices/ToastSlice';
 
@@ -7,6 +8,7 @@ export const store = configureStore({
   reducer: {
     toast: toastReducer,
     modal: modalReducer,
+    auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
