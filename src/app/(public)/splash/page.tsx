@@ -18,8 +18,9 @@ export default function SplashPage() {
         onClick={() => router.replace('/onboarding')}
         className="absolute inset-0 z-10 cursor-pointer bg-transparent"
       />
+
       <div className="relative z-20 mt-[112px] ml-6 flex flex-col items-start">
-        <p className="text-[23px] leading-[1.45] font-medium text-[#111111]">
+        <p className="text-[18px] leading-[1.45] font-medium text-[#111111]">
           내 손안에
           <br />
           가장 작은 상담원
@@ -30,11 +31,11 @@ export default function SplashPage() {
         </div>
       </div>
 
-      <div className="absolute relative right-[-56px] bottom-[-40px] z-20">
+      <div className="absolute right-[-56px] bottom-[-40px] z-20">
         <Image src={Character} alt="Unity character" width={360} priority />
       </div>
 
-      <div className="absolute relative bottom-8 left-1/2 z-20 -translate-x-1/2">
+      <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2">
         <Image src={UPlusLogo} alt="U+ logo" width={36} />
       </div>
     </main>
