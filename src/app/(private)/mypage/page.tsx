@@ -15,7 +15,6 @@ import { authApi } from '@/services/auth/authApi';
 import { useAppDispatch } from '@/store/hooks';
 import { authActions } from '@/store/slices/authSlice';
 import { toastActions } from '@/store/slices/ToastSlice';
-import { store } from '@/store/store';
 
 const Mypage = () => {
   const router = useRouter();
@@ -26,10 +25,11 @@ const Mypage = () => {
   const handleLogout = async () => {
     try {
       await authApi.logout();
-    } finally {
-      // 성공/실패 상관없이 프론트 상태는 비움
-      store.dispatch(authActions.clearAuth());
-      router.replace('/onboarding');
+      dispatch(authActions.clearAuth());
+      dispatch(toastActions.show({ text: '로그아웃 되었습니다.', variant: 'success' }));
+    } catch (e) {
+      dispatch(toastActions.show({ text: '로그아웃에 실패했습니다.', variant: 'error' }));
+      console.error(e);
     }
   };
 
