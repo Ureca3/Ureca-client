@@ -11,12 +11,12 @@ export default function SplashPage() {
   const router = useRouter();
 
   return (
-    <main className="relative h-[100dvh] w-full overflow-hidden bg-[#FFF7F8]">
+    <main className="relative h-dvh w-full overflow-hidden bg-[#FFF7F8]">
       <button
         type="button"
         aria-label="Go to onboarding"
         onClick={() => router.replace('/onboarding')}
-        className="absolute inset-0 z-30 cursor-pointer bg-transparent"
+        className="absolute inset-0 z-30 bg-transparent"
       />
 
       <div className="relative z-20 mt-[112px] ml-6 flex flex-col items-start">
