@@ -12,11 +12,22 @@ async function buildCookieHeader() {
 }
 
 async function callMe(cookieHeader: string) {
-  return fetch(`${API}/api/auth/me`, {
-    method: 'GET',
-    headers: cookieHeader ? { cookie: cookieHeader } : {},
-    cache: 'no-store',
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+  try {
+    const response = await fetch(`${API}/api/auth/me`, {
+      method: 'GET',
+      headers: cookieHeader ? { cookie: cookieHeader } : {},
+      cache: 'no-store',
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    console.error('Auth check failed:', error);
+    return null;
+  }
 }
 
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
@@ -25,6 +36,6 @@ export default async function PublicLayout({ children }: { children: React.React
   const cookieHeader = await buildCookieHeader();
   const meRes = await callMe(cookieHeader);
 
-  if (meRes.ok) redirect('/');
+  if (meRes?.ok) redirect('/');
   return children;
 }
