@@ -3,9 +3,9 @@
 import Logo from '@/assets/icons/auth/unity-logo.svg';
 import Cross from '@/assets/icons/auth/x.svg';
 
-import { GoogleLoginButton } from './GoogleLoginButton';
-import { KakaoLoginButton } from './KakaoLoginButton';
-import { NaverLoginButton } from './NaverLoginButton';
+import { GoogleLoginButton } from '../google-login-button';
+import { KakaoLoginButton } from '../kakao-login-button';
+import { NaverLoginButton } from '../naver-login-button';
 
 interface Props {
   onClose: () => void;
