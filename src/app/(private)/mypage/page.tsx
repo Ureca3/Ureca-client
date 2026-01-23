@@ -27,6 +27,7 @@ const Mypage = () => {
       await authApi.logout();
       dispatch(authActions.clearAuth());
       dispatch(toastActions.show({ text: '로그아웃 되었습니다.', variant: 'success' }));
+      router.replace('/onboarding');
     } catch (e) {
       dispatch(toastActions.show({ text: '로그아웃에 실패했습니다.', variant: 'error' }));
       console.error(e);

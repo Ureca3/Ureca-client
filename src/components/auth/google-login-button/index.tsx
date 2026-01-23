@@ -2,24 +2,38 @@ import React from 'react';
 
 import GoogleLogo from '@/assets/icons/auth/google-login-logo.svg';
 import { Button } from '@/components/ui/button';
+import { useAppDispatch } from '@/store/hooks';
+import { toastActions } from '@/store/slices/ToastSlice';
 
 export const GoogleLoginButton = () => {
+  const dispatch = useAppDispatch();
+
   const handleGoogleLogin = () => {
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
     const appUrl = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
 
     if (!clientId || !appUrl) {
       console.error('Google OAuth env missing');
+      dispatch(
+        toastActions.show({
+          text: '구글 로그인 설정이 누락되었습니다. 환경변수를 확인해 주세요.',
+          variant: 'error',
+        }),
+      );
       return;
     }
 
     const redirectUri = `${appUrl}`;
+
+    const state = crypto.randomUUID();
+    sessionStorage.setItem('oauth_state_google', state);
 
     const params = new URLSearchParams({
       client_id: clientId,
       redirect_uri: redirectUri,
       response_type: 'code',
       scope: 'email profile',
+      state,
       // 필요하면 추가:
       // access_type: 'offline',
       // prompt: 'consent',
