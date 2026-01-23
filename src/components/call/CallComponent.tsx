@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Call from '@/assets/images/call/call.svg';
@@ -15,37 +15,21 @@ import { AgoraFrequencyVisualizer } from './AgoraVisualizer';
 
 export const CallComponent = () => {
   const [channel] = useState('room1');
-  const recorderRef = useRef<MediaRecorder | null>(null);
-  const chunksRef = useRef<Blob[]>([]);
-  const { error, ready, localAudioTrack } = useAgora(channel);
+  const { error, ready, localAudioTrack, client } = useAgora(channel);
   const router = useRouter();
 
-  useEffect(() => {
-    let stream: MediaStream | null = null;
-    const initRecorder = async () => {
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const recorder = new MediaRecorder(stream);
-        recorderRef.current = recorder;
-        recorder.ondataavailable = (e: BlobEvent) => {
-          if (e.data.size > 0) chunksRef.current.push(e.data);
-        };
-        recorder.start();
-      } catch (err) {
-        console.error('마이크 접근 권한 거부 또는 에러:', err);
-      }
-    };
-    initRecorder();
+  const handleEndCall = async () => {
+    if (localAudioTrack) {
+      localAudioTrack.stop();
+      localAudioTrack.close();
+    }
+    if (client) {
+      client.removeAllListeners();
+      await client.leave();
+    }
+    router.push('summary');
+  };
 
-    return () => {
-      if (recorderRef.current && recorderRef.current.state !== 'inactive') {
-        recorderRef.current.stop();
-      }
-      stream?.getTracks().forEach((t) => t.stop());
-    };
-  }, []);
-
-  // 4. 모든 훅 호출이 끝난 뒤에 조건부 리턴 (Early Return)
   if (error) {
     return <ErrorComponent message="문제가 발생했습니다. 잠시 후 다시 시도해주세요." />;
   }
@@ -68,9 +52,7 @@ export const CallComponent = () => {
           tone="secondary"
           size="l"
           className="bg-secondary-400! hover:bg-secondary-300! text-white-light mt-12.5 mb-2 w-full px-5 font-semibold"
-          onClick={() => {
-            router.push('summary');
-          }}
+          onClick={handleEndCall}
         >
           <Call /> 상담 종료하기
         </Button>
