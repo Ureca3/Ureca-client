@@ -73,13 +73,12 @@ export function setupInterceptors(apiClient: AxiosInstance, deps: InterceptorDep
 
       if (!original) return Promise.reject(error);
 
-      const url = original.url ?? '';
+      const urlPath = (original.url ?? '').split('?')[0];
 
-      // 재시도하면 안 되는 케이스들
       const isAuthEndpoint =
-        url.includes('/api/auth/login') ||
-        url.includes('/api/auth/logout') ||
-        url.includes(refreshPath);
+        urlPath === '/api/auth/logout' ||
+        urlPath === refreshPath ||
+        urlPath.startsWith('/api/auth/login');
 
       if (status !== 401 || original._retry || isAuthEndpoint) {
         return Promise.reject(error);
@@ -107,11 +106,27 @@ export function setupInterceptors(apiClient: AxiosInstance, deps: InterceptorDep
       isRefreshing = true;
       original._retry = true;
 
+      function isValidRefreshResponse(data: unknown): data is RefreshResponse {
+        return (
+          typeof data === 'object' &&
+          data !== null &&
+          'accessToken' in data &&
+          typeof (data as RefreshResponse).accessToken === 'string'
+        );
+      }
+
       try {
         const refreshRes = await refreshClient.post(refreshPath, null);
 
-        const newToken = (refreshRes.data as RefreshResponse)?.accessToken as string | undefined;
+        if (!isValidRefreshResponse(refreshRes.data)) {
+          console.error('[Auth] Invalid refresh response:', refreshRes.data);
+          notifyQueue(null);
+          deps.clearAuth();
+          deps.onUnauthorized?.();
+          return Promise.reject(new Error('Invalid refresh response'));
+        }
 
+        const newToken = refreshRes.data.accessToken;
         if (!newToken) {
           notifyQueue(null);
           deps.clearAuth();
