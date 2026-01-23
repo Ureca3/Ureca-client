@@ -68,7 +68,12 @@ const Home = () => {
 
         <section className="space-y-3">
           <p className="text-sm font-semibold text-gray-900">LG 유플러스 new 상담 챗봇</p>
-          <div className="flex items-center gap-3 rounded-2xl border border-[#E6E2F4] bg-[#F5F3FF] px-4 py-3 shadow-sm">
+
+          <button
+            type="button"
+            onClick={() => router.push('/chat')}
+            className="flex w-full items-center gap-3 rounded-2xl border border-[#E6E2F4] bg-[#F5F3FF] px-4 py-3 shadow-sm"
+          >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-xs font-semibold text-gray-700 shadow-sm">
               CHAT
             </div>
@@ -76,7 +81,7 @@ const Home = () => {
               <p className="text-xs text-gray-600">유플러스만의 상담 요약 서비스</p>
               <p className="text-sm font-semibold text-gray-900">요플이를 지금 당장 만나보세요!</p>
             </div>
-          </div>
+          </button>
         </section>
 
         <section className="space-y-3">
@@ -96,6 +101,7 @@ const Home = () => {
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-pink-100">
                 <Image src={FileIcon} alt="" width={22} height={22} />
               </div>
+
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-semibold text-gray-900">5G 요금제 변경 상담</p>
@@ -116,6 +122,7 @@ const Home = () => {
                   </span>
                 </div>
               </div>
+
               <Image src={ForwardIcon} alt="" width={16} height={16} />
             </div>
           </div>

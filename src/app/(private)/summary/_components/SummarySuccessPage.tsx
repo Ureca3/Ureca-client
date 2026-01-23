@@ -90,34 +90,26 @@ export const SummarySuccessPage = () => {
 
         <div className="mt-8 px-6">
           <div className="mb-3 flex items-center gap-2">
-            <div className="flex h-6 w-6 items-center justify-center">
-              <Image src={Check} alt="" width={20} height={20} />
-            </div>
+            <Image src={Check} alt="" width={20} height={20} />
             <h2 className="text-lg font-semibold">주요 조건 및 혜택</h2>
           </div>
 
           <div className="rounded-2xl bg-white px-6 py-5 shadow-lg">
             <ul className="space-y-4">
               <li className="flex items-center gap-3">
-                <div className="flex h-6 w-6 items-center justify-center">
-                  <Image src={Check} alt="" width={20} height={20} />
-                </div>
+                <Image src={Check} alt="" width={20} height={20} />
                 <p className="text-[15px] text-gray-700">
                   24개월 약정 시 월 <span className="font-semibold">10,000원 할인</span>
                 </p>
               </li>
               <li className="flex items-center gap-3">
-                <div className="flex h-6 w-6 items-center justify-center">
-                  <Image src={Check} alt="" width={20} height={20} />
-                </div>
+                <Image src={Check} alt="" width={20} height={20} />
                 <p className="text-[15px] text-gray-700">
                   가족결합 추가 <span className="font-semibold">5% 할인 가능</span>
                 </p>
               </li>
               <li className="flex items-center gap-3">
-                <div className="flex h-6 w-6 items-center justify-center">
-                  <Image src={Check} alt="" width={20} height={20} />
-                </div>
+                <Image src={Check} alt="" width={20} height={20} />
                 <p className="text-[15px] text-gray-700">
                   신규 가입 시 <span className="font-semibold">갤럭시 버즈 증정</span>
                 </p>
@@ -127,10 +119,19 @@ export const SummarySuccessPage = () => {
         </div>
 
         <div className="mt-6 flex gap-4 px-6">
-          <button className="flex-1 rounded-xl bg-pink-500 py-4 text-[15px] font-semibold text-white">
+          <button
+            type="button"
+            onClick={() => router.push('/recommend')}
+            className="flex-1 rounded-xl bg-pink-500 py-4 text-[15px] font-semibold text-white"
+          >
             상품 추천 보기
           </button>
-          <button className="flex-1 rounded-xl border-2 border-gray-300 bg-white py-4 text-[15px] font-semibold text-gray-900">
+
+          <button
+            type="button"
+            onClick={() => router.push('/map')}
+            className="flex-1 rounded-xl border-2 border-gray-300 bg-white py-4 text-[15px] font-semibold text-gray-900"
+          >
             매장 찾기
           </button>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GoogleLogo from '@/assets/auth/google-login-logo.svg';
+import GoogleLogo from '@/assets/icons/auth/google-login-logo.svg';
 import { Button } from '@/components/ui/button';
 
 export const GoogleLoginButton = () => {

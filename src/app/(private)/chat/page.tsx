@@ -1,15 +1,16 @@
 import React from 'react';
 
 import { ChattingFooter } from '@/components/chat/chatting-footer';
-import { ChattingScreen } from '@/components/chat/chatting-screen';
 
-const page = () => {
+import { ChattingClient } from './ChattingClient';
+
+export const dynamic = 'force-static';
+
+export default function Page() {
   return (
     <div className="flex h-screen flex-col">
-      <ChattingScreen />
+      <ChattingClient />
       <ChattingFooter />
     </div>
   );
-};
-
-export default page;
+}

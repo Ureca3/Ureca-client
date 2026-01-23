@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { KeywordProps } from '@/types/chat/dto';
 
-export const Keyword = ({
+export const ChatKeyword = ({
   keyword,
   event,
 }: {

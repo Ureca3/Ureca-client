@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ChatProps, KeywordProps } from '@/types/chat/dto';
 
-import { Keyword } from '../Keyword';
+import { ChatKeyword } from '../chat-keyword';
 
 export const ChatBox = ({
   chat,
@@ -46,7 +46,7 @@ export const ChatBox = ({
             }`}
           >
             {chat.keywords.map((i) => (
-              <Keyword key={i.keyword_id} keyword={i} event={onClick} />
+              <ChatKeyword key={i.keyword_id} keyword={i} event={onClick} />
             ))}
           </div>
         )}

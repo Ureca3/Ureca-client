@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { BottomNav } from '@/components/layout/bottom-navigation';
+import { Header } from '@/components/layout/header';
 import { ProductList } from '@/components/recommend/product-list';
 import {
   dummyCategoriesApi,
@@ -12,6 +14,7 @@ const page = () => {
 
   return (
     <div className="mx-auto w-full overflow-hidden">
+      <Header />
       {categories.map((i) => (
         <ProductList
           key={i.category_id}
@@ -19,6 +22,7 @@ const page = () => {
           products={products.filter((p) => p.category === i.code)}
         />
       ))}
+      <BottomNav />
     </div>
   );
 };
