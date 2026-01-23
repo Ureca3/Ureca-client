@@ -16,7 +16,7 @@ export default function SplashPage() {
         type="button"
         aria-label="Go to onboarding"
         onClick={() => router.replace('/onboarding')}
-        className="absolute inset-0 z-10 cursor-pointer bg-transparent"
+        className="absolute inset-0 z-30 cursor-pointer bg-transparent"
       />
 
       <div className="relative z-20 mt-[112px] ml-6 flex flex-col items-start">
