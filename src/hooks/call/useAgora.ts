@@ -36,7 +36,9 @@ export const useAgora = (channel: string, uid: number): UseAgoraReturn => {
 
       await client.join(data.appId, channel, data.token, uid);
 
-      const audioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+      const audioTrack = await AgoraRTC.createMicrophoneAudioTrack({
+        encoderConfig: 'high_quality_stereo',
+      });
       await client.publish([audioTrack]);
 
       setLocalAudioTrack(audioTrack);

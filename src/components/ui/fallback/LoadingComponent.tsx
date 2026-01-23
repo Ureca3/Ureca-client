@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Wink from '@/assets/fallback/mooner_wink.svg';
+import Wink from '@/assets/images/fallback/mooner_wink.svg';
 
 import '@/styles/animation.css';
 
