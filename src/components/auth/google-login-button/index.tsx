@@ -16,7 +16,7 @@ export const GoogleLoginButton = () => {
       console.error('Google OAuth env missing');
       dispatch(
         toastActions.show({
-          text: '구글 로그인 설정이 누락되었습니다. 환경변수를 확인해 주세요.',
+          text: '구글 로그인 설정 오류가 발생했습니다.',
           variant: 'error',
         }),
       );
@@ -49,6 +49,7 @@ export const GoogleLoginButton = () => {
       size="l"
       className="flex justify-center gap-2 border! border-[#747775]! bg-[#FFFFFF]! hover:opacity-60!"
       onClick={handleGoogleLogin}
+      aria-label="구글 계정으로 로그인"
     >
       <GoogleLogo />
       <span className="text-base font-semibold text-[#1F1F1F]">Google로 로그인 하기</span>
