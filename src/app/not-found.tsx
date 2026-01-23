@@ -10,7 +10,7 @@ const error = ({ error }: { error: Error & { digest?: string }; reset: () => voi
   }, [error]);
 
   return (
-    <div>
+    <div className="h-screen">
       <ErrorComponent />
     </div>
   );
