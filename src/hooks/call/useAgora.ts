@@ -14,16 +14,22 @@ interface UseAgoraReturn {
   token: string;
 }
 
-export const useAgora = (channel: string, uid: number): UseAgoraReturn => {
+export const useAgora = (channel: string): UseAgoraReturn => {
+  const [uid, setUid] = useState<number | null>(null);
   const [token, setToken] = useState<string>('');
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<Error | AxiosError | null>(null);
   const [localAudioTrack, setLocalAudioTrack] = useState<ILocalAudioTrack | null>(null);
 
   useEffect(() => {
+    // 클라이언트 마운트 시점에만 UID 생성
+    setUid(Math.floor(Math.random() * 10000));
+  }, []);
+
+  useEffect(() => {
     async function init() {
       try {
-        if (typeof window === 'undefined') return;
+        if (uid === null || typeof window === 'undefined') return;
         const AgoraRTC = (await import('agora-rtc-sdk-ng')).default;
         client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
         client.enableAudioVolumeIndicator();
@@ -34,8 +40,19 @@ export const useAgora = (channel: string, uid: number): UseAgoraReturn => {
         setToken(data.token);
 
         client.on('user-published', async (user, mediaType) => {
-          await client.subscribe(user, mediaType);
-          if (mediaType === 'audio') user.audioTrack?.play();
+          const isUserInChannel = client.remoteUsers.find((u) => u.uid === user.uid);
+
+          if (isUserInChannel) {
+            try {
+              await client.subscribe(user, mediaType);
+              if (mediaType === 'audio') user.audioTrack?.play();
+            } catch (e) {
+              console.error('구독 실패:', e);
+            }
+          } else {
+            // 2. 만약 목록에 없다면 아주 짧은 대기 후 재시도하거나 무시
+            console.warn(`유저 ${user.uid}가 아직 채널에 완전히 참여하지 않았습니다.`);
+          }
         });
 
         await client.join(data.appId, channel, data.token, uid);
