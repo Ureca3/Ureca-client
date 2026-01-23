@@ -2,14 +2,15 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 
-import Call from '@/assets/call/call.svg';
-import Calling from '@/assets/call/mooner_calling.svg';
+import Call from '@/assets/images/call/call.svg';
+import Calling from '@/assets/images/call/mooner_calling.svg';
 import { useAgora } from '@/hooks/call/useAgora';
 
 import { Button } from '../ui/button';
+import { ErrorComponent } from '../ui/fallback/ErrorComponent';
+import { LoadingComponent } from '../ui/fallback/LoadingComponent';
 
 import { AgoraFrequencyVisualizer } from './AgoraVisualizer';
-import { AudioRecorder } from './AudioRecorder';
 
 const uid: number = Math.floor(Math.random() * 10000);
 
@@ -17,7 +18,11 @@ export const CallComponent = () => {
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const [channel] = useState('room1');
-  const { token, localAudioTrack } = useAgora(channel, uid);
+  const { error, ready, localAudioTrack } = useAgora(channel, uid);
+
+  if (!ready) return <LoadingComponent />;
+  else if (error)
+    return <ErrorComponent message="문제가 발생했습니다. 잠시 후 다시 시도해주세요." />;
 
   useEffect(() => {
     let stream: MediaStream;
@@ -52,7 +57,6 @@ export const CallComponent = () => {
           <AgoraFrequencyVisualizer localAudioTrack={localAudioTrack} />
         </div>
       </div>
-      <AudioRecorder channel={channel} uid={uid} token={token} />
       <div className="w-full">
         <Button
           variant="solid"
