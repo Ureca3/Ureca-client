@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { SettingsGroup } from '@/app/(private)/mypage/_components/settings-group';
 import { SettingsRow } from '@/app/(private)/mypage/_components/settings-row';
 import ThemeIcon from '@/assets/icons/mypage/accessibility.svg';
@@ -9,9 +11,45 @@ import GroupIcon from '@/assets/icons/mypage/group.svg';
 import FileIcon from '@/assets/icons/mypage/paper-line.svg';
 import QuestionIcon from '@/assets/icons/mypage/question.svg';
 import { BottomNav } from '@/components/layout/bottom-navigation';
+import { authApi } from '@/services/auth/authApi';
+import { useAppDispatch } from '@/store/hooks';
+import { authActions } from '@/store/slices/authSlice';
+import { toastActions } from '@/store/slices/ToastSlice';
 
 const Mypage = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
   const noop = () => {};
+
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+      dispatch(authActions.clearAuth());
+      dispatch(toastActions.show({ text: '로그아웃 되었습니다.', variant: 'success' }));
+      router.replace('/onboarding');
+    } catch (e) {
+      dispatch(toastActions.show({ text: '로그아웃에 실패했습니다.', variant: 'error' }));
+      console.error(e);
+    }
+  };
+
+  const handleWithdrawal = async () => {
+    try {
+      await authApi.withdrawal(); // POST /api/users/withdrawal
+      dispatch(authActions.clearAuth());
+      dispatch(toastActions.show({ text: '회원탈퇴가 완료되었습니다.', variant: 'success' }));
+      router.replace('/onboarding');
+    } catch (e) {
+      dispatch(
+        toastActions.show({
+          text: '회원탈퇴에 실패했습니다. 잠시 후 다시 시도해 주세요.',
+          variant: 'error',
+        }),
+      );
+      console.error(e);
+    }
+  };
 
   const 상담Rows = [
     {
@@ -44,11 +82,13 @@ const Mypage = () => {
       label: '로그아웃',
       icon: <LogoutIcon width="18px" height="18px" />,
       tone: 'danger' as const,
+      onClick: handleLogout,
     },
     {
       label: '회원 탈퇴',
       icon: <GroupIcon width="18px" height="18px" />,
       tone: 'danger' as const,
+      onClick: handleWithdrawal,
     },
   ];
 
@@ -102,7 +142,7 @@ const Mypage = () => {
                 key={row.label}
                 icon={row.icon}
                 label={row.label}
-                onClick={noop}
+                onClick={row.onClick ?? noop}
                 tone={row.tone}
               />
             ))}
