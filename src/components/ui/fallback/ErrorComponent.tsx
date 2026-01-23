@@ -2,7 +2,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
-import Sorry from '@/assets/fallback/mooner_sorry.svg';
+import Sorry from '@/assets/images/fallback/mooner_sorry.svg';
 
 import { Button } from '../button';
 
