@@ -22,14 +22,6 @@ async function callMe(cookieHeader: string) {
   });
 }
 
-async function callRefresh(cookieHeader: string) {
-  return fetch(`${API}/api/auth/refresh`, {
-    method: 'POST',
-    headers: cookieHeader ? { cookie: cookieHeader } : {},
-    cache: 'no-store',
-  });
-}
-
 export default async function PrivateLayout({ children }: { children: React.ReactNode }) {
   if (!API) redirect('/onboarding');
 
@@ -40,11 +32,7 @@ export default async function PrivateLayout({ children }: { children: React.Reac
   if (meRes.ok) return children;
 
   if (meRes.status === 401) {
-    const refreshRes = await callRefresh(cookieHeader);
-    if (!refreshRes.ok) redirect('/onboarding');
-
-    // 새 쿠키가 브라우저에 저장되도록 한 번 새 요청을 발생
-    redirect('/');
+    redirect('/api/auth/refresh?next=/');
   }
 
   redirect('/onboarding');
