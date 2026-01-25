@@ -132,7 +132,7 @@ const Mypage = () => {
           </div>
         </section>
 
-        <div className="mt-6 space-y-6">
+        <div className="mt-6 mb-14 space-y-6">
           <SettingsGroup title="상담">
             {상담Rows.map((row) => (
               <SettingsRow key={row.label} icon={row.icon} label={row.label} onClick={noop} />

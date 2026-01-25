@@ -6,10 +6,9 @@ import { motion } from 'framer-motion';
 
 import Logo from '@/assets/icons/auth/unity-logo.svg';
 import Cross from '@/assets/icons/auth/x.svg';
-
-import { GoogleLoginButton } from '../google-login-button';
-import { KakaoLoginButton } from '../kakao-login-button';
-import { NaverLoginButton } from '../naver-login-button';
+import { GoogleLoginButton } from '@/components/auth/google-login-button';
+import { KakaoLoginButton } from '@/components/auth/kakao-login-button';
+import { NaverLoginButton } from '@/components/auth/naver-login-button';
 
 interface Props {
   onClose: () => void;
