@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+'use client';
+
+import React, { useEffect, useRef, useState } from 'react';
 
 import { motion } from 'framer-motion';
 
@@ -25,7 +27,15 @@ const modalVariants = {
 
 export const WithdrawModal = ({ onClose, onConfirm }: Props) => {
   const [inputValue, setInputValue] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
   const isConfirmDisabled = inputValue !== '회원탈퇴';
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -42,7 +52,6 @@ export const WithdrawModal = ({ onClose, onConfirm }: Props) => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      aria-hidden="true"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
     >
       <motion.div
@@ -56,7 +65,12 @@ export const WithdrawModal = ({ onClose, onConfirm }: Props) => {
         role="dialog"
         className="relative w-full max-w-sm rounded-xl bg-white p-6 shadow-lg"
       >
-        <button type="button" onClick={onClose} className="text-gray absolute top-4 right-4">
+        <button
+          type="button"
+          onClick={onClose}
+          className="text-gray absolute top-4 right-4"
+          aria-label="모달 닫기"
+        >
           <Cross className="hover:opacity-50" />
         </button>
 
@@ -74,11 +88,13 @@ export const WithdrawModal = ({ onClose, onConfirm }: Props) => {
           </div>
 
           <input
+            id="withdraw-confirm"
             type="text"
+            ref={inputRef}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="회원탈퇴"
-            className="focus:border-primary-500 text-primary-500 w-full rounded-md border border-gray-300 p-2 text-center text-sm font-semibold transition-colors focus:outline-none"
+            className="focus:border-primary-500 text-primary-500 w-full rounded-md border border-gray-300 p-2 text-center text-sm font-semibold transition-colors placeholder:text-gray-300 focus:outline-none"
           />
 
           <Button

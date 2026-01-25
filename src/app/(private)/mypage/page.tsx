@@ -90,14 +90,12 @@ const Mypage = () => {
       icon: <LogoutIcon width="18px" height="18px" />,
       tone: 'danger' as const,
       onClick: () => setIsLogoutOpen(true),
-      // onClick: handleLogout,
     },
     {
       label: '회원 탈퇴',
       icon: <GroupIcon width="18px" height="18px" />,
       tone: 'danger' as const,
       onClick: () => setIsWithdrawOpen(true),
-      // onClick: handleWithdrawal,
     },
   ];
 

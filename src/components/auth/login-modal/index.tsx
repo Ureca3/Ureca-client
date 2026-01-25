@@ -42,7 +42,6 @@ export const LoginModal = ({ onClose }: Props) => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      aria-hidden="true"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
     >
       <motion.div
@@ -56,7 +55,12 @@ export const LoginModal = ({ onClose }: Props) => {
         role="dialog"
         className="relative w-full max-w-sm rounded-xl bg-white p-6 shadow-lg"
       >
-        <button type="button" onClick={onClose} className="text-gray absolute top-4 right-4">
+        <button
+          type="button"
+          onClick={onClose}
+          className="text-gray absolute top-4 right-4"
+          aria-label="모달 닫기"
+        >
           <Cross className="hover:opacity-50" />
         </button>
 
