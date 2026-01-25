@@ -1,5 +1,9 @@
 'use client';
 
+import { useEffect } from 'react';
+
+import { motion } from 'framer-motion';
+
 import Logo from '@/assets/icons/auth/unity-logo.svg';
 import Cross from '@/assets/icons/auth/x.svg';
 
@@ -11,10 +15,48 @@ interface Props {
   onClose: () => void;
 }
 
+const overlayVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
+const modalVariants = {
+  hidden: { opacity: 0, y: 10, scale: 0.9 },
+  visible: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: 10, scale: 0.9 },
+};
+
 export const LoginModal = ({ onClose }: Props) => {
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="relative w-full max-w-sm rounded-xl bg-white p-6 shadow-lg">
+    <motion.div
+      onClick={onClose}
+      variants={overlayVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      aria-hidden="true"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+    >
+      <motion.div
+        onClick={(e) => e.stopPropagation()}
+        variants={modalVariants}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        aria-modal="true"
+        role="dialog"
+        className="relative w-full max-w-sm rounded-xl bg-white p-6 shadow-lg"
+      >
         <button type="button" onClick={onClose} className="text-gray absolute top-4 right-4">
           <Cross className="hover:opacity-50" />
         </button>
@@ -34,7 +76,7 @@ export const LoginModal = ({ onClose }: Props) => {
             U+NITY는 회원 전용 앱 입니다.
           </p>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
