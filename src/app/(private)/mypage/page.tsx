@@ -1,6 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+
+import { AnimatePresence } from 'framer-motion';
 
 import { SettingsGroup } from '@/app/(private)/mypage/_components/settings-group';
 import { SettingsRow } from '@/app/(private)/mypage/_components/settings-row';
@@ -10,6 +13,8 @@ import BookmarkIcon from '@/assets/icons/mypage/bookmark.svg';
 import GroupIcon from '@/assets/icons/mypage/group.svg';
 import FileIcon from '@/assets/icons/mypage/paper-line.svg';
 import QuestionIcon from '@/assets/icons/mypage/question.svg';
+import { LogoutModal } from '@/components/auth/logout-modal';
+import { WithdrawModal } from '@/components/auth/withdraw-modal';
 import { BottomNav } from '@/components/layout/bottom-navigation';
 import { authApi } from '@/services/auth/authApi';
 import { useAppDispatch } from '@/store/hooks';
@@ -18,6 +23,8 @@ import { toastActions } from '@/store/slices/ToastSlice';
 
 const Mypage = () => {
   const router = useRouter();
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+  const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const dispatch = useAppDispatch();
 
   const noop = () => {};
@@ -36,7 +43,7 @@ const Mypage = () => {
 
   const handleWithdrawal = async () => {
     try {
-      await authApi.withdrawal(); // POST /api/users/withdrawal
+      await authApi.withdrawal();
       dispatch(authActions.clearAuth());
       dispatch(toastActions.show({ text: '회원탈퇴가 완료되었습니다.', variant: 'success' }));
       router.replace('/onboarding');
@@ -82,13 +89,15 @@ const Mypage = () => {
       label: '로그아웃',
       icon: <LogoutIcon width="18px" height="18px" />,
       tone: 'danger' as const,
-      onClick: handleLogout,
+      onClick: () => setIsLogoutOpen(true),
+      // onClick: handleLogout,
     },
     {
       label: '회원 탈퇴',
       icon: <GroupIcon width="18px" height="18px" />,
       tone: 'danger' as const,
-      onClick: handleWithdrawal,
+      onClick: () => setIsWithdrawOpen(true),
+      // onClick: handleWithdrawal,
     },
   ];
 
@@ -150,6 +159,16 @@ const Mypage = () => {
         </div>
       </div>
 
+      <AnimatePresence>
+        {isLogoutOpen && (
+          <LogoutModal onClose={() => setIsLogoutOpen(false)} onConfirm={handleLogout} />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {isWithdrawOpen && (
+          <WithdrawModal onClose={() => setIsWithdrawOpen(false)} onConfirm={handleWithdrawal} />
+        )}
+      </AnimatePresence>
       <BottomNav />
     </>
   );
