@@ -103,7 +103,7 @@ const Mypage = () => {
 
   return (
     <>
-      <div className="px-4 pt-6">
+      <div className="px-4 pt-6 pb-24">
         <section className="overflow-hidden rounded-[28px] bg-gradient-to-br from-[#FFD7E9] via-[#FBE6F1] to-[#F6E6FF] shadow-lg">
           <div className="flex items-center gap-3 px-5 pt-5">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/70 shadow-md">
@@ -132,7 +132,7 @@ const Mypage = () => {
           </div>
         </section>
 
-        <div className="mt-6 mb-14 space-y-6">
+        <div className="mt-6 space-y-6 pb-4">
           <SettingsGroup title="상담">
             {상담Rows.map((row) => (
               <SettingsRow key={row.label} icon={row.icon} label={row.label} onClick={noop} />
