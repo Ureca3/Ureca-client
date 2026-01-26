@@ -6,6 +6,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Loading } from '@/components/loading';
 import { apiClient } from '@/services/api';
 import { authActions } from '@/store/slices/authSlice';
+import { toastActions } from '@/store/slices/ToastSlice';
 import { store } from '@/store/store';
 
 const OAUTH_PROVIDERS = new Set(['google', 'naver', 'kakao'] as const);
@@ -74,6 +75,14 @@ export default function OAuthCallbackPage() {
         router.replace('/');
       } catch (e) {
         console.error('OAuth 로그인 중 에러 발생:', e);
+
+        store.dispatch(
+          toastActions.show({
+            text: '로그인에 실패했습니다. 잠시 후 다시 시도해 주세요.',
+            variant: 'error',
+          }),
+        );
+
         router.replace('/onboarding');
       }
     })();
