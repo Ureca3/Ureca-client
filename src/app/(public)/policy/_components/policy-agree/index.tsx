@@ -1,18 +1,27 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
+import { policyApi } from '@/services/policy/policyApi';
+import { useAppDispatch } from '@/store/hooks';
+import { toastActions } from '@/store/slices/ToastSlice';
 
 type AgreementKey = 'terms' | 'privacy' | 'service';
 
 export const PolicyAgree = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
   const [agreements, setAgreements] = useState({
     all: false,
     terms: false, // 이용약관 동의(필수)
     privacy: false, // 개인정보 수집 및 이용동의(필수)
     service: false, // 서비스 이용 안내 동의 (필수)
   });
+
+  const isAllRequiredChecked = agreements.terms && agreements.privacy && agreements.service;
 
   const handleToggleAll = (checked: boolean) => {
     setAgreements({
@@ -37,7 +46,19 @@ export const PolicyAgree = () => {
     });
   };
 
-  const isAllRequiredChecked = agreements.terms && agreements.privacy && agreements.service;
+  const handleAgree = async () => {
+    try {
+      await policyApi.agree();
+      router.replace('/');
+    } catch {
+      dispatch(
+        toastActions.show({
+          text: '약관 동의 처리에 실패했습니다. 잠시 후 다시 시도해 주세요.',
+          variant: 'error',
+        }),
+      );
+    }
+  };
 
   return (
     <main>
@@ -92,6 +113,7 @@ export const PolicyAgree = () => {
           size="m"
           className="w-full font-semibold"
           disabled={!isAllRequiredChecked}
+          onClick={handleAgree}
         >
           동의하기
         </Button>

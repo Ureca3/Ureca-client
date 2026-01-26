@@ -40,12 +40,23 @@ export default async function PrivateLayout({ children }: { children: React.Reac
   const cookieHeader = await buildCookieHeader();
   const meRes = await callMe(cookieHeader);
 
-  if (!meRes) redirect('/onboarding');
-
-  if (meRes.ok) return children;
+  if (!meRes) {
+    redirect('/onboarding');
+  }
 
   if (meRes.status === 401) {
     redirect('/api/auth/refresh?next=/');
   }
-  redirect('/onboarding');
+
+  if (!meRes.ok) {
+    redirect('/onboarding');
+  }
+
+  const me = await meRes.json();
+
+  if (!me.termsAgreed) {
+    redirect('/policy?mode=agree');
+  }
+
+  return children;
 }

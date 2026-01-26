@@ -1,21 +1,24 @@
 import React from 'react';
 
-import { PolicyAgree } from '@/app/(public)/policy/components/policy-agree';
-import { PolicyHeader } from '@/app/(public)/policy/components/policy-header';
+import { PolicyAgree } from '@/app/(public)/policy/_components/policy-agree';
+import { PolicyHeader } from '@/app/(public)/policy/_components/policy-header';
+import { PolicyView } from '@/app/(public)/policy/_components/policy-view';
+import type { PolicyMode } from '@/types/policy/policy.ts';
 
-// interface PolicyPageProps {
-//   searchParams: {
-//     mode?: PolicyMode;
-//   };
-// }
+interface PolicyPageProps {
+  searchParams: {
+    mode?: PolicyMode;
+  };
+}
 
-export default function PolicyPage() {
+export default function PolicyPage({ searchParams }: PolicyPageProps) {
+  const mode = searchParams.mode ?? 'agree';
+
   return (
     <div className="min-h-dvh bg-[#FBF8FB] px-4 pt-6">
       <PolicyHeader />
-      <PolicyAgree />
-      {/* <PolicyView /> */}
-      {/* <div className="mt-6">{searchParams.mode === 'agree' ? <PolicyAgree /> : <PolicyView />}</div> */}
+
+      {mode === 'agree' ? <PolicyAgree /> : <PolicyView />}
     </div>
   );
 }
