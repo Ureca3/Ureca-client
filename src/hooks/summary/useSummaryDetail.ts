@@ -9,8 +9,6 @@ export const useSummaryDetail = (summaryId: number) => {
     queryFn: async () => {
       const res = await apiClient.get(`/api/summaries/${summaryId}`);
 
-      console.log('summary detail raw response:', res.data);
-
       return res.data;
     },
     enabled: Number.isFinite(summaryId),
