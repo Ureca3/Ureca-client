@@ -29,7 +29,7 @@ export const PolicyHeader = ({ mode }: { mode: PolicyMode }) => {
     try {
       await authApi.logout();
       dispatch(authActions.clearAuth());
-      dispatch(toastActions.show({ text: '약관에 미동의하셨습니다..', variant: 'success' }));
+      dispatch(toastActions.show({ text: '약관에 미동의하셨습니다.', variant: 'success' }));
       router.replace('/onboarding');
     } catch (e) {
       console.error(e);
