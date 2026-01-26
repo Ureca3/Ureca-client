@@ -1,0 +1,20 @@
+export type ApiSummaryStatus = 'LOADING' | 'SUCCESS' | 'FAIL';
+
+export interface ApiSummaryItem {
+  summaryId: number;
+  title?: string;
+  status: string;
+  keywords?: string[] | string;
+  createdAt?: string;
+}
+
+export interface ApiSummaryDetail {
+  summaryId: number;
+  title: string;
+  subject: string;
+  keywords: string[];
+  points: string[];
+  status: ApiSummaryStatus;
+  isBookmarked: boolean;
+  createdAt: string;
+}
