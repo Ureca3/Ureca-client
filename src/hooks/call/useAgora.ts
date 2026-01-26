@@ -6,22 +6,15 @@ import type { IAgoraRTCClient, ILocalAudioTrack } from 'agora-rtc-sdk-ng';
 import type { AxiosError } from 'axios';
 import axios from 'axios';
 
+import { callApi } from '@/services/call/callApi';
 import { useAppSelector } from '@/store/hooks';
+import type { TokenResponse } from '@/types/call/dto';
 
-interface TokenResponse {
-  token: string;
-  appId: string;
-}
-
-/**
- * ===== 싱글톤 영역 =====
- */
+//===== 싱글톤 영역 =====
 const tokenRequestCache = new Map<string, Promise<{ data: TokenResponse }>>();
 let globalClient: IAgoraRTCClient | null = null;
 
-/**
- * join 상태 머신
- */
+//join 상태
 type JoinState = 'IDLE' | 'JOINING' | 'JOINED';
 
 interface UseAgoraReturn {
@@ -59,12 +52,7 @@ export const useAgora = (channel: string): UseAgoraReturn => {
         const AgoraRTC = (await import('agora-rtc-sdk-ng')).default;
 
         if (!tokenRequestCache.has(cacheKey)) {
-          tokenRequestCache.set(
-            cacheKey,
-            axios.get<TokenResponse>(
-              `http://localhost:8080/api/agora/token?channel=${channel}&uid=${uid}`,
-            ),
-          );
+          tokenRequestCache.set(cacheKey, callApi.token(channel, uid));
         }
 
         const { data } = await tokenRequestCache.get(cacheKey)!;
