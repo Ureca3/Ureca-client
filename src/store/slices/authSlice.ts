@@ -23,6 +23,7 @@ const authSlice = createSlice({
     },
     clearAuth(state) {
       state.accessToken = null;
+      state.userId = null;
     },
   },
 });
