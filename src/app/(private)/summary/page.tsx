@@ -8,13 +8,23 @@ import { SummaryNavigateCard } from '@/components/summary/SummaryNavigateCard';
 import { useSummaryList } from '@/hooks/summary/useSummaryList';
 
 export default function SummaryPage() {
-  const { data, isLoading } = useSummaryList();
+  const { data, isLoading, isError } = useSummaryList();
 
   if (isLoading) {
     return (
       <>
         <Header />
         <div className="py-12 text-center text-sm text-gray-400">요약 불러오는 중...</div>
+        <BottomNav />
+      </>
+    );
+  }
+
+  if (isError) {
+    return (
+      <>
+        <Header />
+        <div className="py-12 text-center text-sm text-gray-400">요약을 불러오지 못했습니다</div>
         <BottomNav />
       </>
     );

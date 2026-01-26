@@ -3,8 +3,9 @@ export type ApiSummaryStatus = 'LOADING' | 'SUCCESS' | 'FAIL';
 export interface ApiSummaryItem {
   summaryId: number;
   title?: string;
-  status: ApiSummaryStatus;
-  badges?: string[];
+  status: string;
+  keywords?: string[] | string;
+  createdAt?: string;
 }
 
 export interface ApiSummaryDetail {

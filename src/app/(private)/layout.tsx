@@ -6,7 +6,6 @@ export const revalidate = 0;
 
 const API = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-// 쿠키 헤더 빌드
 async function buildCookieHeader() {
   const store = await cookies();
   return store
@@ -15,7 +14,6 @@ async function buildCookieHeader() {
     .join('; ');
 }
 
-// /me 호출
 async function callMe(cookieHeader: string) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 5000);
@@ -39,18 +37,12 @@ async function callMe(cookieHeader: string) {
 export default async function PrivateLayout({ children }: { children: React.ReactNode }) {
   const store = await cookies();
 
-  /* ===============================
-     🔥 개발용 강제 통과 토큰
-     =============================== */
   const devPass = store.get('DEV_SUMMARY')?.value;
   if (devPass === '1') {
     console.log('[auth] DEV_SUMMARY bypass');
     return children;
   }
 
-  /* ===============================
-     정상 인증 플로우
-     =============================== */
   if (!API) {
     console.error('[auth] API BASE URL missing');
     redirect('/onboarding');
@@ -68,7 +60,6 @@ export default async function PrivateLayout({ children }: { children: React.Reac
     return children;
   }
 
-  // ❗ refresh는 여기서 하지 않음 (클라이언트 인터셉터 전용)
   console.warn('[auth] /me unauthorized:', meRes.status);
   redirect('/onboarding');
 }

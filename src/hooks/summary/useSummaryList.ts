@@ -2,15 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import type { SummaryStatus } from '@/components/summary/SummaryNavigateCard';
 import { apiClient } from '@/services/api/client';
+import type { ApiSummaryItem } from '@/types/summary/summary';
 import { mapSummaryStatus } from '@/utils/map/summary/mapSummaryStatus';
-
-export interface ApiSummaryItem {
-  summaryId: number;
-  title?: string;
-  status: string;
-  keywords?: string[] | string;
-  createdAt?: string;
-}
 
 export interface SummaryListItem {
   id: number;
