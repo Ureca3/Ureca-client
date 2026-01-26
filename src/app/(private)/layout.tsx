@@ -52,8 +52,16 @@ export default async function PrivateLayout({ children }: { children: React.Reac
     redirect('/onboarding');
   }
 
-  const me = await meRes.json();
-  if (!me.termsAgreed) redirect('/policy?mode=agree');
+  try {
+    const me: { termsAgreed?: boolean } = await meRes.json();
+
+    if (!me.termsAgreed) {
+      redirect('/policy?mode=agree');
+    }
+  } catch (e) {
+    console.error('[auth] Failed to parse /me json:', e);
+    redirect('/onboarding');
+  }
 
   return children;
 }

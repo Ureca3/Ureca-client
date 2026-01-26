@@ -57,7 +57,7 @@ export default function OAuthCallbackPage() {
         });
 
         const accessToken: string | undefined = res.data?.token?.accessToken;
-        const termsAgreed: boolean = res.data?.termsAgreed;
+        const termsAgreed: boolean = res.data?.termsAgreed ?? false;
 
         if (!accessToken) {
           router.replace('/onboarding');
@@ -67,7 +67,7 @@ export default function OAuthCallbackPage() {
         store.dispatch(authActions.setAccessToken(accessToken));
 
         if (!termsAgreed) {
-          router.replace('/policy?mode=agree'); // 약관으로
+          router.replace('/policy?mode=agree');
           return;
         }
 

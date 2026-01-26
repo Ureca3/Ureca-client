@@ -64,43 +64,51 @@ export const PolicyAgree = () => {
     <main>
       <section className="relative flex flex-col gap-2 px-6 pt-4 pb-6 text-xs font-semibold text-black">
         <div className="absolute -top-9 flex items-center gap-2 text-xl font-bold text-black">
-          <input
-            type="checkbox"
-            checked={agreements.all}
-            onChange={(e) => handleToggleAll(e.target.checked)}
-            className="border-gray-dark accent-primary-500 h-4 w-4 border-2"
-          />
-          <p>약관 전체동의</p>
+          <label className="flex cursor-pointer items-center gap-2">
+            <input
+              type="checkbox"
+              checked={agreements.all}
+              onChange={(e) => handleToggleAll(e.target.checked)}
+              className="border-gray-dark accent-primary-500 h-4 w-4 border-2"
+            />
+            <p>약관 전체동의</p>
+          </label>
         </div>
 
         <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={agreements.terms}
-            onChange={() => handleToggleOne('terms')}
-            className="border-gray-dark accent-primary-500 h-4 w-4 border-2"
-          />
-          <p>이용약관 동의(필수)</p>
+          <label className="flex cursor-pointer items-center gap-2">
+            <input
+              type="checkbox"
+              checked={agreements.terms}
+              onChange={() => handleToggleOne('terms')}
+              className="border-gray-dark accent-primary-500 h-4 w-4 border-2"
+            />
+            <p className="text-gray-dark">이용약관 동의(필수)</p>
+          </label>
         </div>
 
         <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={agreements.privacy}
-            onChange={() => handleToggleOne('privacy')}
-            className="border-gray-dark accent-primary-500 h-4 w-4 border-2"
-          />
-          <p className="text-gray-dark">개인정보 수집 및 이용동의(필수)</p>
+          <label className="flex cursor-pointer items-center gap-2">
+            <input
+              type="checkbox"
+              checked={agreements.privacy}
+              onChange={() => handleToggleOne('privacy')}
+              className="border-gray-dark accent-primary-500 h-4 w-4 border-2"
+            />
+            <p className="text-gray-dark">개인정보 수집 및 이용동의(필수)</p>
+          </label>
         </div>
 
         <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={agreements.service}
-            onChange={() => handleToggleOne('service')}
-            className="form-checkbox border-gray-dark accent-primary-500 h-4 w-4 border-2"
-          />
-          <p className="text-gray-dark">서비스 이용 안내 동의(필수)</p>
+          <label className="flex cursor-pointer items-center gap-2">
+            <input
+              type="checkbox"
+              checked={agreements.service}
+              onChange={() => handleToggleOne('service')}
+              className="border-gray-dark accent-primary-500 h-4 w-4 border-2"
+            />
+            <p className="text-gray-dark">서비스 이용 안내 동의(필수)</p>
+          </label>
         </div>
 
         <p className="pl-6 text-[8px]">상담 요약 및 서비스 이용 관련 안내를 받을 수 있습니다.</p>

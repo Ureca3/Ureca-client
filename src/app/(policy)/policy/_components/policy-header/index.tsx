@@ -45,6 +45,7 @@ export const PolicyHeader = ({ mode }: { mode: PolicyMode }) => {
       <button
         type="button"
         onClick={handleBack}
+        aria-label="뒤로 가기"
         className="text-primary-200 flex items-center justify-start hover:opacity-50"
       >
         <GoBack className="h-9 w-9" />
@@ -62,7 +63,7 @@ export const PolicyHeader = ({ mode }: { mode: PolicyMode }) => {
       </section>
 
       <section className="relative flex flex-col px-4 pt-16">
-        <div className="absolute right-5 bottom-[-2]">
+        <div className="absolute right-5 -bottom-0.5">
           <Moono />
         </div>
         <div className="border border-black/75"></div>
