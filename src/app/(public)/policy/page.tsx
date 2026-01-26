@@ -3,15 +3,14 @@ import React from 'react';
 import { PolicyAgree } from '@/app/(public)/policy/_components/policy-agree';
 import { PolicyHeader } from '@/app/(public)/policy/_components/policy-header';
 import { PolicyView } from '@/app/(public)/policy/_components/policy-view';
-import type { PolicyMode } from '@/types/policy/policy.ts';
 
 interface PolicyPageProps {
   searchParams: {
-    mode?: PolicyMode;
+    mode?: 'agree' | 'view';
   };
 }
 
-export default function PolicyPage({ searchParams }: PolicyPageProps) {
+export default async function PolicyPage({ searchParams }: PolicyPageProps) {
   const mode = searchParams.mode ?? 'agree';
 
   return (

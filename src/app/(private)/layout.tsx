@@ -52,11 +52,5 @@ export default async function PrivateLayout({ children }: { children: React.Reac
     redirect('/onboarding');
   }
 
-  const me = await meRes.json();
-
-  if (!me.termsAgreed) {
-    redirect('/policy?mode=agree');
-  }
-
   return children;
 }
