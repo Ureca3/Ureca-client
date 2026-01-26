@@ -1,31 +1,52 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
+
+import { useSummaryDetail } from '@/hooks/summary/useSummaryDetail';
+import { mapSummaryStatus } from '@/utils/map/summary/mapSummaryStatus';
 
 import { SummaryFailPage } from '../_components/SummaryFailPage';
 import { SummaryLoadingPage } from '../_components/SummaryLoadingPage';
 import { SummarySuccessPage } from '../_components/SummarySuccessPage';
 
-const VALID_STATUS = ['LOADING', 'FAIL', 'SUCCESS'] as const;
-type SummaryStatus = (typeof VALID_STATUS)[number];
+export default function SummaryDetailPage() {
+  const params = useParams();
 
-function isSummaryStatus(value: string | null): value is SummaryStatus {
-  return value !== null && VALID_STATUS.includes(value as SummaryStatus);
-}
+  const rawId = Array.isArray(params?.summaryId) ? params.summaryId[0] : params?.summaryId;
 
-export default function SummaryDetailClient() {
-  const searchParams = useSearchParams();
-  const rawStatus = searchParams.get('status');
+  const summaryId = Number(rawId);
+  const safeId = Number.isFinite(summaryId) ? summaryId : 0;
 
-  const status: SummaryStatus = isSummaryStatus(rawStatus) ? rawStatus : 'SUCCESS';
+  const { data, isLoading } = useSummaryDetail(safeId);
 
-  if (status === 'LOADING') {
+  // 잘못된 id
+  if (!Number.isFinite(summaryId)) {
+    return <SummaryFailPage />;
+  }
+
+  // 로딩
+  if (isLoading) {
     return <SummaryLoadingPage />;
   }
+
+  // 데이터 없음
+  if (!data) {
+    return <SummaryFailPage />;
+  }
+
+  // 🔥 결과 기준 성공
+  const hasSummaryResult = Boolean(data.subject) && Boolean(data.keywords) && Boolean(data.points);
+
+  if (hasSummaryResult) {
+    return <SummarySuccessPage data={data} />;
+  }
+
+  // 결과 없을 때만 status 확인
+  const status = mapSummaryStatus(data.status);
 
   if (status === 'FAIL') {
     return <SummaryFailPage />;
   }
 
-  return <SummarySuccessPage />;
+  return <SummaryLoadingPage />;
 }
