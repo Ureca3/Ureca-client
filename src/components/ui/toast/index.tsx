@@ -14,11 +14,11 @@ export const Toast = () => {
   const variantStyle = useMemo(() => {
     switch (variant) {
       case 'success':
-        return 'bg-gray text-white';
+        return 'bg-success-500/20 border border-success-500 font-semibold backdrop-blur-sm text-success-500 shadow-sm';
       case 'error':
-        return 'bg-danger-500 text-white';
+        return 'bg-danger-500/20 border border-danger-500 font-semibold backdrop-blur-sm text-danger-500 shadow-sm';
       default:
-        return 'bg-gray text-white';
+        return 'bg-gray-500/20 border border-gray-500 font-semibold backdrop-blur-sm text-gray-500 shadow-sm';
     }
   }, [variant]);
 

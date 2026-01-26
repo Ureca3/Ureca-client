@@ -1,17 +1,16 @@
 'use client';
 
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { motion } from 'framer-motion';
 
 import Logo from '@/assets/icons/auth/unity-logo.svg';
 import Cross from '@/assets/icons/auth/x.svg';
-import { GoogleLoginButton } from '@/components/auth/google-login-button';
-import { KakaoLoginButton } from '@/components/auth/kakao-login-button';
-import { NaverLoginButton } from '@/components/auth/naver-login-button';
+import { Button } from '@/components/ui/button';
 
 interface Props {
   onClose: () => void;
+  onConfirm: () => void;
 }
 
 const overlayVariants = {
@@ -26,7 +25,7 @@ const modalVariants = {
   exit: { opacity: 0, y: 10, scale: 0.9 },
 };
 
-export const LoginModal = ({ onClose }: Props) => {
+export const LogoutModal = ({ onClose, onConfirm }: Props) => {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -64,21 +63,21 @@ export const LoginModal = ({ onClose }: Props) => {
           <Cross className="hover:opacity-50" />
         </button>
 
-        <div className="flex flex-col gap-4">
+        <section className="flex flex-col gap-4">
           <div className="flex justify-center">
             <Logo />
           </div>
-
-          <h2 className="mt-4 mb-6 text-center text-2xl font-bold text-black">유니티 로그인</h2>
-
-          <GoogleLoginButton />
-          <KakaoLoginButton />
-          <NaverLoginButton />
-
-          <p className="flex justify-end text-xs font-semibold text-black">
-            U+NITY는 회원 전용 앱 입니다.
-          </p>
-        </div>
+          <p className="text-center text-lg font-bold text-black">로그아웃 하시겠어요?</p>
+          <Button
+            variant="solid"
+            tone="primary"
+            size="m"
+            onClick={onConfirm}
+            className="font-semibold"
+          >
+            로그아웃
+          </Button>
+        </section>
       </motion.div>
     </motion.div>
   );

@@ -1,6 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+
+import { AnimatePresence } from 'framer-motion';
 
 import { SettingsGroup } from '@/app/(private)/mypage/_components/settings-group';
 import { SettingsRow } from '@/app/(private)/mypage/_components/settings-row';
@@ -10,6 +13,8 @@ import BookmarkIcon from '@/assets/icons/mypage/bookmark.svg';
 import GroupIcon from '@/assets/icons/mypage/group.svg';
 import FileIcon from '@/assets/icons/mypage/paper-line.svg';
 import QuestionIcon from '@/assets/icons/mypage/question.svg';
+import { LogoutModal } from '@/components/auth/logout-modal';
+import { WithdrawModal } from '@/components/auth/withdraw-modal';
 import { BottomNav } from '@/components/layout/bottom-navigation';
 import { authApi } from '@/services/auth/authApi';
 import { useAppDispatch } from '@/store/hooks';
@@ -18,6 +23,8 @@ import { toastActions } from '@/store/slices/ToastSlice';
 
 const Mypage = () => {
   const router = useRouter();
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+  const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const dispatch = useAppDispatch();
 
   const noop = () => {};
@@ -36,7 +43,7 @@ const Mypage = () => {
 
   const handleWithdrawal = async () => {
     try {
-      await authApi.withdrawal(); // POST /api/users/withdrawal
+      await authApi.withdrawal();
       dispatch(authActions.clearAuth());
       dispatch(toastActions.show({ text: '회원탈퇴가 완료되었습니다.', variant: 'success' }));
       router.replace('/onboarding');
@@ -82,19 +89,19 @@ const Mypage = () => {
       label: '로그아웃',
       icon: <LogoutIcon width="18px" height="18px" />,
       tone: 'danger' as const,
-      onClick: handleLogout,
+      onClick: () => setIsLogoutOpen(true),
     },
     {
       label: '회원 탈퇴',
       icon: <GroupIcon width="18px" height="18px" />,
       tone: 'danger' as const,
-      onClick: handleWithdrawal,
+      onClick: () => setIsWithdrawOpen(true),
     },
   ];
 
   return (
     <>
-      <div className="px-4 pt-6">
+      <div className="px-4 pt-6 pb-24">
         <section className="overflow-hidden rounded-[28px] bg-gradient-to-br from-[#FFD7E9] via-[#FBE6F1] to-[#F6E6FF] shadow-lg">
           <div className="flex items-center gap-3 px-5 pt-5">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/70 shadow-md">
@@ -123,7 +130,7 @@ const Mypage = () => {
           </div>
         </section>
 
-        <div className="mt-6 space-y-6">
+        <div className="mt-6 space-y-6 pb-4">
           <SettingsGroup title="상담">
             {상담Rows.map((row) => (
               <SettingsRow key={row.label} icon={row.icon} label={row.label} onClick={noop} />
@@ -150,6 +157,16 @@ const Mypage = () => {
         </div>
       </div>
 
+      <AnimatePresence>
+        {isLogoutOpen && (
+          <LogoutModal onClose={() => setIsLogoutOpen(false)} onConfirm={handleLogout} />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {isWithdrawOpen && (
+          <WithdrawModal onClose={() => setIsWithdrawOpen(false)} onConfirm={handleWithdrawal} />
+        )}
+      </AnimatePresence>
       <BottomNav />
     </>
   );
