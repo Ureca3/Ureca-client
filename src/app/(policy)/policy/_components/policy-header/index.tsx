@@ -28,14 +28,18 @@ export const PolicyHeader = ({ mode }: { mode: PolicyMode }) => {
 
     try {
       await authApi.logout();
+      dispatch(authActions.clearAuth());
+      dispatch(toastActions.show({ text: '약관에 미동의하셨습니다..', variant: 'success' }));
+      router.replace('/onboarding');
     } catch (e) {
       console.error(e);
-    } finally {
-      dispatch(authActions.clearAuth());
       dispatch(
-        toastActions.show({ text: '서비스 약관에 미동의 처리 되었습니다.', variant: 'success' }),
+        toastActions.show({
+          text: '잠시 후 다시 시도해 주세요.',
+          variant: 'error',
+        }),
       );
-      router.replace('/onboarding');
+    } finally {
       setBusy(false);
     }
   };
