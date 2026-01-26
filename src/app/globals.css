@@ -33,6 +33,7 @@
   --color-gray: #8b8b8b;
   --color-gray-dark: #4e4e4e;
   --color-gray-light: #ededed;
+  --color-success-500: #22c55e;
 }
 
 @media (prefers-color-scheme: dark) {

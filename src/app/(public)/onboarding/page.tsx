@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { AnimatePresence } from 'framer-motion';
+
 import { LoginModal } from '@/components/auth/login-modal';
 import { OnboardingButton } from '@/components/onboarding/onboarding-button';
 import { OnboardingIndicator } from '@/components/onboarding/onboarding-indicator';
@@ -23,7 +25,9 @@ export default function OnboardingPage() {
       <OnboardingButton onClick={() => setIsLoginOpen(true)} />
 
       {/* 로그인 모달 */}
-      {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
+      <AnimatePresence>
+        {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
+      </AnimatePresence>
     </main>
   );
 }

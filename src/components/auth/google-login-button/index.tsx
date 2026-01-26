@@ -32,11 +32,11 @@ export const GoogleLoginButton = () => {
       client_id: clientId,
       redirect_uri: redirectUri,
       response_type: 'code',
-      scope: 'email profile',
+      scope: 'openid email profile',
       state,
-      // 필요하면 추가:
-      // access_type: 'offline',
-      // prompt: 'consent',
+      access_type: 'offline',
+      prompt: 'consent',
+      include_granted_scopes: 'true',
     });
 
     window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;

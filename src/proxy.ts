@@ -5,7 +5,11 @@ export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // public은 통과
-  if (pathname.startsWith('/onboarding') || pathname.startsWith('/oauth')) {
+  if (
+    pathname.startsWith('/onboarding') ||
+    pathname.startsWith('/oauth') ||
+    pathname.startsWith('/splash')
+  ) {
     return NextResponse.next();
   }
 
