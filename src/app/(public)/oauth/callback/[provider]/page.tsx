@@ -58,13 +58,15 @@ export default function OAuthCallbackPage() {
         });
 
         const accessToken: string | undefined = res.data?.token?.accessToken;
+        const userId: number | undefined = res.data?.token?.userId;
 
-        if (!accessToken) {
+        if (!accessToken || !userId) {
           router.replace('/onboarding');
           return;
         }
 
         store.dispatch(authActions.setAccessToken(accessToken));
+        store.dispatch(authActions.setUserid(userId));
 
         store.dispatch(
           toastActions.show({

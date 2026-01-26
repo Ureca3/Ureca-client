@@ -1,90 +1,139 @@
 'use client';
+
 import { useEffect, useRef, useState } from 'react';
 
-import type { IAgoraRTCClient, IAgoraRTCRemoteUser, ILocalAudioTrack } from 'agora-rtc-sdk-ng';
+import type { IAgoraRTCClient, ILocalAudioTrack } from 'agora-rtc-sdk-ng';
 import type { AxiosError } from 'axios';
 import axios from 'axios';
+
+import { useAppSelector } from '@/store/hooks';
+
+interface TokenResponse {
+  token: string;
+  appId: string;
+}
+
+/**
+ * ===== 싱글톤 영역 =====
+ */
+const tokenRequestCache = new Map<string, Promise<{ data: TokenResponse }>>();
+let globalClient: IAgoraRTCClient | null = null;
+
+/**
+ * join 상태 머신
+ */
+type JoinState = 'IDLE' | 'JOINING' | 'JOINED';
 
 interface UseAgoraReturn {
   client: IAgoraRTCClient | null;
   ready: boolean;
-  error: Error | AxiosError | null;
+  error: AxiosError | Error | null;
   localAudioTrack: ILocalAudioTrack | null;
   token: string;
-  uid: number | null;
 }
 
 export const useAgora = (channel: string): UseAgoraReturn => {
-  const [uid, setUid] = useState<number | null>(null);
-  const [token, setToken] = useState<string>('');
+  const uid = useAppSelector((s) => s.auth).userId;
+
+  const [token, setToken] = useState('');
   const [ready, setReady] = useState(false);
-  const [error, setError] = useState<Error | AxiosError | null>(null);
+  const [error, setError] = useState<AxiosError | Error | null>(null);
   const [localAudioTrack, setLocalAudioTrack] = useState<ILocalAudioTrack | null>(null);
 
-  const clientRef = useRef<IAgoraRTCClient | null>(null);
   const trackRef = useRef<ILocalAudioTrack | null>(null);
+  const joinStateRef = useRef<JoinState>('IDLE');
+  const joinedChannelRef = useRef<string | null>(null);
 
   useEffect(() => {
-    setUid(Math.floor(Math.random() * 10000));
-  }, []);
+    if (typeof window === 'undefined' || !uid || !channel) return;
+    if (joinStateRef.current !== 'IDLE') return;
 
-  useEffect(() => {
-    if (uid === null || typeof window === 'undefined') return;
+    let cancelled = false;
 
-    const handleUserPublished = async (user: IAgoraRTCRemoteUser, mediaType: 'audio' | 'video') => {
-      const client = clientRef.current;
-      if (!client) return;
+    const init = async () => {
+      const cacheKey = `${channel}-${uid}`;
 
       try {
-        await client.subscribe(user, mediaType);
-        if (mediaType === 'audio') user.audioTrack?.play();
-      } catch (e) {
-        console.error('구독 실패:', e);
-      }
-    };
+        joinStateRef.current = 'JOINING';
 
-    async function init() {
-      try {
         const AgoraRTC = (await import('agora-rtc-sdk-ng')).default;
 
-        // 1. 클라이언트 생성 및 Ref 저장
-        const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
-        clientRef.current = client;
-        client.enableAudioVolumeIndicator();
+        if (!tokenRequestCache.has(cacheKey)) {
+          tokenRequestCache.set(
+            cacheKey,
+            axios.get<TokenResponse>(
+              `http://localhost:8080/api/agora/token?channel=${channel}&uid=${uid}`,
+            ),
+          );
+        }
 
-        const { data } = await axios.get(
-          `http://localhost:8080/api/agora/token?channel=${channel}&uid=${uid}`,
-        );
+        const { data } = await tokenRequestCache.get(cacheKey)!;
+        if (cancelled) return;
+
         setToken(data.token);
 
-        // 2. 이벤트 등록
-        client.on('user-published', handleUserPublished);
+        if (!globalClient) {
+          globalClient = AgoraRTC.createClient({
+            mode: 'rtc',
+            codec: 'vp8',
+          });
+        }
 
-        // 3. 조인
-        await client.join(data.appId, channel, data.token, uid);
+        const client = globalClient;
 
-        // 4. 오디오 트랙 생성 및 Ref 저장
+        if (
+          joinStateRef.current === 'JOINING' &&
+          joinedChannelRef.current &&
+          joinedChannelRef.current !== channel &&
+          client.connectionState !== 'DISCONNECTED'
+        ) {
+          await client.leave();
+          joinedChannelRef.current = null;
+        }
+
+        if (cancelled) return;
+
+        if (client.connectionState === 'DISCONNECTED') {
+          await client.join(data.appId, channel, data.token, uid);
+          joinedChannelRef.current = channel;
+        }
+
+        if (cancelled) return;
+
         const audioTrack = await AgoraRTC.createMicrophoneAudioTrack({
-          encoderConfig: 'high_quality_stereo',
+          encoderConfig: 'speech_standard',
         });
+
         trackRef.current = audioTrack;
         setLocalAudioTrack(audioTrack);
 
-        // 5. 발행
         await client.publish([audioTrack]);
+
+        joinStateRef.current = 'JOINED';
         setReady(true);
       } catch (e) {
-        setReady(true);
-        setError(e instanceof Error ? e : new Error('알 수 없는 에러'));
+        joinStateRef.current = 'IDLE';
+        tokenRequestCache.delete(`${channel}-${uid}`);
+
+        if (axios.isAxiosError(e)) setError(e);
+        else if (e instanceof Error) setError(e);
       }
-    }
+    };
 
     init();
 
-    // ★ 확실한 정리 로직
     return () => {
+      cancelled = true;
+
       const cleanup = async () => {
-        // 마이크 끄기 (Ref 사용)
+        if (
+          joinStateRef.current === 'JOINED' &&
+          globalClient &&
+          globalClient.connectionState !== 'DISCONNECTED'
+        ) {
+          await globalClient.leave();
+        }
+
         if (trackRef.current) {
           trackRef.current.stop();
           trackRef.current.close();
@@ -92,25 +141,20 @@ export const useAgora = (channel: string): UseAgoraReturn => {
           setLocalAudioTrack(null);
         }
 
-        // 채널 나가기 (Ref 사용)
-        if (clientRef.current) {
-          clientRef.current.removeAllListeners();
-          await clientRef.current.leave();
-          clientRef.current = null;
-          console.log('Agora Cleanup 완벽 종료');
-        }
+        joinStateRef.current = 'IDLE';
+        joinedChannelRef.current = null;
         setReady(false);
       };
+
       cleanup();
     };
   }, [channel, uid]);
 
   return {
-    client: clientRef.current,
+    client: globalClient,
     ready,
     token,
     localAudioTrack,
     error,
-    uid,
   };
 };
