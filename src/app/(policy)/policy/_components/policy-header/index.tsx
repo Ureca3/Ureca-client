@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Moono from '@/assets/icons/policy/bbaeggom.svg';
-import GoBack from '@/assets/icons/policy/chevron-left.svg';
 import Logo from '@/assets/icons/policy/logo.svg';
+import X from '@/assets/icons/policy/x.svg';
 import { authApi } from '@/services/auth/authApi';
 import { useAppDispatch } from '@/store/hooks';
 import { authActions } from '@/store/slices/authSlice';
@@ -50,9 +50,9 @@ export const PolicyHeader = ({ mode }: { mode: PolicyMode }) => {
         type="button"
         onClick={handleBack}
         aria-label="뒤로 가기"
-        className="text-primary-200 flex items-center justify-start hover:opacity-50"
+        className="text-primary-200 flex w-fit items-center justify-start hover:opacity-50"
       >
-        <GoBack className="h-9 w-9" />
+        <X className="h-9 w-9" />
       </button>
 
       <section className="pl-4">
