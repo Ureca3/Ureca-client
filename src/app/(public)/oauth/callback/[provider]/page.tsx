@@ -59,6 +59,7 @@ export default function OAuthCallbackPage() {
 
         const accessToken: string | undefined = res.data?.token?.accessToken;
         const userId: number | undefined = res.data?.token?.userId;
+        const termsAgreed: boolean = res.data?.termsAgreed ?? false;
 
         if (!accessToken || !userId) {
           router.replace('/onboarding');
@@ -68,12 +69,10 @@ export default function OAuthCallbackPage() {
         store.dispatch(authActions.setAccessToken(accessToken));
         store.dispatch(authActions.setUserid(userId));
 
-        store.dispatch(
-          toastActions.show({
-            text: '로그인 되었습니다.',
-            variant: 'success',
-          }),
-        );
+        if (!termsAgreed) {
+          router.replace('/policy?mode=agree');
+          return;
+        }
 
         router.replace('/');
       } catch (e) {

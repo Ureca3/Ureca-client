@@ -52,7 +52,6 @@ export default async function PrivateLayout({ children }: { children: React.Reac
   const meRes = await callMe(cookieHeader);
 
   if (!meRes) {
-    console.error('[auth] /me call failed');
     redirect('/onboarding');
   }
 
@@ -60,6 +59,23 @@ export default async function PrivateLayout({ children }: { children: React.Reac
     return children;
   }
 
-  console.warn('[auth] /me unauthorized:', meRes.status);
-  redirect('/onboarding');
+  if (!meRes.ok) {
+    redirect('/onboarding');
+  }
+
+  let me: { termsAgreed?: boolean };
+
+  try {
+    me = await meRes.json();
+  } catch (e) {
+    console.error('[auth] Failed to parse /me json:', e);
+    redirect('/onboarding');
+  }
+
+  // termsAgreed가 undefined면 false로 간주할지(권장) / 아니면 에러로 볼지 정책 선택
+  if (me.termsAgreed !== true) {
+    redirect('/policy?mode=agree');
+  }
+
+  return children;
 }

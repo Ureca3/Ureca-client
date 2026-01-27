@@ -58,6 +58,10 @@ const Mypage = () => {
     }
   };
 
+  const handlePolicy = () => {
+    router.push('/policy?mode=view');
+  };
+
   const 상담Rows = [
     {
       label: '북마크 상담',
@@ -80,6 +84,7 @@ const Mypage = () => {
     {
       label: '약관',
       icon: <FileIcon width="18px" height="18px" />,
+      onClick: handlePolicy,
     },
     {
       label: '도움말',
