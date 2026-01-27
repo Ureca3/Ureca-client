@@ -3,11 +3,11 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import Chatting from '@/assets/icons/nav/Chatting.png';
 import Home from '@/assets/icons/nav/Home.png';
 import My from '@/assets/icons/nav/My.png';
 import Recommend from '@/assets/icons/nav/Recommend.png';
 import SummaryMain from '@/assets/icons/nav/SummaryMain.png';
+import Call from '@/assets/images/call/call.svg';
 
 export const BottomNav = () => {
   const router = useRouter();
@@ -42,11 +42,12 @@ export const BottomNav = () => {
         <li className="-mt-8">
           <button
             type="button"
-            onClick={() => router.push('/chat')}
+            onClick={() => router.push('/call')}
             className="flex flex-col items-center gap-1"
           >
             <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[#E30084] shadow-lg">
-              <Image src={Chatting} alt="상담" width={21} height={21} />
+              <Call />
+              {/* <Image src={Chatting} alt="상담" width={21} height={21} /> */}
             </div>
             <span className="text-xs font-semibold text-[#E30084]">상담</span>
           </button>

@@ -58,7 +58,6 @@ button:disabled {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
 .no-scrollbar {
   -ms-overflow-style: none; /* IE, Edge */
   scrollbar-width: none; /* Firefox */
@@ -86,4 +85,7 @@ button:disabled {
 
 .animation-delay-400 {
   animation-delay: 0.4s;
+}
+canvas {
+  background: var(--background);
 }
