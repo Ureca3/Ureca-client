@@ -5,10 +5,12 @@ import Link from 'next/link';
 import { BottomNav } from '@/components/layout/bottom-navigation';
 import { Header } from '@/components/layout/header';
 import { SummaryNavigateCard } from '@/components/summary/SummaryNavigateCard';
-import { useSummaryList } from '@/hooks/summary/useSummaryList';
+import { useBookmarkedSummaries } from '@/hooks/summary/useBookmarkedSummaries';
 
-export default function SummaryPage() {
-  const { data, isLoading, isError } = useSummaryList();
+export const BookmarkSummaryPage = () => {
+  const userId = 1;
+
+  const { data, isLoading, isError } = useBookmarkedSummaries(userId);
 
   if (isLoading) {
     return (
@@ -35,16 +37,32 @@ export default function SummaryPage() {
       <Header />
 
       <div className="flex flex-col gap-6 pt-6 pb-24">
-        {data && data.length === 0 && (
-          <div className="py-12 text-center text-sm text-gray-400">요약 데이터가 없습니다</div>
+        {(!data || data.length === 0) && (
+          <div className="py-12 text-center text-sm text-gray-400">북마크한 요약이 없습니다</div>
         )}
 
         {data?.map((summary) => {
-          const badges =
-            typeof summary.keywords === 'string' ? [summary.keywords] : summary.keywords;
+          const badges = (() => {
+            if (!summary.keywords) return undefined;
+
+            if (Array.isArray(summary.keywords)) {
+              return summary.keywords;
+            }
+
+            if (typeof summary.keywords === 'string') {
+              try {
+                const parsed = JSON.parse(summary.keywords);
+                return Array.isArray(parsed) ? parsed : [summary.keywords];
+              } catch {
+                return [summary.keywords];
+              }
+            }
+
+            return undefined;
+          })();
 
           return (
-            <Link key={summary.id} href={`/summary/${summary.id}`}>
+            <Link key={summary.summaryId} href={`/summary/${summary.summaryId}`}>
               <SummaryNavigateCard
                 status={summary.status}
                 title={summary.title}
@@ -59,4 +77,6 @@ export default function SummaryPage() {
       <BottomNav />
     </>
   );
-}
+};
+
+export default BookmarkSummaryPage;

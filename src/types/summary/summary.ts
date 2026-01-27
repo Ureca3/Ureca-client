@@ -3,7 +3,7 @@ export type ApiSummaryStatus = 'LOADING' | 'SUCCESS' | 'FAIL';
 export interface ApiSummaryItem {
   summaryId: number;
   title?: string;
-  status: string;
+  status: ApiSummaryStatus;
   keywords?: string[] | string;
   createdAt?: string;
 }
