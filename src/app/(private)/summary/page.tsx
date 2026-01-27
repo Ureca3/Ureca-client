@@ -6,9 +6,10 @@ import { BottomNav } from '@/components/layout/bottom-navigation';
 import { Header } from '@/components/layout/header';
 import { SummaryNavigateCard } from '@/components/summary/SummaryNavigateCard';
 import { useSummaryList } from '@/hooks/summary/useSummaryList';
-
+import { useAppSelector } from '@/store/hooks';
 export default function SummaryPage() {
-  const { data, isLoading, isError } = useSummaryList();
+  const userId = useAppSelector((s) => s.auth).userId;
+  const { data, isLoading, isError } = useSummaryList(userId);
 
   if (isLoading) {
     return (
