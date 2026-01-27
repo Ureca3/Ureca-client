@@ -42,8 +42,24 @@ export const BookmarkSummaryPage = () => {
         )}
 
         {data?.map((summary) => {
-          const badges =
-            typeof summary.keywords === 'string' ? [summary.keywords] : summary.keywords;
+          const badges = (() => {
+            if (!summary.keywords) return undefined;
+
+            if (Array.isArray(summary.keywords)) {
+              return summary.keywords;
+            }
+
+            if (typeof summary.keywords === 'string') {
+              try {
+                const parsed = JSON.parse(summary.keywords);
+                return Array.isArray(parsed) ? parsed : [summary.keywords];
+              } catch {
+                return [summary.keywords];
+              }
+            }
+
+            return undefined;
+          })();
 
           return (
             <Link key={summary.summaryId} href={`/summary/${summary.summaryId}`}>
