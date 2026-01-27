@@ -3,12 +3,12 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+import Moono from '@/assets/icons/help/bbaeggom.svg';
 import X from '@/assets/icons/help/x.svg';
 import Help1 from '@/assets/images/help/Help1.png';
 import Help2 from '@/assets/images/help/Help2.png';
 import Help3 from '@/assets/images/help/Help3.png';
 import Help4 from '@/assets/images/help/Help4.png';
-import Mooner from '@/assets/images/help/Mooner.svg';
 
 const HELP_STEPS = [
   {
@@ -38,17 +38,19 @@ const HelpPage = () => {
 
   return (
     <div className="min-h-dvh bg-[#FFF6FA]">
-      <div className="relative h-[140px] bg-[#A86B8F]">
+      <div className="relative flex h-21 items-center bg-[#A86B8F] pl-4">
         <button
           type="button"
-          className="text-bg-[#FFF6FA] absolute top-4 left-4 flex h-10 w-10 items-center justify-center text-2xl font-semibold hover:opacity-50"
+          // className="text-bg-[#FFF6FA] absolute top-5 left-4 flex h-10 w-10 items-center justify-center text-2xl font-semibold hover:opacity-50"
+          className="w-fit"
           onClick={() => router.back()}
           aria-label="닫기"
         >
           <X className="h-9 w-9" />
         </button>
-        <div className="absolute top-12 right-4 h-14 w-14">
-          <Image src={Mooner} alt="" fill className="object-contain" />
+        <div className="absolute top-13 right-4 h-14 w-14">
+          {/* <Image src={Mooner} alt="" fill className="object-contain" /> */}
+          <Moono />
         </div>
       </div>
 

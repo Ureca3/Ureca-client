@@ -50,7 +50,7 @@ export const PolicyHeader = ({ mode }: { mode: PolicyMode }) => {
         type="button"
         onClick={handleBack}
         aria-label="뒤로 가기"
-        className="text-primary-200 flex items-center justify-start hover:opacity-50"
+        className="text-primary-200 flex w-fit items-center justify-start hover:opacity-50"
       >
         <X className="h-9 w-9" />
       </button>
