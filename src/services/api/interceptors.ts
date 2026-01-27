@@ -1,5 +1,8 @@
 import axios, { type AxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
 
+import { authActions } from '@/store/slices/authSlice';
+import { store } from '@/store/store';
+
 export interface InterceptorDeps {
   getAccessToken: () => string | null;
   setAccessToken: (token: string) => void;
@@ -14,6 +17,7 @@ interface InterceptorFlaggedClient extends AxiosInstance {
 
 export interface RefreshResponse {
   accessToken: string;
+  userId: number;
   accessTokenExpiresIn: number;
 }
 
@@ -126,6 +130,7 @@ export function setupInterceptors(apiClient: AxiosInstance, deps: InterceptorDep
           return Promise.reject(new Error('Invalid refresh response'));
         }
 
+        const userId = refreshRes.data.userId;
         const newToken = refreshRes.data.accessToken;
         if (!newToken) {
           notifyQueue(null);
@@ -134,6 +139,7 @@ export function setupInterceptors(apiClient: AxiosInstance, deps: InterceptorDep
           return Promise.reject(error);
         }
 
+        store.dispatch(authActions.setUserid(userId));
         deps.setAccessToken(newToken);
         notifyQueue(newToken);
 
