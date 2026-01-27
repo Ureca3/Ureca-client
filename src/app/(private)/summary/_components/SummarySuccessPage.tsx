@@ -11,6 +11,8 @@ import File1 from '@/assets/icons/summary/File1.png';
 import Profile from '@/assets/icons/summary/Profile.png';
 import Topic from '@/assets/icons/summary/Topic.png';
 import { BottomNav } from '@/components/layout/bottom-navigation';
+import { useMe } from '@/hooks/auth/useMe';
+import { useToggleBookmark } from '@/hooks/summary/useToggleBookmark';
 import type { ApiSummaryDetail } from '@/types/summary/summary';
 
 interface SummarySuccessPageProps {
@@ -20,23 +22,27 @@ interface SummarySuccessPageProps {
 export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
   const router = useRouter();
 
+  const { data: me } = useMe(); // userId 얻기
+  const userId = me?.id;
+
   const { summaryId, title, subject, keywords = [], points = [], createdAt, isBookmarked } = data;
 
   const [bookmarked, setBookmarked] = useState(isBookmarked);
-  const [loading, setLoading] = useState(false);
+
+  const { mutateAsync, isPending } = useToggleBookmark({ summaryId, userId });
 
   const handleToggleBookmark = async () => {
-    if (loading) return;
+    if (isPending) return;
+
+    // ✅ optimistic update (아이콘 즉시 반응)
+    setBookmarked((prev) => !prev);
 
     try {
-      setLoading(true);
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/summaries/${summaryId}/bookmark`, {
-        method: 'PATCH',
-        credentials: 'include',
-      });
+      await mutateAsync();
+    } catch (e) {
+      // 실패 시 롤백
       setBookmarked((prev) => !prev);
-    } finally {
-      setLoading(false);
+      console.error(e);
     }
   };
 
@@ -53,7 +59,7 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
           <button
             type="button"
             onClick={handleToggleBookmark}
-            disabled={loading}
+            disabled={isPending}
             className="mr-4 ml-auto"
           >
             <Bookmark
