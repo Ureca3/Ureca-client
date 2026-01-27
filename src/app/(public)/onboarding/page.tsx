@@ -14,7 +14,7 @@ export default function OnboardingPage() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-evenly">
+    <section className="flex min-h-screen flex-col items-center justify-evenly">
       {/* 인디케이터 */}
       <OnboardingIndicator currentIndex={currentIndex} onChangeIndex={setCurrentIndex} />
 
@@ -28,6 +28,6 @@ export default function OnboardingPage() {
       <AnimatePresence>
         {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
       </AnimatePresence>
-    </div>
+    </section>
   );
 }
