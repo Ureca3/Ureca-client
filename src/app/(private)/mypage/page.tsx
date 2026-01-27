@@ -16,6 +16,7 @@ import QuestionIcon from '@/assets/icons/mypage/question.svg';
 import { LogoutModal } from '@/components/auth/logout-modal';
 import { WithdrawModal } from '@/components/auth/withdraw-modal';
 import { BottomNav } from '@/components/layout/bottom-navigation';
+import { useMe } from '@/hooks/auth/useMe';
 import { authApi } from '@/services/auth/authApi';
 import { useAppDispatch } from '@/store/hooks';
 import { authActions } from '@/store/slices/authSlice';
@@ -26,6 +27,7 @@ const Mypage = () => {
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const { data: me, isLoading } = useMe();
 
   const noop = () => {};
 
@@ -115,8 +117,10 @@ const Mypage = () => {
               </div>
             </div>
             <div>
-              <p className="text-base font-semibold text-gray-900">박승연</p>
-              <p className="text-sm text-gray-600">food0204@gmail.com</p>
+              <p className="text-base font-semibold text-gray-900">
+                {isLoading ? '...' : (me?.name ?? '')}
+              </p>
+              <p className="text-sm text-gray-600">{isLoading ? '...' : (me?.email ?? '')}</p>
               <span className="mt-1 inline-flex rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-semibold text-gray-600">
                 SILVER
               </span>
