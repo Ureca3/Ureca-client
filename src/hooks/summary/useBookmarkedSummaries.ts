@@ -3,10 +3,11 @@ import { useQuery, type UseQueryResult } from '@tanstack/react-query';
 import { getBookmarkedSummaries } from '@/lib/auth/SummaryBookmark';
 import type { ApiSummaryItem } from '@/types/summary/summary';
 
-export function useBookmarkedSummaries(userId: number): UseQueryResult<ApiSummaryItem[]> {
+export function useBookmarkedSummaries(userId: number | null): UseQueryResult<ApiSummaryItem[]> {
   return useQuery<ApiSummaryItem[]>({
     queryKey: ['summaries', 'bookmarks', userId],
     queryFn: async () => {
+      if (userId === null) throw Error();
       const res = await getBookmarkedSummaries(userId);
       return res.data;
     },

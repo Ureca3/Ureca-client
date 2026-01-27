@@ -24,6 +24,18 @@ export const SummaryNavigateCard = ({
   const isFail = status === 'FAIL';
   const isLoading = status === 'LOADING' && !createdAt;
 
+  const convertDate = (date: string): string => {
+    const toDate = new Date(date);
+    return toDate.toLocaleString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
+  };
+
   return (
     <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
       <div className="flex h-11 w-11 items-center justify-center rounded-full bg-pink-100">
@@ -36,7 +48,7 @@ export const SummaryNavigateCard = ({
         {isLoading ? (
           <p className="mt-0.5 text-xs text-gray-500">무너가 열심히 정리하고 있어요</p>
         ) : (
-          createdAt && <p className="mt-0.5 text-xs text-gray-400">{createdAt}</p>
+          createdAt && <p className="mt-0.5 text-xs text-gray-400">{convertDate(createdAt)}</p>
         )}
 
         {badges.length > 0 && (

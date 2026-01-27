@@ -13,12 +13,12 @@ export interface SummaryListItem {
   createdAt?: string;
 }
 
-export const useSummaryList = () => {
+export const useSummaryList = (userId: number | null) => {
   return useQuery<SummaryListItem[]>({
     queryKey: ['summaries'],
     queryFn: async () => {
       const res = await apiClient.get('/api/summaries', {
-        params: { userId: 1 },
+        params: { userId },
       });
 
       const list: ApiSummaryItem[] = Array.isArray(res.data) ? res.data : res.data.data;
