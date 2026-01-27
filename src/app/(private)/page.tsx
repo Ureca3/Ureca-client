@@ -44,9 +44,21 @@ const QUICK_ACTIONS = [
 ];
 
 const HOME_BANNERS = [
-  { src: Banner1, alt: 'U+ 배너 1', href: '/uplus1' },
-  { src: Banner2, alt: 'U+ 배너 2', href: '/uplus2' },
-  { src: Banner3, alt: 'U+ 배너 3', href: '/uplus3' },
+  {
+    src: Banner1,
+    alt: 'U+ 배너 1',
+    href: 'https://www.lguplus.com/benefit-event/ongoing/82066?pageNo=1&sortBaseCd=N&tabId=',
+  },
+  {
+    src: Banner2,
+    alt: 'U+ 배너 2',
+    href: 'https://www.lguplus.com/benefit-event/ongoing/81695?pageNo=1&sortBaseCd=N&tabId=',
+  },
+  {
+    src: Banner3,
+    alt: 'U+ 배너 3',
+    href: 'https://www.lguplus.com/benefit-event/ongoing/387?pageNo=1&sortBaseCd=N&tabId=&postParam=newyear2026_open',
+  },
 ];
 
 const Home = () => {
