@@ -115,14 +115,14 @@ const Mypage = () => {
                 <span aria-hidden>🐙</span>
               </div>
             </div>
-            <div>
+            <div className="flex flex-col gap-1">
               <p className="text-base font-semibold text-gray-900">
                 {isLoading ? '...' : (me?.name ?? '')}
               </p>
               <p className="text-sm text-gray-600">{isLoading ? '...' : (me?.email ?? '')}</p>
-              <span className="mt-1 inline-flex rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-semibold text-gray-600">
+              <p className="mt-1 inline-flex w-fit rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-semibold text-gray-600">
                 SILVER
-              </span>
+              </p>
             </div>
           </div>
 
