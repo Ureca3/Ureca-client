@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import FileIcon from '@/assets/icons/summary/File1.png';
@@ -16,8 +17,7 @@ const QUICK_ACTIONS = [
     title: '요금조회',
     hint: '5',
     tone: 'from-pink-200 to-pink-50',
-    href:
-      'https://account.lguplus.com/login?client_id=G8RoYUvnwILirwwwK3xG4WR8q9D83to7&login_type=STANDARD_WEB&prompt=select_account&i18nextLng=ko',
+    href: 'https://account.lguplus.com/login?client_id=G8RoYUvnwILirwwwK3xG4WR8q9D83to7&login_type=STANDARD_WEB&prompt=select_account&i18nextLng=ko',
     kind: 'external',
   },
   {
@@ -34,7 +34,13 @@ const QUICK_ACTIONS = [
     href: 'https://www.lguplus.com/benefit-membership/rank-info',
     kind: 'external',
   },
-  { title: '매장찾기', hint: 'Near', tone: 'from-amber-200 to-amber-50', href: '/map', kind: 'internal' },
+  {
+    title: '매장찾기',
+    hint: 'Near',
+    tone: 'from-amber-200 to-amber-50',
+    href: '/map',
+    kind: 'internal',
+  },
 ];
 
 const HOME_BANNERS = [
