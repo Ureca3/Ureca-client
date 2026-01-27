@@ -121,6 +121,7 @@ const Mypage = () => {
               </p>
               <p className="text-sm text-gray-600">{isLoading ? '...' : (me?.email ?? '')}</p>
               <p className="mt-1 inline-flex w-fit rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-semibold text-gray-600">
+                {/*TODO. 추후 처리 예정*/}
                 SILVER
               </p>
             </div>
