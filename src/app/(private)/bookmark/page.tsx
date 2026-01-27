@@ -41,16 +41,21 @@ export const BookmarkSummaryPage = () => {
           <div className="py-12 text-center text-sm text-gray-400">북마크한 요약이 없습니다</div>
         )}
 
-        {data?.map((summary) => (
-          <Link key={summary.summaryId} href={`/summary/${summary.summaryId}`}>
-            <SummaryNavigateCard
-              status={summary.status}
-              title={summary.title}
-              badges={summary.keywords}
-              createdAt={summary.createdAt}
-            />
-          </Link>
-        ))}
+        {data?.map((summary) => {
+          const badges =
+            typeof summary.keywords === 'string' ? [summary.keywords] : summary.keywords;
+
+          return (
+            <Link key={summary.summaryId} href={`/summary/${summary.summaryId}`}>
+              <SummaryNavigateCard
+                status={summary.status}
+                title={summary.title}
+                badges={badges}
+                createdAt={summary.createdAt}
+              />
+            </Link>
+          );
+        })}
       </div>
 
       <BottomNav />
