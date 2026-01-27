@@ -58,6 +58,7 @@ export default function OAuthCallbackPage() {
         });
 
         const accessToken: string | undefined = res.data?.token?.accessToken;
+        const termsAgreed: boolean = res.data?.termsAgreed ?? false;
 
         if (!accessToken) {
           router.replace('/onboarding');
@@ -66,12 +67,10 @@ export default function OAuthCallbackPage() {
 
         store.dispatch(authActions.setAccessToken(accessToken));
 
-        store.dispatch(
-          toastActions.show({
-            text: '로그인 되었습니다.',
-            variant: 'success',
-          }),
-        );
+        if (!termsAgreed) {
+          router.replace('/policy?mode=agree');
+          return;
+        }
 
         router.replace('/');
       } catch (e) {
