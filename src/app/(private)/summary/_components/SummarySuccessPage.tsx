@@ -1,7 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+
+import { Bookmark } from 'lucide-react';
 
 import Back from '@/assets/icons/summary/Back.png';
 import File1 from '@/assets/icons/summary/File1.png';
@@ -17,20 +20,49 @@ interface SummarySuccessPageProps {
 export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
   const router = useRouter();
 
-  const { title, subject, keywords = [], points = [], createdAt } = data;
+  const { summaryId, title, subject, keywords = [], points = [], createdAt, isBookmarked } = data;
+
+  const [bookmarked, setBookmarked] = useState(isBookmarked);
+  const [loading, setLoading] = useState(false);
+
+  const handleToggleBookmark = async () => {
+    if (loading) return;
+
+    try {
+      setLoading(true);
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/summaries/${summaryId}/bookmark`, {
+        method: 'PATCH',
+        credentials: 'include',
+      });
+      setBookmarked((prev) => !prev);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
       <div className="min-h-screen bg-[#FFF6FA] pb-28">
-        {/* 헤더 */}
         <div className="relative flex h-14 items-center bg-white">
           <button type="button" onClick={() => router.push('/summary')} className="ml-4">
             <Image src={Back} alt="돌아가기" width={20} height={20} />
           </button>
+
           <p className="absolute left-1/2 -translate-x-1/2 text-sm font-semibold">상담 요약</p>
+
+          <button
+            type="button"
+            onClick={handleToggleBookmark}
+            disabled={loading}
+            className="mr-4 ml-auto"
+          >
+            <Bookmark
+              size={22}
+              className={bookmarked ? 'fill-pink-500 stroke-pink-500' : 'stroke-gray-400'}
+            />
+          </button>
         </div>
 
-        {/* 요약 기본 정보 */}
         <div className="mt-5 flex items-start gap-3 px-4">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-pink-100">
             <Image src={Profile} alt="" width={22} height={22} />
@@ -53,7 +85,6 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
           </div>
         </div>
 
-        {/* 상담 주제 */}
         <div className="mt-6 px-4">
           <div className="mb-2 flex items-center gap-2">
             <Image src={Topic} alt="" width={15} height={15} />
@@ -62,7 +93,6 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
           <div className="rounded-2xl bg-white px-4 py-3 text-[13px]">{subject}</div>
         </div>
 
-        {/* 핵심 요약 */}
         <div className="mt-6 px-4">
           <div className="mb-2 flex items-center gap-2">
             <Image src={File1} alt="" width={15} height={15} />
