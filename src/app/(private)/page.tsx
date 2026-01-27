@@ -4,14 +4,43 @@ import { useRouter } from 'next/navigation';
 
 import FileIcon from '@/assets/icons/summary/File1.png';
 import ForwardIcon from '@/assets/icons/summary/Forward.png';
+import Banner1 from '@/assets/images/banner/image1.png';
+import Banner2 from '@/assets/images/banner/image2.png';
+import Banner3 from '@/assets/images/banner/image3.png';
+import { HomeBannerSlider } from '@/components/home/home-banner-slider';
 import { BottomNav } from '@/components/layout/bottom-navigation';
 import { Header } from '@/components/layout/header';
 
 const QUICK_ACTIONS = [
-  { title: '요금조회', hint: '5', tone: 'from-pink-200 to-pink-50' },
-  { title: '데이터', hint: 'LTE', tone: 'from-sky-200 to-sky-50' },
-  { title: '멤버십', hint: 'VIP', tone: 'from-violet-200 to-violet-50' },
-  { title: '매장찾기', hint: 'Near', tone: 'from-amber-200 to-amber-50' },
+  {
+    title: '요금조회',
+    hint: '5',
+    tone: 'from-pink-200 to-pink-50',
+    href:
+      'https://account.lguplus.com/login?client_id=G8RoYUvnwILirwwwK3xG4WR8q9D83to7&login_type=STANDARD_WEB&prompt=select_account&i18nextLng=ko',
+    kind: 'external',
+  },
+  {
+    title: '데이터',
+    hint: 'LTE',
+    tone: 'from-sky-200 to-sky-50',
+    href: 'https://www.lguplus.com/mobile/plan/mplan/plan-all/',
+    kind: 'external',
+  },
+  {
+    title: '멤버십',
+    hint: 'VIP',
+    tone: 'from-violet-200 to-violet-50',
+    href: 'https://www.lguplus.com/benefit-membership/rank-info',
+    kind: 'external',
+  },
+  { title: '매장찾기', hint: 'Near', tone: 'from-amber-200 to-amber-50', href: '/map', kind: 'internal' },
+];
+
+const HOME_BANNERS = [
+  { src: Banner1, alt: 'U+ 배너 1', href: '/uplus1' },
+  { src: Banner2, alt: 'U+ 배너 2', href: '/uplus2' },
+  { src: Banner3, alt: 'U+ 배너 3', href: '/uplus3' },
 ];
 
 const Home = () => {
@@ -25,45 +54,46 @@ const Home = () => {
       <Header />
 
       <div className="space-y-7 px-4 pt-4">
-        <section className="relative overflow-hidden rounded-[26px] bg-[#EDEBFF] px-5 py-6 shadow-md">
-          <div className="space-y-2">
-            <p className="text-2xl font-bold text-gray-900">친구 추천 이벤트</p>
-            <p className="text-sm text-gray-600">친구 따라 U+로 가면 휴대폰 요금 할인!</p>
-          </div>
-
-          <div className="mt-6 flex items-end gap-3">
-            <div className="rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-md">
-              추천받은 친구에게
-              <br />
-              1만원 할인
-            </div>
-            <div className="rounded-full bg-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-md">
-              추천인에게
-              <br />
-              1만원 할인
-            </div>
-          </div>
-
-          <div className="absolute right-4 bottom-4 rounded-full bg-black/70 px-3 py-1 text-xs font-semibold text-white">
-            1 / 5
-          </div>
+        <section className="space-y-3">
+          <HomeBannerSlider items={HOME_BANNERS} />
         </section>
 
         <section className="grid grid-cols-4 gap-3">
-          {QUICK_ACTIONS.map((action) => (
-            <button
-              key={action.title}
-              type="button"
-              className="flex flex-col items-center gap-2 rounded-2xl bg-white px-2 py-3 text-xs font-semibold text-gray-800 shadow-sm"
-            >
-              <div
-                className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${action.tone}`}
+          {QUICK_ACTIONS.map((action) => {
+            const content = (
+              <>
+                <div
+                  className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${action.tone}`}
+                >
+                  <span className="text-xs font-bold text-pink-500">{action.hint}</span>
+                </div>
+                {action.title}
+              </>
+            );
+
+            if (action.kind === 'internal') {
+              return (
+                <Link
+                  key={action.title}
+                  href={action.href}
+                  className="flex flex-col items-center gap-2 rounded-2xl bg-white px-2 py-3 text-xs font-semibold text-gray-800 shadow-sm"
+                >
+                  {content}
+                </Link>
+              );
+            }
+
+            return (
+              <a
+                key={action.title}
+                href={action.href}
+                className="flex flex-col items-center gap-2 rounded-2xl bg-white px-2 py-3 text-xs font-semibold text-gray-800 shadow-sm"
+                rel="noreferrer"
               >
-                <span className="text-xs font-bold text-pink-500">{action.hint}</span>
-              </div>
-              {action.title}
-            </button>
-          ))}
+                {content}
+              </a>
+            );
+          })}
         </section>
 
         <section className="space-y-3">
@@ -71,7 +101,7 @@ const Home = () => {
 
           <button
             type="button"
-            onClick={() => router.push('/chat')}
+            onClick={() => router.push('/call')}
             className="flex w-full items-center gap-3 rounded-2xl border border-[#E6E2F4] bg-[#F5F3FF] px-4 py-3 shadow-sm"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-xs font-semibold text-gray-700 shadow-sm">
