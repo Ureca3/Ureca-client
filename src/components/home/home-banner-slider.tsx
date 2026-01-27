@@ -1,8 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image, { type StaticImageData } from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 interface BannerItem {
   src: StaticImageData;
@@ -39,17 +39,17 @@ export const HomeBannerSlider = ({ items, intervalMs = 3500 }: Props) => {
 
   return (
     <div className="relative overflow-hidden rounded-2xl shadow-sm">
-      <div className="absolute inset-0 z-10 flex">
+      <div className="pointer-events-none absolute inset-0 z-10 flex">
         <button
           type="button"
-          className="h-full w-[45%]"
+          className="pointer-events-auto h-full w-[45%]"
           onClick={handlePrev}
           aria-label="이전 배너"
         />
         <div className="pointer-events-none h-full w-[10%]" />
         <button
           type="button"
-          className="h-full w-[45%]"
+          className="pointer-events-auto h-full w-[45%]"
           onClick={handleNext}
           aria-label="다음 배너"
         />
@@ -77,7 +77,7 @@ export const HomeBannerSlider = ({ items, intervalMs = 3500 }: Props) => {
         ))}
       </div>
 
-      <div className="absolute bottom-3 left-0 right-0 z-10 flex items-center justify-center gap-1.5">
+      <div className="absolute right-0 bottom-3 left-0 z-10 flex items-center justify-center gap-1.5">
         {items.map((_, dotIndex) => (
           <span
             key={`dot-${dotIndex}`}
