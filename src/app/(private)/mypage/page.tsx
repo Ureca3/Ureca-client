@@ -67,10 +67,15 @@ const Mypage = () => {
     router.push('/help');
   };
 
+  const handleBookmarks = () => {
+    router.push('/summary/bookmarks');
+  };
+
   const 상담Rows = [
     {
       label: '북마크 상담',
       icon: <BookmarkIcon width="18px" height="18px" />,
+      onClick: handleBookmarks,
     },
   ];
 
@@ -147,7 +152,12 @@ const Mypage = () => {
         <div className="mt-6 space-y-6 pb-4">
           <SettingsGroup title="상담">
             {상담Rows.map((row) => (
-              <SettingsRow key={row.label} icon={row.icon} label={row.label} onClick={noop} />
+              <SettingsRow
+                key={row.label}
+                icon={row.icon}
+                label={row.label}
+                onClick={row.onClick ?? noop}
+              />
             ))}
           </SettingsGroup>
 
