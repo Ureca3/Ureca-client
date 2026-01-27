@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+import X from '@/assets/icons/help/x.svg';
 import Help1 from '@/assets/images/help/Help1.png';
 import Help2 from '@/assets/images/help/Help2.png';
 import Help3 from '@/assets/images/help/Help3.png';
@@ -40,11 +41,11 @@ const HelpPage = () => {
       <div className="relative h-[140px] bg-[#A86B8F]">
         <button
           type="button"
-          className="absolute top-4 left-4 flex h-10 w-10 items-center justify-center text-2xl font-semibold text-white"
+          className="text-bg-[#FFF6FA] absolute top-4 left-4 flex h-10 w-10 items-center justify-center text-2xl font-semibold hover:opacity-50"
           onClick={() => router.back()}
           aria-label="닫기"
         >
-          X
+          <X className="h-9 w-9" />
         </button>
         <div className="absolute top-12 right-4 h-14 w-14">
           <Image src={Mooner} alt="" fill className="object-contain" />
