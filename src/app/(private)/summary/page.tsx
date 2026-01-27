@@ -5,12 +5,16 @@ import Link from 'next/link';
 import { BottomNav } from '@/components/layout/bottom-navigation';
 import { Header } from '@/components/layout/header';
 import { SummaryNavigateCard } from '@/components/summary/SummaryNavigateCard';
+import { useMe } from '@/hooks/auth/useMe';
 import { useSummaryList } from '@/hooks/summary/useSummaryList';
 
 export default function SummaryPage() {
-  const { data, isLoading, isError } = useSummaryList();
+  const { data: me, isLoading: meloading } = useMe();
+  const userId = me?.id;
 
-  if (isLoading) {
+  const { data, isLoading, isError } = useSummaryList(userId);
+
+  if (meloading || isLoading) {
     return (
       <>
         <Header />
@@ -24,7 +28,7 @@ export default function SummaryPage() {
     return (
       <>
         <Header />
-        <div className="py-12 text-center text-sm text-gray-400">요약을 불러오지 못했습니다</div>
+        <div className="py-12 text-center text-sm text-gray-400">요약을 불러오지 못했습니다.</div>
         <BottomNav />
       </>
     );
@@ -36,7 +40,7 @@ export default function SummaryPage() {
 
       <div className="flex flex-col gap-6 pt-6 pb-24">
         {data && data.length === 0 && (
-          <div className="py-12 text-center text-sm text-gray-400">요약 데이터가 없습니다</div>
+          <div className="py-12 text-center text-sm text-gray-400">요약 데이터가 없습니다.</div>
         )}
 
         {data?.map((summary) => {
