@@ -1,27 +1,43 @@
+'use client';
+
 import React from 'react';
 
 import { BottomNav } from '@/components/layout/bottom-navigation';
 import { Header } from '@/components/layout/header';
+import { Loading } from '@/components/loading';
 import { ProductList } from '@/components/recommend/product-list';
-import {
-  dummyCategoriesApi,
-  dummyProductsApi,
-} from '@/services/recommend/MockupRecommendApi.client';
+import { useRecommendMe } from '@/hooks/recommend/useRecommendMe';
 
 const page = () => {
-  const categories = dummyCategoriesApi;
-  const products = dummyProductsApi;
+  const { data, isLoading, isError, refetch } = useRecommendMe();
+  const categories = data?.categories ?? [];
+  const products = data?.products ?? [];
 
   return (
     <div className="mx-auto w-full overflow-hidden">
       <Header />
-      {categories.map((i) => (
-        <ProductList
-          key={i.category_id}
-          category={i}
-          products={products.filter((p) => p.category === i.code)}
-        />
-      ))}
+      {isLoading && (
+        <div className="mt-4">
+          <Loading />
+        </div>
+      )}
+      {isError && (
+        <div className="px-6 py-4 text-sm text-red-600">
+          Failed to load recommendations.
+          <button type="button" className="ml-2 underline" onClick={() => refetch()}>
+            Retry
+          </button>
+        </div>
+      )}
+      {!isLoading &&
+        !isError &&
+        categories.map((i) => (
+          <ProductList
+            key={i.id}
+            category={i}
+            products={products.filter((p) => p.categoryId === i.id)}
+          />
+        ))}
       <BottomNav />
     </div>
   );

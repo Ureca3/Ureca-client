@@ -4,4 +4,7 @@ export const queryKeys = {
     bookmarks: (userId?: number) => ['summaries', 'bookmarks', userId] as const,
     detail: (summaryId: number) => ['summary', summaryId] as const,
   },
+  recommend: {
+    me: () => ['recommend', 'me'] as const,
+  },
 };
