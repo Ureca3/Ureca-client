@@ -65,7 +65,6 @@ export const BottomNav = () => {
             onClick={() => router.push('/call')}
             className="relative flex flex-col items-center gap-1"
           >
-            {/* <div className="bg-primary-500 absolute inset-0 rounded-full opacity-10 blur-xs" /> */}
             <div className="bg-primary-500 relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-3 border-white shadow-[0_8px_20px_rgba(227,0,132,0.4)]">
               <Call />
             </div>
