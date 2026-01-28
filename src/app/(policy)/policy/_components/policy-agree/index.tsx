@@ -61,7 +61,7 @@ export const PolicyAgree = () => {
   };
 
   return (
-    <main>
+    <>
       <section className="relative flex flex-col gap-2 px-6 pt-4 pb-6 text-xs font-semibold text-black">
         <div className="absolute -top-9 flex items-center gap-2 text-xl font-bold text-black">
           <label className="flex cursor-pointer items-center gap-2">
@@ -126,6 +126,6 @@ export const PolicyAgree = () => {
           동의하기
         </Button>
       </section>
-    </main>
+    </>
   );
 };

@@ -22,25 +22,22 @@ interface SummarySuccessPageProps {
 export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
   const router = useRouter();
 
-  const { data: me } = useMe(); // userId 얻기
+  const { data: me, isLoading: meLoading, isError: meError } = useMe();
   const userId = me?.id;
 
   const { summaryId, title, subject, keywords = [], points = [], createdAt, isBookmarked } = data;
-
   const [bookmarked, setBookmarked] = useState(isBookmarked);
-
   const { mutateAsync, isPending } = useToggleBookmark({ summaryId, userId });
 
-  const handleToggleBookmark = async () => {
-    if (isPending) return;
+  const disabled = meLoading || meError || !Number.isFinite(userId) || isPending;
 
-    // ✅ optimistic update (아이콘 즉시 반응)
+  const handleToggleBookmark = async () => {
+    if (disabled) return;
     setBookmarked((prev) => !prev);
 
     try {
       await mutateAsync();
     } catch (e) {
-      // 실패 시 롤백
       setBookmarked((prev) => !prev);
       console.error(e);
     }
@@ -71,7 +68,7 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
           <button
             type="button"
             onClick={handleToggleBookmark}
-            disabled={isPending}
+            disabled={disabled}
             className="mr-4 ml-auto"
           >
             <Bookmark

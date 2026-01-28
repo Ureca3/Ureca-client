@@ -20,7 +20,7 @@ export default function SplashPage() {
   }, [router]);
 
   return (
-    <main className="relative h-dvh w-full overflow-hidden bg-[#FFF7F8]">
+    <div className="relative h-dvh w-full overflow-hidden bg-[#FFF7F8]">
       <div className="relative z-20 mt-[112px] ml-6 flex flex-col items-start">
         <p className="text-[18px] leading-[1.45] font-medium text-[#111111]">
           내 손안에
@@ -40,6 +40,6 @@ export default function SplashPage() {
       <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2">
         <Image src={UPlusLogo} alt="U+ logo" width={36} />
       </div>
-    </main>
+    </div>
   );
 }

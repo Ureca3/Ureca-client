@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import type { SummaryStatus } from '@/components/summary/SummaryNavigateCard';
+import { queryKeys } from '@/lib/queryKeys';
 import { apiClient } from '@/services/api/client';
 import type { ApiSummaryItem } from '@/types/summary/summary';
 import { mapSummaryStatus } from '@/utils/map/summary/mapSummaryStatus';
@@ -15,7 +16,7 @@ export interface BookmarkedSummaryListItem {
 
 export const useBookmarkedSummaryList = (userId?: number) => {
   return useQuery<BookmarkedSummaryListItem[]>({
-    queryKey: ['summaries', 'bookmarks', userId],
+    queryKey: queryKeys.summaries.bookmarks(userId),
     enabled: Number.isFinite(userId),
     queryFn: async () => {
       const res = await apiClient.get('/api/summaries/bookmarks', {
@@ -28,8 +29,18 @@ export const useBookmarkedSummaryList = (userId?: number) => {
         id: item.summaryId,
         title: item.title,
         status: mapSummaryStatus(item.status),
-        keywords:
-          typeof item.keywords === 'string' ? JSON.parse(item.keywords) : (item.keywords ?? []),
+        keywords: (() => {
+          if (Array.isArray(item.keywords)) return item.keywords;
+          if (typeof item.keywords === 'string') {
+            try {
+              const parsed = JSON.parse(item.keywords);
+              return Array.isArray(parsed) ? parsed : [item.keywords];
+            } catch {
+              return [item.keywords];
+            }
+          }
+          return [];
+        })(),
         createdAt: item.createdAt,
       }));
     },

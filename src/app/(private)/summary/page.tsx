@@ -7,18 +7,27 @@ import { Header } from '@/components/layout/header';
 import { SummaryNavigateCard } from '@/components/summary/SummaryNavigateCard';
 import { useMe } from '@/hooks/auth/useMe';
 import { useSummaryList } from '@/hooks/summary/useSummaryList';
-import { useAppSelector } from '@/store/hooks';
 export default function SummaryPage() {
-  const { data: me, isLoading: meloading } = useMe();
+  const { data: me, isLoading: meLoading, isError: meError } = useMe();
   const userId = me?.id;
 
   const { data, isLoading, isError } = useSummaryList(userId);
 
-  if (meloading || isLoading) {
+  if (meLoading || isLoading) {
     return (
       <>
         <Header />
         <div className="py-12 text-center text-sm text-gray-400">요약 불러오는 중...</div>
+        <BottomNav />
+      </>
+    );
+  }
+
+  if (meError || !Number.isFinite(userId)) {
+    return (
+      <>
+        <Header />
+        <div className="py-12 text-center text-sm text-gray-400">로그인이 필요합니다.</div>
         <BottomNav />
       </>
     );

@@ -33,6 +33,7 @@ const Mypage = () => {
   const userId = me?.id;
 
   const { data: summaries, isLoading: summariesLoading } = useSummaryList(userId);
+
   const { data: bookmarks, isLoading: bookmarksLoading } = useBookmarkedSummaryList(userId);
 
   const summaryCount = summaries?.length ?? 0;
