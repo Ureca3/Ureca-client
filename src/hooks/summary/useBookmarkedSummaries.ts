@@ -5,10 +5,11 @@ import type { ApiSummaryItem } from '@/types/summary/summary';
 
 export function useBookmarkedSummaries(userId: number | null): UseQueryResult<ApiSummaryItem[]> {
   return useQuery<ApiSummaryItem[]>({
+    enabled: userId !== null,
     queryKey: ['summaries', 'bookmarks', userId],
     queryFn: async () => {
-      if (userId === null) throw Error();
-      const res = await getBookmarkedSummaries(userId);
+      if (userId === null) throw new Error('userId is required to load bookmarks');
+      const res = await getBookmarkedSummaries(userId as number);
       return res.data;
     },
   });

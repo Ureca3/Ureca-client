@@ -10,7 +10,6 @@ import { useAppSelector } from '@/store/hooks';
 
 export const BookmarkSummaryPage = () => {
   const userId = useAppSelector((s) => s.auth).userId;
-  console.log(userId);
 
   const { data, isLoading, isError } = useBookmarkedSummaries(userId);
 
