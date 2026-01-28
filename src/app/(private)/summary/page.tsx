@@ -7,7 +7,7 @@ import { Header } from '@/components/layout/header';
 import { SummaryNavigateCard } from '@/components/summary/SummaryNavigateCard';
 import { useMe } from '@/hooks/auth/useMe';
 import { useSummaryList } from '@/hooks/summary/useSummaryList';
-
+import { useAppSelector } from '@/store/hooks';
 export default function SummaryPage() {
   const { data: me, isLoading: meloading } = useMe();
   const userId = me?.id;

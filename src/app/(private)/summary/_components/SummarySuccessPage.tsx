@@ -46,6 +46,18 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
     }
   };
 
+  const convertDate = (date: string): string => {
+    const toDate = new Date(date);
+    return toDate.toLocaleString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
+  };
+
   return (
     <>
       <div className="min-h-screen bg-[#FFF6FA] pb-28">
@@ -76,7 +88,9 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
 
           <div className="flex-1">
             <h1 className="text-[15px] font-semibold">{title}</h1>
-            {createdAt && <p className="mt-0.5 text-[11px] text-gray-500">{createdAt}</p>}
+            {createdAt && (
+              <p className="mt-0.5 text-[11px] text-gray-500">{convertDate(createdAt)}</p>
+            )}
 
             <div className="mt-2 flex flex-wrap gap-1.5">
               {keywords.map((keyword) => (

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import ForwardIcon from '@/assets/icons/summary/Forward.png';
 import GrayProfile from '@/assets/icons/summary/GrayProfile.png';
 import ProfileIcon from '@/assets/icons/summary/Profile.png';
+import { convertDate } from '@/utils/summary/dateConverter';
 
 export type SummaryStatus = 'LOADING' | 'SUCCESS' | 'FAIL';
 
@@ -36,7 +37,7 @@ export const SummaryNavigateCard = ({
         {isLoading ? (
           <p className="mt-0.5 text-xs text-gray-500">무너가 열심히 정리하고 있어요</p>
         ) : (
-          createdAt && <p className="mt-0.5 text-xs text-gray-400">{createdAt}</p>
+          createdAt && <p className="mt-0.5 text-xs text-gray-400">{convertDate(createdAt)}</p>
         )}
 
         {badges.length > 0 && (
