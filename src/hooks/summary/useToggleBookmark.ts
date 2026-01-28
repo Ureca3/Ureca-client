@@ -1,20 +1,30 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { toggleSummaryBookmark } from '@/lib/auth/SummaryBookmark';
+import { queryKeys } from '@/lib/queryKeys';
+import { apiClient } from '@/services/api/client';
 
-export function useToggleBookmark(summaryId: number, userId: number) {
+export function useToggleBookmark(params: { summaryId: number; userId?: number }) {
+  const { summaryId, userId } = params;
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => toggleSummaryBookmark(summaryId),
-    onSuccess: () => {
-      // 🔥 북마크 페이지 & 상세 페이지 캐시 동기화
-      queryClient.invalidateQueries({
-        queryKey: ['summaries', 'bookmarks', userId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ['summary', summaryId],
-      });
+    mutationFn: async () => {
+      await apiClient.patch(`/api/summaries/${summaryId}/bookmark`);
+    },
+    onSuccess: async () => {
+      if (Number.isFinite(userId)) {
+        await queryClient.invalidateQueries({ queryKey: queryKeys.summaries.list(userId) });
+        await queryClient.invalidateQueries({ queryKey: queryKeys.summaries.bookmarks(userId) });
+      } else {
+        await queryClient.invalidateQueries({
+          predicate: (q) => q.queryKey[0] === 'summaries' && q.queryKey[1] === 'list',
+        });
+        await queryClient.invalidateQueries({
+          predicate: (q) => q.queryKey[0] === 'summaries' && q.queryKey[1] === 'bookmarks',
+        });
+      }
+
+      await queryClient.invalidateQueries({ queryKey: queryKeys.summaries.detail(summaryId) });
     },
   });
 }

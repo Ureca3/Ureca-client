@@ -6,7 +6,7 @@ import { apiClient } from '@/services/api/client';
 import type { ApiSummaryItem } from '@/types/summary/summary';
 import { mapSummaryStatus } from '@/utils/map/summary/mapSummaryStatus';
 
-export interface SummaryListItem {
+export interface BookmarkedSummaryListItem {
   id: number;
   title?: string;
   status: SummaryStatus;
@@ -14,12 +14,12 @@ export interface SummaryListItem {
   createdAt?: string;
 }
 
-export const useSummaryList = (userId?: number) => {
-  return useQuery<SummaryListItem[]>({
-    queryKey: queryKeys.summaries.list(userId),
+export const useBookmarkedSummaryList = (userId?: number) => {
+  return useQuery<BookmarkedSummaryListItem[]>({
+    queryKey: queryKeys.summaries.bookmarks(userId),
     enabled: Number.isFinite(userId),
     queryFn: async () => {
-      const res = await apiClient.get('/api/summaries', {
+      const res = await apiClient.get('/api/summaries/bookmarks', {
         params: { userId },
       });
 
@@ -29,16 +29,18 @@ export const useSummaryList = (userId?: number) => {
         id: item.summaryId,
         title: item.title,
         status: mapSummaryStatus(item.status),
-        keywords:
-          typeof item.keywords === 'string'
-            ? (() => {
-                try {
-                  return JSON.parse(item.keywords);
-                } catch {
-                  return [];
-                }
-              })()
-            : (item.keywords ?? []),
+        keywords: (() => {
+          if (Array.isArray(item.keywords)) return item.keywords;
+          if (typeof item.keywords === 'string') {
+            try {
+              const parsed = JSON.parse(item.keywords);
+              return Array.isArray(parsed) ? parsed : [item.keywords];
+            } catch {
+              return [item.keywords];
+            }
+          }
+          return [];
+        })(),
         createdAt: item.createdAt,
       }));
     },

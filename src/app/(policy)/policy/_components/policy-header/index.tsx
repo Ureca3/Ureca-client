@@ -45,7 +45,7 @@ export const PolicyHeader = ({ mode }: { mode: PolicyMode }) => {
   };
 
   return (
-    <main className="flex flex-col">
+    <div className="flex flex-col">
       <button
         type="button"
         onClick={handleBack}
@@ -72,6 +72,6 @@ export const PolicyHeader = ({ mode }: { mode: PolicyMode }) => {
         </div>
         <div className="border border-black/75"></div>
       </section>
-    </main>
+    </div>
   );
 };

@@ -16,6 +16,9 @@ import QuestionIcon from '@/assets/icons/mypage/question.svg';
 import { LogoutModal } from '@/components/auth/logout-modal';
 import { WithdrawModal } from '@/components/auth/withdraw-modal';
 import { BottomNav } from '@/components/layout/bottom-navigation';
+import { useMe } from '@/hooks/auth/useMe';
+import { useBookmarkedSummaryList } from '@/hooks/summary/useBookmarkedSummaryList';
+import { useSummaryList } from '@/hooks/summary/useSummaryList';
 import { authApi } from '@/services/auth/authApi';
 import { useAppDispatch } from '@/store/hooks';
 import { authActions } from '@/store/slices/authSlice';
@@ -26,6 +29,17 @@ const Mypage = () => {
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const { data: me, isLoading } = useMe();
+  const userId = me?.id;
+
+  const { data: summaries, isLoading: summariesLoading } = useSummaryList(userId);
+
+  const { data: bookmarks, isLoading: bookmarksLoading } = useBookmarkedSummaryList(userId);
+
+  const summaryCount = summaries?.length ?? 0;
+  const bookmarkCount = bookmarks?.length ?? 0;
+
+  const statsLoading = isLoading || summariesLoading || bookmarksLoading;
 
   const noop = () => {};
 
@@ -65,10 +79,15 @@ const Mypage = () => {
     router.push('/help');
   };
 
+  const handleBookmarks = () => {
+    router.push('/summary/bookmarks');
+  };
+
   const 상담Rows = [
     {
       label: '북마크 상담',
       icon: <BookmarkIcon width="18px" height="18px" />,
+      onClick: handleBookmarks,
     },
   ];
 
@@ -118,22 +137,29 @@ const Mypage = () => {
                 <span aria-hidden>🐙</span>
               </div>
             </div>
-            <div>
-              <p className="text-base font-semibold text-gray-900">박승연</p>
-              <p className="text-sm text-gray-600">food0204@gmail.com</p>
-              <span className="mt-1 inline-flex rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-semibold text-gray-600">
+            <div className="flex flex-col gap-1">
+              <p className="text-base font-semibold text-gray-900">
+                {isLoading ? '...' : (me?.name ?? '')}
+              </p>
+              <p className="text-sm text-gray-600">{isLoading ? '...' : (me?.email ?? '')}</p>
+              <p className="mt-1 inline-flex w-fit rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-semibold text-gray-600">
+                {/*TODO. 추후 처리 예정*/}
                 SILVER
-              </span>
+              </p>
             </div>
           </div>
 
           <div className="mt-5 grid grid-cols-2 gap-3 px-5 pb-5">
             <div className="rounded-2xl bg-white/70 px-4 py-3 text-center">
-              <p className="text-lg font-bold text-[#FF3A9D]">12</p>
+              <p className="text-lg font-bold text-[#FF3A9D]">
+                {statsLoading ? '...' : summaryCount}
+              </p>
               <p className="text-[11px] text-gray-600">상담 횟수</p>
             </div>
             <div className="rounded-2xl bg-white/70 px-4 py-3 text-center">
-              <p className="text-lg font-bold text-[#B36BFF]">5</p>
+              <p className="text-lg font-bold text-[#B36BFF]">
+                {statsLoading ? '...' : bookmarkCount}
+              </p>
               <p className="text-[11px] text-gray-600">북마크한 상담</p>
             </div>
           </div>
@@ -142,7 +168,12 @@ const Mypage = () => {
         <div className="mt-6 space-y-6 pb-4">
           <SettingsGroup title="상담">
             {상담Rows.map((row) => (
-              <SettingsRow key={row.label} icon={row.icon} label={row.label} onClick={noop} />
+              <SettingsRow
+                key={row.label}
+                icon={row.icon}
+                label={row.label}
+                onClick={row.onClick ?? noop}
+              />
             ))}
           </SettingsGroup>
 

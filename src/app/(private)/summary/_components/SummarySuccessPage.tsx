@@ -11,7 +11,8 @@ import File1 from '@/assets/icons/summary/File1.png';
 import Profile from '@/assets/icons/summary/Profile.png';
 import Topic from '@/assets/icons/summary/Topic.png';
 import { BottomNav } from '@/components/layout/bottom-navigation';
-import { apiClient } from '@/services/api';
+import { useMe } from '@/hooks/auth/useMe';
+import { useToggleBookmark } from '@/hooks/summary/useToggleBookmark';
 import type { ApiSummaryDetail } from '@/types/summary/summary';
 
 interface SummarySuccessPageProps {
@@ -21,20 +22,24 @@ interface SummarySuccessPageProps {
 export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
   const router = useRouter();
 
-  const { summaryId, title, subject, keywords = [], points = [], createdAt, isBookmarked } = data;
+  const { data: me, isLoading: meLoading, isError: meError } = useMe();
+  const userId = me?.id;
 
+  const { summaryId, title, subject, keywords = [], points = [], createdAt, isBookmarked } = data;
   const [bookmarked, setBookmarked] = useState(isBookmarked);
-  const [loading, setLoading] = useState(false);
+  const { mutateAsync, isPending } = useToggleBookmark({ summaryId, userId });
+
+  const disabled = meLoading || meError || !Number.isFinite(userId) || isPending;
 
   const handleToggleBookmark = async () => {
-    if (loading) return;
+    if (disabled) return;
+    setBookmarked((prev) => !prev);
 
     try {
-      setLoading(true);
-      await apiClient.get(`/api/summaries/${summaryId}/bookmark`);
+      await mutateAsync();
+    } catch (e) {
       setBookmarked((prev) => !prev);
-    } finally {
-      setLoading(false);
+      console.error(e);
     }
   };
 
@@ -63,7 +68,9 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
           <button
             type="button"
             onClick={handleToggleBookmark}
-            disabled={loading}
+            disabled={disabled}
+            aria-label={bookmarked ? '북마크 해제' : '북마크 추가'}
+            aria-pressed={bookmarked}
             className="mr-4 ml-auto"
           >
             <Bookmark

@@ -4,7 +4,7 @@ import Dot from '@/assets/icons/policy/dot.svg';
 
 export const PolicyView = () => {
   return (
-    <main className="flex flex-col gap-2 p-4 text-xs font-semibold text-black">
+    <div className="flex flex-col gap-2 p-4 text-xs font-semibold text-black">
       <div className="flex items-center">
         <Dot />
         <p>본 서비스는 상담 내용을 기반으로 AI가 요약 정보를 제공합니다.</p>
@@ -17,6 +17,6 @@ export const PolicyView = () => {
         <Dot />
         <p>상담 요약 및 북마크 정보는 개인화된 서비스 제공을 위해 저장됩니다.</p>
       </div>
-    </main>
+    </div>
   );
 };
