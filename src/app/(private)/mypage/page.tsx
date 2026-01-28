@@ -75,8 +75,13 @@ const Mypage = () => {
   const handlePolicy = () => {
     router.push('/policy?mode=view');
   };
+
   const handleHelp = () => {
     router.push('/help');
+  };
+
+  const handleSummary = () => {
+    router.push('/summary');
   };
 
   const handleBookmarks = () => {
@@ -150,18 +155,24 @@ const Mypage = () => {
           </div>
 
           <div className="mt-5 grid grid-cols-2 gap-3 px-5 pb-5">
-            <div className="rounded-2xl bg-white/70 px-4 py-3 text-center">
+            <button
+              onClick={handleSummary}
+              className="rounded-2xl bg-white/70 px-4 py-3 text-center"
+            >
               <p className="text-lg font-bold text-[#FF3A9D]">
                 {statsLoading ? '...' : summaryCount}
               </p>
               <p className="text-[11px] text-gray-600">상담 횟수</p>
-            </div>
-            <div className="rounded-2xl bg-white/70 px-4 py-3 text-center">
+            </button>
+            <button
+              onClick={handleBookmarks}
+              className="rounded-2xl bg-white/70 px-4 py-3 text-center"
+            >
               <p className="text-lg font-bold text-[#B36BFF]">
                 {statsLoading ? '...' : bookmarkCount}
               </p>
               <p className="text-[11px] text-gray-600">북마크한 상담</p>
-            </div>
+            </button>
           </div>
         </section>
 
