@@ -30,7 +30,15 @@ export const useSummaryList = (userId?: number) => {
         title: item.title,
         status: mapSummaryStatus(item.status),
         keywords:
-          typeof item.keywords === 'string' ? JSON.parse(item.keywords) : (item.keywords ?? []),
+          typeof item.keywords === 'string'
+            ? (() => {
+                try {
+                  return JSON.parse(item.keywords);
+                } catch {
+                  return [];
+                }
+              })()
+            : (item.keywords ?? []),
         createdAt: item.createdAt,
       }));
     },

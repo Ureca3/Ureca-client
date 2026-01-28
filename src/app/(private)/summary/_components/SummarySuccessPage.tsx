@@ -69,6 +69,8 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
             type="button"
             onClick={handleToggleBookmark}
             disabled={disabled}
+            aria-label={bookmarked ? '북마크 해제' : '북마크 추가'}
+            aria-pressed={bookmarked}
             className="mr-4 ml-auto"
           >
             <Bookmark
