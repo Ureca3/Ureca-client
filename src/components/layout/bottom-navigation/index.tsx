@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import My from '@/assets/icons/nav/circle-user-round.svg';
 import Summary from '@/assets/icons/nav/file-text.svg';
@@ -10,6 +10,10 @@ import Call from '@/assets/images/call/call.svg';
 
 export const BottomNav = () => {
   const router = useRouter();
+  const pathname = usePathname();
+
+  const isActive = (path: string) =>
+    path === '/' ? pathname === '/' : pathname === path || pathname.startsWith(`${path}/`);
 
   return (
     <nav className="fixed bottom-4 left-1/2 z-50 w-[90%] max-w-3xl -translate-x-1/2 rounded-2xl border-[#61626F] bg-white px-6 py-1.5 shadow-xl">
@@ -21,8 +25,16 @@ export const BottomNav = () => {
             onClick={() => router.push('/')}
             className="flex flex-col items-center gap-1"
           >
-            <Home className="h-5 w-5 text-gray-600" />
-            <span className="text-xs text-gray-600">홈</span>
+            <Home
+              className={`h-5 w-5 transition-colors ${isActive('/') ? 'text-primary-500' : 'text-gray-600'}`}
+            />
+            <span
+              className={`text-xs ${
+                isActive('/') ? 'text-primary-500 font-semibold' : 'text-gray-600'
+              }`}
+            >
+              홈
+            </span>
           </button>
         </li>
 
@@ -33,8 +45,16 @@ export const BottomNav = () => {
             onClick={() => router.push('/recommend')}
             className="flex flex-col items-center gap-1"
           >
-            <Recommend className="h-5 w-5 text-gray-600" />
-            <span className="text-xs text-gray-600">추천</span>
+            <Recommend
+              className={`h-5 w-5 transition-colors ${isActive('/recommend') ? 'text-primary-500' : 'text-gray-600'}`}
+            />
+            <span
+              className={`text-xs ${
+                isActive('/recommend') ? 'text-primary-500 font-semibold' : 'text-gray-600'
+              }`}
+            >
+              추천
+            </span>
           </button>
         </li>
 
@@ -60,8 +80,16 @@ export const BottomNav = () => {
             onClick={() => router.push('/summary')}
             className="flex flex-col items-center gap-1"
           >
-            <Summary className="h-5 w-5 text-gray-600" />
-            <span className="text-xs text-gray-600">요약</span>
+            <Summary
+              className={`h-5 w-5 transition-colors ${isActive('/summary') ? 'text-primary-500' : 'text-gray-600'}`}
+            />
+            <span
+              className={`text-xs ${
+                isActive('/summary') ? 'text-primary-500 font-semibold' : 'text-gray-600'
+              }`}
+            >
+              요약
+            </span>
           </button>
         </li>
 
@@ -72,8 +100,16 @@ export const BottomNav = () => {
             onClick={() => router.push('/mypage')}
             className="flex flex-col items-center gap-1"
           >
-            <My className="h-5 w-5 text-gray-600" />
-            <span className="text-xs text-gray-600">MY</span>
+            <My
+              className={`h-5 w-5 transition-colors ${isActive('/mypage') ? 'text-primary-500' : 'text-gray-600'}`}
+            />
+            <span
+              className={`text-xs ${
+                isActive('/mypage') ? 'text-primary-500 font-semibold' : 'text-gray-600'
+              }`}
+            >
+              MY
+            </span>
           </button>
         </li>
       </ul>
