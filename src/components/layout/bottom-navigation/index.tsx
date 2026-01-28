@@ -43,12 +43,13 @@ export const BottomNav = () => {
           <button
             type="button"
             onClick={() => router.push('/call')}
-            className="flex flex-col items-center gap-1"
+            className="relative flex flex-col items-center gap-1"
           >
-            <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-[#E30084] shadow-lg">
+            {/* <div className="bg-primary-500 absolute inset-0 rounded-full opacity-10 blur-xs" /> */}
+            <div className="bg-primary-500 relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-3 border-white shadow-[0_8px_20px_rgba(227,0,132,0.4)]">
               <Call />
             </div>
-            <span className="text-xs font-semibold text-[#E30084]">상담</span>
+            <span className="text-primary-500 text-xs font-semibold">상담</span>
           </button>
         </li>
 
