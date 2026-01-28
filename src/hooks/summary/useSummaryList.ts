@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { skipToken, useQuery } from '@tanstack/react-query';
 
 import type { SummaryStatus } from '@/components/summary/SummaryNavigateCard';
 import { apiClient } from '@/services/api/client';
@@ -13,24 +13,29 @@ export interface SummaryListItem {
   createdAt?: string;
 }
 
-export const useSummaryList = () => {
+export const useSummaryList = (userId: number | null) => {
   return useQuery<SummaryListItem[]>({
-    queryKey: ['summaries'],
-    queryFn: async () => {
-      const res = await apiClient.get('/api/summaries', {
-        params: { userId: 1 },
-      });
+    queryKey: ['summaries', userId],
+    queryFn:
+      userId !== null
+        ? async () => {
+            const res = await apiClient.get('/api/summaries', {
+              params: { userId },
+            });
 
-      const list: ApiSummaryItem[] = Array.isArray(res.data) ? res.data : res.data.data;
+            const list: ApiSummaryItem[] = Array.isArray(res.data) ? res.data : res.data.data;
 
-      return list.map((item) => ({
-        id: item.summaryId,
-        title: item.title,
-        status: mapSummaryStatus(item.status),
-        keywords:
-          typeof item.keywords === 'string' ? JSON.parse(item.keywords) : (item.keywords ?? []),
-        createdAt: item.createdAt,
-      }));
-    },
+            return list.map((item) => ({
+              id: item.summaryId,
+              title: item.title,
+              status: mapSummaryStatus(item.status),
+              keywords:
+                typeof item.keywords === 'string'
+                  ? JSON.parse(item.keywords)
+                  : (item.keywords ?? []),
+              createdAt: item.createdAt,
+            }));
+          }
+        : skipToken,
   });
 };

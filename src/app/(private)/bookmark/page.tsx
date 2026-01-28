@@ -6,9 +6,10 @@ import { BottomNav } from '@/components/layout/bottom-navigation';
 import { Header } from '@/components/layout/header';
 import { SummaryNavigateCard } from '@/components/summary/SummaryNavigateCard';
 import { useBookmarkedSummaries } from '@/hooks/summary/useBookmarkedSummaries';
+import { useAppSelector } from '@/store/hooks';
 
 export const BookmarkSummaryPage = () => {
-  const userId = 1;
+  const userId = useAppSelector((s) => s.auth).userId;
 
   const { data, isLoading, isError } = useBookmarkedSummaries(userId);
 

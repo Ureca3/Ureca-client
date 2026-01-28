@@ -11,6 +11,7 @@ import File1 from '@/assets/icons/summary/File1.png';
 import Profile from '@/assets/icons/summary/Profile.png';
 import Topic from '@/assets/icons/summary/Topic.png';
 import { BottomNav } from '@/components/layout/bottom-navigation';
+import { apiClient } from '@/services/api';
 import type { ApiSummaryDetail } from '@/types/summary/summary';
 
 interface SummarySuccessPageProps {
@@ -30,14 +31,23 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
 
     try {
       setLoading(true);
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/summaries/${summaryId}/bookmark`, {
-        method: 'PATCH',
-        credentials: 'include',
-      });
+      await apiClient.get(`/api/summaries/${summaryId}/bookmark`);
       setBookmarked((prev) => !prev);
     } finally {
       setLoading(false);
     }
+  };
+
+  const convertDate = (date: string): string => {
+    const toDate = new Date(date);
+    return toDate.toLocaleString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
   };
 
   return (
@@ -70,7 +80,9 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
 
           <div className="flex-1">
             <h1 className="text-[15px] font-semibold">{title}</h1>
-            {createdAt && <p className="mt-0.5 text-[11px] text-gray-500">{createdAt}</p>}
+            {createdAt && (
+              <p className="mt-0.5 text-[11px] text-gray-500">{convertDate(createdAt)}</p>
+            )}
 
             <div className="mt-2 flex flex-wrap gap-1.5">
               {keywords.map((keyword) => (
