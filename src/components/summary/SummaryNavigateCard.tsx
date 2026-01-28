@@ -5,6 +5,7 @@ import Image from 'next/image';
 import ForwardIcon from '@/assets/icons/summary/Forward.png';
 import GrayProfile from '@/assets/icons/summary/GrayProfile.png';
 import ProfileIcon from '@/assets/icons/summary/Profile.png';
+import { convertDate } from '@/utils/summary/dateConverter';
 
 export type SummaryStatus = 'LOADING' | 'SUCCESS' | 'FAIL';
 
@@ -23,18 +24,6 @@ export const SummaryNavigateCard = ({
 }: SummaryNavigateCardProps) => {
   const isFail = status === 'FAIL';
   const isLoading = status === 'LOADING' && !createdAt;
-
-  const convertDate = (date: string): string => {
-    const toDate = new Date(date);
-    return toDate.toLocaleString('ko-KR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    });
-  };
 
   return (
     <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
