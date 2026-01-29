@@ -13,7 +13,7 @@ export const RecommendCardList = ({ products }: { products: ProductProps[] }) =>
             <RecommendCard
               product={product}
               is_monthly={true}
-              best=" border-1 border-primary-500 bg-white"
+              best=" border border-primary-500 bg-white"
             />
           </div>
         ))}
