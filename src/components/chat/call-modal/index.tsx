@@ -53,7 +53,7 @@ export const CallModal = ({ content }: { content: ChatProps[] }) => {
           size={'m'}
           className="w-32.75"
           onClick={() => {
-            // TODO: 전화 로직 구현
+            // 전화 로직
           }}
         >
           연결하기

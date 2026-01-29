@@ -16,7 +16,6 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
       setAccessToken: (t) => store.dispatch(authActions.setAccessToken(t)),
       clearAuth: () => store.dispatch(authActions.clearAuth()),
       onUnauthorized: () => {
-        // 선택: refresh 실패하면 온보딩으로 강제 이동
         window.location.assign('/onboarding');
       },
     });

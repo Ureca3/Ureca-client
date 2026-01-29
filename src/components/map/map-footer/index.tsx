@@ -8,7 +8,7 @@ interface MapFooterProps {
   children: React.ReactNode;
 }
 
-const DRAG_THRESHOLD = 30; // 살짝만 움직여도 반응
+const DRAG_THRESHOLD = 30;
 
 export const MapFooter = ({ children }: MapFooterProps) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -27,11 +27,9 @@ export const MapFooter = ({ children }: MapFooterProps) => {
         aria-label={isOpen ? '매장 정보 접기' : '매장 정보 펼치기'}
         onDragEnd={(_, info) => {
           if (info.offset.y > DRAG_THRESHOLD && isOpen) {
-            // 아래로 살짝 → 닫기
             setIsOpen(false);
           }
           if (info.offset.y < -DRAG_THRESHOLD && !isOpen) {
-            // 위로 살짝 → 열기
             setIsOpen(true);
           }
         }}

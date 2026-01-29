@@ -14,7 +14,6 @@ export const Header = () => {
       </Link>
 
       <Link href="/call">
-        {/* <Image src={Call} alt="상담하기" width={40} height={40} className="cursor-pointer" /> */}
         <Call className="cursor-pointer" />
       </Link>
     </header>

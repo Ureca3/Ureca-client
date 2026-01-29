@@ -1,6 +1,5 @@
 import type { Store } from '@/types/map/map';
 
-// mock fetch
 export const fetchStoreMock = async (): Promise<Store> => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   // throw new Error('mock error');

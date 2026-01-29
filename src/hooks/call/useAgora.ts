@@ -10,11 +10,9 @@ import { callApi } from '@/services/call/callApi';
 import { useAppSelector } from '@/store/hooks';
 import type { TokenResponse } from '@/types/call/dto';
 
-//===== 싱글톤 영역 =====
 const tokenRequestCache = new Map<string, Promise<{ data: TokenResponse }>>();
 let globalClient: IAgoraRTCClient | null = null;
 
-//join 상태
 type JoinState = 'IDLE' | 'JOINING' | 'JOINED';
 
 interface UseAgoraReturn {

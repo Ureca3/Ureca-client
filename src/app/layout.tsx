@@ -17,12 +17,6 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-// const pretendard = localFont({
-//   src: '../assets/fonts/PretendardVariable.woff2',
-//   variable: '--font-pretendard',
-//   display: 'swap',
-// });
-
 const gowunDodum = localFont({
   src: '../assets/fonts/GowunDodum.ttf',
   variable: '--font-gowun-dodum',

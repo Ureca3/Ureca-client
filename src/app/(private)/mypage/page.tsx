@@ -173,12 +173,6 @@ const Mypage = () => {
             ))}
           </SettingsGroup>
 
-          {/* <SettingsGroup title="설정">
-            {설정Rows.map((row) => (
-              <SettingsRow key={row.label} icon={row.icon} label={row.label} onClick={noop} />
-            ))}
-          </SettingsGroup> */}
-
           <SettingsGroup title="지원">
             {지원Rows.map((row) => (
               <SettingsRow
