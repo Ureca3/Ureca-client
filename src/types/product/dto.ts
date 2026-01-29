@@ -1,18 +1,22 @@
-export interface CategoryProps {
-  category_id: number;
-  code: string;
-  name: string;
-  is_plan: boolean;
-  is_monthly: boolean;
-}
+export type CategoryId = 1 | 2 | 3 | 4;
+export type CategoryKey = 'PHONE' | 'RATE_PLAN' | 'ROAMING' | 'SMART_DEVICE';
+
 export interface ProductProps {
-  product_id: number;
+  productId: number;
   desc: string | null;
   name: string;
-  category: string;
+  categoryId: CategoryId;
   content: string | null;
-  link: string;
-  is_sale: boolean;
-  price: number;
-  img: string;
+  score: number | null;
+  rankNo: number | null;
+  img: string | null;
+  price: number | null;
+  link: string | null;
 }
+
+export const categoryById: Record<CategoryId, CategoryKey> = {
+  1: 'PHONE',
+  2: 'RATE_PLAN',
+  3: 'ROAMING',
+  4: 'SMART_DEVICE',
+};

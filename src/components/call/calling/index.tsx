@@ -5,13 +5,12 @@ import { useRouter } from 'next/navigation';
 
 import Call from '@/assets/images/call/call.svg';
 import Calling from '@/assets/images/call/mooner_calling.svg';
+import { ErrorComponent } from '@/components/ui/fallback/error';
 import { useAgora } from '@/hooks/call/useAgora';
 
-import { Button } from '../ui/button';
-import { ErrorComponent } from '../ui/fallback/ErrorComponent';
-import { LoadingComponent } from '../ui/fallback/LoadingComponent';
-
-import { AgoraFrequencyVisualizer } from './AgoraVisualizer';
+import { Button } from '../../ui/button';
+import { LoadingComponent } from '../../ui/fallback/loading';
+import { AgoraFrequencyVisualizer } from '../agora-visualizer';
 
 export const CallComponent = () => {
   const [channel] = useState('room1');

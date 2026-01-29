@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import type { SummaryStatus } from '@/components/summary/SummaryNavigateCard';
+import type { SummaryStatus } from '@/components/summary/summary-navigate-card';
 import { queryKeys } from '@/lib/queryKeys';
 import { apiClient } from '@/services/api/client';
 import type { ApiSummaryItem } from '@/types/summary/summary';

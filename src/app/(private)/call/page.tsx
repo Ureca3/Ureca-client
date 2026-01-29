@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CallComponent } from '@/components/call/CallComponent';
+import { CallComponent } from '@/components/call/calling';
 
 const page = () => {
   return (

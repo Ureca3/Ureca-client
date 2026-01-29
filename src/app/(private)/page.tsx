@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 
 import FileIcon from '@/assets/icons/summary/File1.png';
 import ForwardIcon from '@/assets/icons/summary/Forward.png';
@@ -11,6 +12,8 @@ import Banner3 from '@/assets/images/banner/image3.png';
 import { HomeBannerSlider } from '@/components/home/home-banner-slider';
 import { BottomNav } from '@/components/layout/bottom-navigation';
 import { Header } from '@/components/layout/header';
+import { queryKeys } from '@/lib/queryKeys';
+import { fetchRecommendMe } from '@/services/recommend/recommendApi';
 
 const QUICK_ACTIONS = [
   {
@@ -63,8 +66,15 @@ const HOME_BANNERS = [
 
 const Home = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const handleRecommend = () => router.push('/recommend');
+  const handleRecommend = () => {
+    void queryClient.prefetchQuery({
+      queryKey: queryKeys.recommend.me(),
+      queryFn: fetchRecommendMe,
+    });
+    router.push('/recommend');
+  };
   const handleSummary = () => router.push('/summary');
 
   return (

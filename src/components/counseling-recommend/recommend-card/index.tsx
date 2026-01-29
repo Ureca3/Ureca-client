@@ -4,38 +4,39 @@ import Link from 'next/link';
 import Check from '@/assets/images/recommend/check.svg';
 import type { ProductProps } from '@/types/product/dto';
 
-export const RecommendCard = ({
-  is_monthly,
-  product,
-  best,
-}: {
-  is_monthly: boolean;
+type RecommendCardProps = {
   product: ProductProps;
   best: string;
-}) => {
-  return (
-    <div className={`flex w-200 max-w-200 flex-col rounded-2xl ${best}`}>
-      <div className="mx-10 my-5">
-        <div className="text-[14px] font-semibold">{product.name}</div>
-        <div className="text-primary-500 mb-2 text-[20px] font-bold">
-          {is_monthly ? '월 ' : null}
-          {product.price.toLocaleString()}원{product.is_sale ? '부터' : null}
+  is_monthly: boolean;
+};
+
+export const RecommendCard = ({ product, best }: RecommendCardProps) => {
+  const priceLabel = typeof product.price === 'number' ? product.price.toLocaleString() : null;
+
+  const content = (
+    <div className={`grid w-[160px] rounded-2xl ${best} `}>
+      <div className="mx-4 my-4 grid gap-2">
+        <div className="line-clamp-3 text-[14px] font-semibold break-keep">{product.name}</div>
+        <div className="text-primary-500 text-[20px] font-bold">
+          {priceLabel ?? <span className="text-gray-400">TBD</span>}
         </div>
-        {product.content?.split(', ').map((text, idx) => (
-          <div key={idx} className="flex items-center">
-            <Check aria-hidden="true" focusable="false" />
-            &nbsp;{text}
-          </div>
-        ))}
-        <Link
-          href={product.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:bg-gray-light border-gray-light mt-2 inline-flex w-full items-center justify-center rounded-md border bg-transparent px-4 py-2 text-sm text-black shadow-[0_0_2px_#eeeeee] transition-colors"
-        >
-          보러가기
-        </Link>
+        <div className="grid gap-1">
+          {product.content?.split(', ').map((text, idx) => (
+            <div key={idx} className="grid grid-cols-[auto_1fr] items-start gap-1 text-sm">
+              <Check aria-hidden="true" focusable="false" />
+              <span>{text}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
+  );
+
+  return product.link ? (
+    <Link href={product.link} target="_blank" rel="noopener noreferrer" className="block">
+      {content}
+    </Link>
+  ) : (
+    content
   );
 };
