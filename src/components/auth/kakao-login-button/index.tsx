@@ -2,6 +2,7 @@ import React from 'react';
 
 import KakaoLogo from '@/assets/icons/auth/kakao-login-logo.svg';
 import { Button } from '@/components/ui/button';
+import { setOAuthStateCookie } from '@/services/auth/oauth-state';
 import { useAppDispatch } from '@/store/hooks';
 import { toastActions } from '@/store/slices/ToastSlice';
 
@@ -26,7 +27,7 @@ export const KakaoLoginButton = () => {
     const redirectUri = `${appUrl}`;
     const state = crypto.randomUUID();
 
-    sessionStorage.setItem('oauth_state_kakao', state);
+    setOAuthStateCookie('kakao', state);
 
     const params = new URLSearchParams({
       response_type: 'code',

@@ -8,10 +8,9 @@ function isInternalPath(path: string): boolean {
 }
 
 export async function GET(req: NextRequest) {
-  if (!API) return NextResponse.redirect(new URL('/onboarding', req.url));
-
-  const nextParam = req.nextUrl.searchParams.get('next') ?? '/';
-  const next = isInternalPath(nextParam) ? nextParam : '/';
+  if (!API) {
+    return NextResponse.json({ message: 'API base URL not configured' }, { status: 500 });
+  }
 
   const cookieHeader = req.headers.get('cookie') ?? '';
 
@@ -28,16 +27,20 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     console.error('[auth] refresh proxy failed:', error);
-    return NextResponse.redirect(new URL('/onboarding', req.url));
+    return NextResponse.json({ message: 'Refresh proxy failed' }, { status: 502 });
   } finally {
     clearTimeout(timeoutId);
   }
 
   if (!backendRes.ok) {
-    return NextResponse.redirect(new URL('/onboarding', req.url));
+    return NextResponse.json(
+      { message: 'Refresh failed', status: backendRes.status },
+      { status: backendRes.status },
+    );
   }
 
-  const res = NextResponse.redirect(new URL(next, req.url));
+  const data = await backendRes.json().catch(() => null);
+  const res = NextResponse.json(data ?? {}, { status: 200 });
 
   const setCookie = backendRes.headers.get('set-cookie');
   if (setCookie) res.headers.append('set-cookie', setCookie);

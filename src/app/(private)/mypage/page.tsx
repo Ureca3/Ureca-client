@@ -20,9 +20,11 @@ import { useMe } from '@/hooks/auth/useMe';
 import { useBookmarkedSummaryList } from '@/hooks/summary/useBookmarkedSummaryList';
 import { useSummaryList } from '@/hooks/summary/useSummaryList';
 import { authApi } from '@/services/auth/authApi';
+import { clearAccessTokenCookie } from '@/services/auth/access-token';
 import { useAppDispatch } from '@/store/hooks';
 import { authActions } from '@/store/slices/authSlice';
 import { toastActions } from '@/store/slices/ToastSlice';
+import { ErrorBoundary } from '@/components/ui/error-boundary';
 
 const Mypage = () => {
   const router = useRouter();
@@ -46,6 +48,7 @@ const Mypage = () => {
   const handleLogout = async () => {
     try {
       await authApi.logout();
+      clearAccessTokenCookie();
       dispatch(authActions.clearAuth());
       dispatch(toastActions.show({ text: '로그아웃 되었습니다.', variant: 'success' }));
       router.replace('/onboarding');
@@ -58,6 +61,7 @@ const Mypage = () => {
   const handleWithdrawal = async () => {
     try {
       await authApi.withdrawal();
+      clearAccessTokenCookie();
       dispatch(authActions.clearAuth());
       dispatch(toastActions.show({ text: '회원탈퇴가 완료되었습니다.', variant: 'success' }));
       router.replace('/onboarding');
@@ -128,7 +132,7 @@ const Mypage = () => {
   ];
 
   return (
-    <>
+    <ErrorBoundary>
       <div className="px-4 pt-6 pb-24">
         <section className="overflow-hidden rounded-[28px] bg-gradient-to-br from-[#FFD7E9] via-[#FBE6F1] to-[#F6E6FF] shadow-lg">
           <div className="flex items-center gap-3 px-5 pt-5">
@@ -208,7 +212,7 @@ const Mypage = () => {
         )}
       </AnimatePresence>
       <BottomNav />
-    </>
+    </ErrorBoundary>
   );
 };
 

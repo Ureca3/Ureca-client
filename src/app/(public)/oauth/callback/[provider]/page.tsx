@@ -1,99 +1,29 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
 
-import { Loading } from '@/components/loading';
-import { apiClient } from '@/services/api';
-import { authActions } from '@/store/slices/authSlice';
-import { toastActions } from '@/store/slices/ToastSlice';
-import { store } from '@/store/store';
-
-const OAUTH_PROVIDERS = new Set(['google', 'naver', 'kakao'] as const);
-type OAuthProvider = 'google' | 'naver' | 'kakao';
+import { LoadingState } from '@/components/ui/status';
 
 export default function OAuthCallbackPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const params = useParams<{ provider: string }>();
-
-  const called = useRef(false);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (called.current) return;
-    called.current = true;
-
-    const providerRaw = params?.provider;
+    const provider = params?.provider;
     const code = searchParams.get('code');
     const state = searchParams.get('state');
 
-    if (!providerRaw || !code) {
-      router.replace('/onboarding');
+    if (!provider || !code) {
+      window.location.assign('/oauth/result?status=fail&reason=Missing%20params');
       return;
     }
 
-    if (!OAUTH_PROVIDERS.has(providerRaw as OAuthProvider)) {
-      console.error('Unsupported provider:', providerRaw);
-      router.replace('/onboarding');
-      return;
-    }
+    const qs = new URLSearchParams({ code });
+    if (state) qs.set('state', state);
 
-    const provider = providerRaw as OAuthProvider;
+    window.location.assign(`/api/auth/oauth/${provider}?${qs.toString()}`);
+  }, [params?.provider, searchParams]);
 
-    const stateKey = `oauth_state_${provider}`;
-    const savedState = sessionStorage.getItem(stateKey);
-
-    if (!state || !savedState || state !== savedState) {
-      console.error('OAuth state mismatch', { provider, state, savedState });
-      router.replace('/onboarding');
-      return;
-    }
-
-    sessionStorage.removeItem(stateKey);
-
-    (async () => {
-      try {
-        const res = await apiClient.post(`/api/auth/login/${provider}`, null, {
-          params: { code },
-        });
-
-        const accessToken: string | undefined = res.data?.token?.accessToken;
-        const userId: number | undefined = res.data?.token?.userId;
-        const termsAgreed: boolean = res.data?.termsAgreed ?? false;
-
-        if (!accessToken || !userId) {
-          router.replace('/onboarding');
-          return;
-        }
-
-        store.dispatch(authActions.setAccessToken(accessToken));
-        store.dispatch(authActions.setUserid(userId));
-
-        if (!termsAgreed) {
-          router.replace('/policy?mode=agree');
-          return;
-        }
-
-        router.replace('/');
-      } catch (e) {
-        console.error('OAuth 로그인 중 에러 발생:', e);
-
-        store.dispatch(
-          toastActions.show({
-            text: '로그인에 실패했습니다. 잠시 후 다시 시도해 주세요.',
-            variant: 'error',
-          }),
-        );
-
-        router.replace('/onboarding');
-      }
-    })();
-  }, [router, searchParams, params?.provider]);
-
-  return (
-    <section className="bg-primary-500 flex h-screen flex-col items-center justify-center opacity-20">
-      <Loading />
-      <p className="text-sm text-gray-500">로그인 처리 중입니다...</p>
-    </section>
-  );
+  return <LoadingState title="로그인 처리 중" description="잠시만 기다려 주세요." />;
 }

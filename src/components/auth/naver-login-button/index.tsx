@@ -2,6 +2,7 @@ import React from 'react';
 
 import NaverLogo from '@/assets/icons/auth/naver-login-logo.svg';
 import { Button } from '@/components/ui/button';
+import { setOAuthStateCookie } from '@/services/auth/oauth-state';
 import { useAppDispatch } from '@/store/hooks';
 import { toastActions } from '@/store/slices/ToastSlice';
 
@@ -26,7 +27,7 @@ export const NaverLoginButton = () => {
     const redirectUri = `${appUrl}`;
     const state = crypto.randomUUID();
 
-    sessionStorage.setItem('oauth_state_naver', state);
+    setOAuthStateCookie('naver', state);
 
     const params = new URLSearchParams({
       response_type: 'code',

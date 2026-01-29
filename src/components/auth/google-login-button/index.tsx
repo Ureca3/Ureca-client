@@ -2,6 +2,7 @@ import React from 'react';
 
 import GoogleLogo from '@/assets/icons/auth/google-login-logo.svg';
 import { Button } from '@/components/ui/button';
+import { setOAuthStateCookie } from '@/services/auth/oauth-state';
 import { useAppDispatch } from '@/store/hooks';
 import { toastActions } from '@/store/slices/ToastSlice';
 
@@ -26,7 +27,7 @@ export const GoogleLoginButton = () => {
     const redirectUri = `${appUrl}`;
 
     const state = crypto.randomUUID();
-    sessionStorage.setItem('oauth_state_google', state);
+    setOAuthStateCookie('google', state);
 
     const params = new URLSearchParams({
       client_id: clientId,

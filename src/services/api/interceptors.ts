@@ -1,4 +1,5 @@
 import axios, { type AxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
+import { normalizeAxiosError } from './errors';
 
 import { authActions } from '@/store/slices/authSlice';
 import { store } from '@/store/store';
@@ -85,7 +86,7 @@ export function setupInterceptors(apiClient: AxiosInstance, deps: InterceptorDep
         urlPath.startsWith('/api/auth/login');
 
       if (status !== 401 || original._retry || isAuthEndpoint) {
-        return Promise.reject(error);
+        return Promise.reject(normalizeAxiosError(error));
       }
 
       // refresh 동시 호출 1회로 합치기
@@ -97,7 +98,7 @@ export function setupInterceptors(apiClient: AxiosInstance, deps: InterceptorDep
         if (!newToken) {
           deps.clearAuth();
           deps.onUnauthorized?.();
-          return Promise.reject(error);
+          return Promise.reject(normalizeAxiosError(error));
         }
 
         original.headers = original.headers ?? {};
@@ -136,7 +137,7 @@ export function setupInterceptors(apiClient: AxiosInstance, deps: InterceptorDep
           notifyQueue(null);
           deps.clearAuth();
           deps.onUnauthorized?.();
-          return Promise.reject(error);
+          return Promise.reject(normalizeAxiosError(error));
         }
 
         store.dispatch(authActions.setUserid(userId));
@@ -151,7 +152,7 @@ export function setupInterceptors(apiClient: AxiosInstance, deps: InterceptorDep
         notifyQueue(null);
         deps.clearAuth();
         deps.onUnauthorized?.();
-        return Promise.reject(refreshErr);
+        return Promise.reject(normalizeAxiosError(refreshErr));
       } finally {
         isRefreshing = false;
       }

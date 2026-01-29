@@ -8,6 +8,7 @@ import { mapSummaryStatus } from '@/utils/map/summary/mapSummaryStatus';
 import { SummaryFailPage } from '../_components/SummaryFailPage';
 import { SummaryLoadingPage } from '../_components/SummaryLoadingPage';
 import { SummarySuccessPage } from '../_components/SummarySuccessPage';
+import { ErrorBoundary } from '@/components/ui/error-boundary';
 
 export default function SummaryDetailPage() {
   const params = useParams();
@@ -19,12 +20,12 @@ export default function SummaryDetailPage() {
 
   const { data, isLoading, error } = useSummaryDetail(safeId);
 
-  if (!Number.isFinite(summaryId)) {
-    return <SummaryFailPage />;
-  }
-
-  if (isLoading) {
-    return <SummaryLoadingPage />;
+  if (status === 'LOADING') {
+    return (
+      <ErrorBoundary>
+        <SummaryLoadingPage />
+      </ErrorBoundary>
+    );
   }
 
   if (error) {
@@ -44,8 +45,16 @@ export default function SummaryDetailPage() {
   const status = mapSummaryStatus(data.status);
 
   if (status === 'FAIL') {
-    return <SummaryFailPage />;
+    return (
+      <ErrorBoundary>
+        <SummaryFailPage />
+      </ErrorBoundary>
+    );
   }
 
-  return <SummaryLoadingPage />;
+  return (
+    <ErrorBoundary>
+      <SummarySuccessPage />
+    </ErrorBoundary>
+  );
 }
