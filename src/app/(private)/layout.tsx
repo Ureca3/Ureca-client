@@ -38,9 +38,10 @@ export default async function PrivateLayout({ children }: { children: React.Reac
   const store = await cookies();
 
   const devPass = store.get('DEV_SUMMARY')?.value;
+
   if (devPass === '1') {
     console.log('[auth] DEV_SUMMARY bypass');
-    return children;
+    return <main>{children}</main>;
   }
 
   if (!API) {
@@ -51,20 +52,11 @@ export default async function PrivateLayout({ children }: { children: React.Reac
   const cookieHeader = await buildCookieHeader();
   const meRes = await callMe(cookieHeader);
 
-  if (!meRes) {
-    redirect('/onboarding');
-  }
-
-  if (meRes.ok) {
-    return children;
-  }
-
-  if (!meRes.ok) {
+  if (!meRes || !meRes.ok) {
     redirect('/onboarding');
   }
 
   let me: { termsAgreed?: boolean };
-
   try {
     me = await meRes.json();
   } catch (e) {
@@ -72,10 +64,9 @@ export default async function PrivateLayout({ children }: { children: React.Reac
     redirect('/onboarding');
   }
 
-  // termsAgreed가 undefined면 false로 간주할지(권장) / 아니면 에러로 볼지 정책 선택
   if (me.termsAgreed !== true) {
     redirect('/policy?mode=agree');
   }
 
-  return children;
+  return <main>{children}</main>;
 }
