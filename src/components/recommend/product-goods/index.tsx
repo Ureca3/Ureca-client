@@ -23,7 +23,7 @@ export const ProductGoods = ({ product }: { product: ProductProps }) => {
           </div>
         )}
 
-        <div className="w-full px-2 text-center leading-none wrap-break-word break-keep">
+        <div className="flex w-full max-w-[50px] min-w-[30px] px-2 text-center leading-none wrap-break-word break-keep">
           {product.name}
         </div>
         <div className="flex text-sm font-normal">

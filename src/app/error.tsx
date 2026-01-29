@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 
-import { ErrorComponent } from '@/components/ui/fallback/ErrorComponent';
+import { ErrorComponent } from '@/components/ui/fallback/error';
 
 const error = ({ error }: { error: Error & { digest?: string }; reset: () => void }) => {
   useEffect(() => {

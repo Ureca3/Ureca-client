@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import GoBack from '@/assets/icons/header/chevron-left.svg';
 import { BottomNav } from '@/components/layout/bottom-navigation';
-import { SummaryNavigateCard } from '@/components/summary/SummaryNavigateCard';
+import { SummaryNavigateCard } from '@/components/summary/summary-navigate-card';
 import { useMe } from '@/hooks/auth/useMe';
 import { useBookmarkedSummaryList } from '@/hooks/summary/useBookmarkedSummaryList';
 export default function BookmarkedSummaryPage() {

@@ -7,11 +7,14 @@ import { useRouter } from 'next/navigation';
 import { Bookmark } from 'lucide-react';
 
 import Back from '@/assets/icons/summary/Back.png';
+import BoxText from '@/assets/icons/summary/BoxText.png';
 import File1 from '@/assets/icons/summary/File1.png';
 import Profile from '@/assets/icons/summary/Profile.png';
 import Topic from '@/assets/icons/summary/Topic.png';
+import { RecommendCardList } from '@/components/counseling-recommend/recommend-cardlist';
 import { BottomNav } from '@/components/layout/bottom-navigation';
 import { useMe } from '@/hooks/auth/useMe';
+import { useRecommendSummary } from '@/hooks/recommend/useRecommendSummary';
 import { useToggleBookmark } from '@/hooks/summary/useToggleBookmark';
 import type { ApiSummaryDetail } from '@/types/summary/summary';
 
@@ -28,6 +31,13 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
   const { summaryId, title, subject, keywords = [], points = [], createdAt, isBookmarked } = data;
   const [bookmarked, setBookmarked] = useState(isBookmarked);
   const { mutateAsync, isPending } = useToggleBookmark({ summaryId, userId });
+  const {
+    data: recommendData,
+    isLoading: recommendLoading,
+    isError: recommendError,
+    refetch: refetchRecommend,
+  } = useRecommendSummary(summaryId);
+  const recommendProducts = recommendData?.products ?? [];
 
   const disabled = meLoading || meError || !Number.isFinite(userId) || isPending;
 
@@ -130,6 +140,37 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
               ))}
             </ul>
           </div>
+        </div>
+        <div className="mt-6 px-4">
+          <div className="mb-2 flex items-center gap-2">
+            <Image src={BoxText} alt="" width={15} height={15} />
+            <h2 className="text-sm font-semibold">추천 상품</h2>
+          </div>
+
+          {recommendLoading && (
+            <div className="rounded-2xl bg-white px-4 py-3 text-[13px] text-gray-400">
+              추천 상품 불러오는 중...
+            </div>
+          )}
+
+          {recommendError && (
+            <div className="rounded-2xl bg-white px-4 py-3 text-[13px] text-red-500">
+              추천 상품을 불러오지 못했습니다.
+              <button type="button" className="ml-2 underline" onClick={() => refetchRecommend()}>
+                다시 시도
+              </button>
+            </div>
+          )}
+
+          {!recommendLoading && !recommendError && recommendProducts.length === 0 && (
+            <div className="rounded-2xl bg-white px-4 py-3 text-[13px] text-gray-400">
+              추천 상품이 없습니다.
+            </div>
+          )}
+
+          {!recommendLoading && !recommendError && recommendProducts.length > 0 && (
+            <RecommendCardList products={recommendProducts} />
+          )}
         </div>
       </div>
 

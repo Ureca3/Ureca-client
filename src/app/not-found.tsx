@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 
-import { ErrorComponent } from '@/components/ui/fallback/ErrorComponent';
+import { ErrorComponent } from '@/components/ui/fallback/error';
 
 const NotFound = () => {
   return (

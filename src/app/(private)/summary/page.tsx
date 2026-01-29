@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { BottomNav } from '@/components/layout/bottom-navigation';
 import { Header } from '@/components/layout/header';
-import { SummaryNavigateCard } from '@/components/summary/SummaryNavigateCard';
+import { SummaryNavigateCard } from '@/components/summary/summary-navigate-card';
 import { useMe } from '@/hooks/auth/useMe';
 import { useSummaryList } from '@/hooks/summary/useSummaryList';
 export default function SummaryPage() {

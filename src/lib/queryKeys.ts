@@ -6,5 +6,6 @@ export const queryKeys = {
   },
   recommend: {
     me: () => ['recommend', 'me'] as const,
+    summary: (summaryId: number) => ['recommend', summaryId] as const,
   },
 };

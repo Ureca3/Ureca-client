@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import Sorry from '@/assets/images/fallback/mooner_sorry.svg';
 
-import { Button } from '../button';
+import { Button } from '@/components/ui/button';
 
 export const ErrorComponent = ({ message }: { message?: string }) => {
   const router = useRouter();

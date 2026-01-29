@@ -1,4 +1,4 @@
-import type { SummaryStatus } from '@/components/summary/SummaryNavigateCard';
+import type { SummaryStatus } from '@/components/summary/summary-navigate-card';
 export const mapSummaryStatus = (status?: string): SummaryStatus => {
   switch (status) {
     case 'SUCCESS':
