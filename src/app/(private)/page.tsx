@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
 import { useQueryClient } from '@tanstack/react-query';
 
 import FileIcon from '@/assets/icons/summary/File1.png';
@@ -125,24 +126,6 @@ const Home = () => {
         </section>
 
         <section className="space-y-3">
-          <p className="text-sm font-semibold text-gray-900">LG 유플러스 new 상담 챗봇</p>
-
-          <button
-            type="button"
-            onClick={() => router.push('/call')}
-            className="flex w-full items-center gap-3 rounded-2xl border border-[#E6E2F4] bg-[#F5F3FF] px-4 py-3 shadow-sm"
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-xs font-semibold text-gray-700 shadow-sm">
-              CHAT
-            </div>
-            <div>
-              <p className="text-xs text-gray-600">유플러스만의 상담 요약 서비스</p>
-              <p className="text-sm font-semibold text-gray-900">요플이를 지금 당장 만나보세요!</p>
-            </div>
-          </button>
-        </section>
-
-        <section className="space-y-3">
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold text-gray-900">최근 상담</p>
             <button
@@ -162,21 +145,21 @@ const Home = () => {
 
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <p className="text-sm font-semibold text-gray-900">5G 요금제 변경 상담</p>
+                  <p className="text-sm font-semibold text-gray-900">유럽 여행 로밍 캐스터</p>
                   <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] text-gray-500">
                     오늘
                   </span>
                 </div>
                 <p className="mt-1 text-xs text-gray-500">
-                  현재 사용 중인 요금제에서 5G 프리미어 에센셜로 변경 시 월 69,000원으로 데이터
-                  무제한 사용 가능합니다.
+                  유럽으로 출국하는 고객이 이탈리아, 스위스, 벨기에에서 사용할 데이터 중심 로밍
+                  요금제 "로밍캐스터"를 신청했습니다.
                 </p>
                 <div className="mt-2 flex gap-2">
                   <span className="rounded-full bg-pink-50 px-2 py-0.5 text-[10px] text-pink-600">
                     요금제
                   </span>
                   <span className="rounded-full bg-pink-50 px-2 py-0.5 text-[10px] text-pink-600">
-                    5G
+                    로밍
                   </span>
                 </div>
               </div>

@@ -7,7 +7,6 @@ import { AnimatePresence } from 'framer-motion';
 
 import { SettingsGroup } from '@/app/(private)/mypage/_components/settings-group';
 import { SettingsRow } from '@/app/(private)/mypage/_components/settings-row';
-import ThemeIcon from '@/assets/icons/mypage/accessibility.svg';
 import LogoutIcon from '@/assets/icons/mypage/account.svg';
 import BookmarkIcon from '@/assets/icons/mypage/bookmark.svg';
 import GroupIcon from '@/assets/icons/mypage/group.svg';
@@ -97,17 +96,6 @@ const Mypage = () => {
     },
   ];
 
-  const 설정Rows = [
-    {
-      label: '테마 변경',
-      icon: <ThemeIcon width="18px" height="18px" />,
-    },
-    {
-      label: '언어 설정',
-      icon: <GroupIcon width="18px" height="18px" />,
-    },
-  ];
-
   const 지원Rows = [
     {
       label: '약관',
@@ -185,11 +173,11 @@ const Mypage = () => {
             ))}
           </SettingsGroup>
 
-          <SettingsGroup title="설정">
+          {/* <SettingsGroup title="설정">
             {설정Rows.map((row) => (
               <SettingsRow key={row.label} icon={row.icon} label={row.label} onClick={noop} />
             ))}
-          </SettingsGroup>
+          </SettingsGroup> */}
 
           <SettingsGroup title="지원">
             {지원Rows.map((row) => (

@@ -93,7 +93,7 @@ export default function OAuthCallbackPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-12">
       <Loading />
-      <p className="text-sm text-gray-500">로그인 처리 중입니다...</p>
+      <p className="text-lg font-semibold text-gray-500">로그인 처리 중입니다...</p>
     </div>
   );
 }
