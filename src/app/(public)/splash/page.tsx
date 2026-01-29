@@ -21,7 +21,7 @@ export default function SplashPage() {
 
   return (
     <div className="relative h-dvh w-full overflow-hidden bg-[#FFF7F8]">
-      <div className="relative z-20 mt-[112px] ml-6 flex flex-col items-start">
+      <div className="relative z-20 mt-28 ml-6 flex flex-col items-start">
         <p className="text-[18px] leading-[1.45] font-medium text-[#111111]">
           내 손안에
           <br />

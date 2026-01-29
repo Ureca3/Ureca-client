@@ -39,17 +39,10 @@ const HelpPage = () => {
   return (
     <div className="min-h-dvh bg-[#FFF6FA]">
       <div className="relative flex h-21 items-center bg-[#A86B8F] pl-4">
-        <button
-          type="button"
-          // className="text-bg-[#FFF6FA] absolute top-5 left-4 flex h-10 w-10 items-center justify-center text-2xl font-semibold hover:opacity-50"
-          className="w-fit"
-          onClick={() => router.back()}
-          aria-label="닫기"
-        >
+        <button type="button" className="w-fit" onClick={() => router.back()} aria-label="닫기">
           <X className="h-9 w-9" />
         </button>
         <div className="absolute top-13 right-4 h-14 w-14">
-          {/* <Image src={Mooner} alt="" fill className="object-contain" /> */}
           <Moono />
         </div>
       </div>

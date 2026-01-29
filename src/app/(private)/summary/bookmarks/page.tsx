@@ -41,7 +41,7 @@ export default function BookmarkedSummaryPage() {
     );
   }
 
-  // 2. 인증 실패/미로그인(= userId 없음 포함)
+  // 2. 인증 실패/미로그인
   if (meError || !Number.isFinite(userId)) {
     return (
       <>

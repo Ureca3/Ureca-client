@@ -16,9 +16,9 @@ export const PolicyAgree = () => {
 
   const [agreements, setAgreements] = useState({
     all: false,
-    terms: false, // 이용약관 동의(필수)
-    privacy: false, // 개인정보 수집 및 이용동의(필수)
-    service: false, // 서비스 이용 안내 동의 (필수)
+    terms: false,
+    privacy: false,
+    service: false,
   });
 
   const isAllRequiredChecked = agreements.terms && agreements.privacy && agreements.service;

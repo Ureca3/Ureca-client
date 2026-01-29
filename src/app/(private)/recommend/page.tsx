@@ -14,7 +14,7 @@ const page = () => {
   const products = data?.products ?? [];
 
   return (
-    <div className="mx-auto w-full overflow-hidden pb-10">
+    <div className="mx-auto w-full overflow-hidden pb-24">
       <Header />
       {isLoading && (
         <div className="mt-4">
