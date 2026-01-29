@@ -64,9 +64,9 @@ export default async function PolicyPage({ searchParams }: PolicyPageProps) {
   }
 
   return (
-    <div className="min-h-dvh bg-[#FBF8FB] px-4 pt-6">
+    <main className="min-h-dvh bg-[#FBF8FB] px-4 pt-6">
       <PolicyHeader mode={mode} />
       {mode === 'agree' ? <PolicyAgree /> : <PolicyView />}
-    </div>
+    </main>
   );
 }

@@ -6,8 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import { Bookmark } from 'lucide-react';
 
-import Back from '@/assets/icons/summary/Back.png';
-import BoxText from '@/assets/icons/summary/BoxText.png';
+import GoBack from '@/assets/icons/header/chevron-left.svg';
 import File1 from '@/assets/icons/summary/File1.png';
 import Profile from '@/assets/icons/summary/Profile.png';
 import Topic from '@/assets/icons/summary/Topic.png';
@@ -70,7 +69,7 @@ export const SummarySuccessPage = ({ data }: SummarySuccessPageProps) => {
       <div className="min-h-screen bg-[#FFF6FA] pb-28">
         <div className="relative flex h-14 items-center bg-white">
           <button type="button" onClick={() => router.push('/summary')} className="ml-4">
-            <Image src={Back} alt="돌아가기" width={20} height={20} />
+            <GoBack className="hover:text-primary-500" />
           </button>
 
           <p className="absolute left-1/2 -translate-x-1/2 text-sm font-semibold">상담 요약</p>

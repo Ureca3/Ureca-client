@@ -8,6 +8,7 @@ import { BottomNav } from '@/components/layout/bottom-navigation';
 import { SummaryNavigateCard } from '@/components/summary/summary-navigate-card';
 import { useMe } from '@/hooks/auth/useMe';
 import { useBookmarkedSummaryList } from '@/hooks/summary/useBookmarkedSummaryList';
+
 export default function BookmarkedSummaryPage() {
   const router = useRouter();
   const { data: me, isLoading: meLoading, isError: meError } = useMe();
@@ -30,7 +31,7 @@ export default function BookmarkedSummaryPage() {
             onClick={() => router.push('/mypage')}
             className="ml-4 flex items-center"
           >
-            <GoBack />
+            <GoBack className="hover:text-primary-500" />
           </button>
           <p className="absolute left-1/2 -translate-x-1/2 text-sm font-semibold">북마크 상담</p>
         </div>
@@ -51,7 +52,7 @@ export default function BookmarkedSummaryPage() {
             onClick={() => router.push('/mypage')}
             className="ml-4 flex items-center"
           >
-            <GoBack />
+            <GoBack className="hover:text-primary-500" />
           </button>
           <p className="absolute left-1/2 -translate-x-1/2 text-sm font-semibold">북마크 상담</p>
         </div>
@@ -72,7 +73,7 @@ export default function BookmarkedSummaryPage() {
             onClick={() => router.push('/mypage')}
             className="ml-4 flex items-center"
           >
-            <GoBack />
+            <GoBack className="hover:text-primary-500" />
           </button>
           <p className="absolute left-1/2 -translate-x-1/2 text-sm font-semibold">북마크 상담</p>
         </div>
@@ -94,7 +95,7 @@ export default function BookmarkedSummaryPage() {
           onClick={() => router.push('/mypage')}
           className="ml-4 flex items-center"
         >
-          <GoBack />
+          <GoBack className="hover:text-primary-500" />
         </button>
         <p className="absolute left-1/2 -translate-x-1/2 text-sm font-semibold">북마크 상담</p>
       </div>

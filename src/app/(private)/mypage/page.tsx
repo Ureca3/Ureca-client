@@ -11,6 +11,7 @@ import ThemeIcon from '@/assets/icons/mypage/accessibility.svg';
 import LogoutIcon from '@/assets/icons/mypage/account.svg';
 import BookmarkIcon from '@/assets/icons/mypage/bookmark.svg';
 import GroupIcon from '@/assets/icons/mypage/group.svg';
+import Moono from '@/assets/icons/mypage/moono.svg';
 import FileIcon from '@/assets/icons/mypage/paper-line.svg';
 import QuestionIcon from '@/assets/icons/mypage/question.svg';
 import { LogoutModal } from '@/components/auth/logout-modal';
@@ -75,8 +76,13 @@ const Mypage = () => {
   const handlePolicy = () => {
     router.push('/policy?mode=view');
   };
+
   const handleHelp = () => {
     router.push('/help');
+  };
+
+  const handleSummary = () => {
+    router.push('/summary');
   };
 
   const handleBookmarks = () => {
@@ -133,35 +139,37 @@ const Mypage = () => {
         <section className="overflow-hidden rounded-[28px] bg-gradient-to-br from-[#FFD7E9] via-[#FBE6F1] to-[#F6E6FF] shadow-lg">
           <div className="flex items-center gap-3 px-5 pt-5">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/70 shadow-md">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#FFE1EF] text-2xl">
-                <span aria-hidden>🐙</span>
-              </div>
+              <Moono />
             </div>
             <div className="flex flex-col gap-1">
               <p className="text-base font-semibold text-gray-900">
                 {isLoading ? '...' : (me?.name ?? '')}
               </p>
               <p className="text-sm text-gray-600">{isLoading ? '...' : (me?.email ?? '')}</p>
-              <p className="mt-1 inline-flex w-fit rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-semibold text-gray-600">
-                {/*TODO. 추후 처리 예정*/}
-                SILVER
-              </p>
             </div>
           </div>
 
           <div className="mt-5 grid grid-cols-2 gap-3 px-5 pb-5">
-            <div className="rounded-2xl bg-white/70 px-4 py-3 text-center">
+            <button
+              type="button"
+              onClick={handleSummary}
+              className="rounded-2xl bg-white/70 px-4 py-3 text-center"
+            >
               <p className="text-lg font-bold text-[#FF3A9D]">
                 {statsLoading ? '...' : summaryCount}
               </p>
               <p className="text-[11px] text-gray-600">상담 횟수</p>
-            </div>
-            <div className="rounded-2xl bg-white/70 px-4 py-3 text-center">
+            </button>
+            <button
+              type="button"
+              onClick={handleBookmarks}
+              className="rounded-2xl bg-white/70 px-4 py-3 text-center"
+            >
               <p className="text-lg font-bold text-[#B36BFF]">
                 {statsLoading ? '...' : bookmarkCount}
               </p>
               <p className="text-[11px] text-gray-600">북마크한 상담</p>
-            </div>
+            </button>
           </div>
         </section>
 
