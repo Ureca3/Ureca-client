@@ -16,9 +16,19 @@ export const RecommendCard = ({ product, best }: RecommendCardProps) => {
   const content = (
     <div className={`grid w-[160px] rounded-2xl ${best} `}>
       <div className="mx-4 my-4 grid gap-2">
-        <div className="line-clamp-3 text-[14px] font-semibold break-keep">{product.name}</div>
-        <div className="text-primary-500 text-[20px] font-bold">
-          {priceLabel ?? <span className="text-gray-400">TBD</span>}
+        <div className="line-clamp-3 text-center text-[14px] font-semibold break-keep">
+          {product.name}
+        </div>
+        <div className="text-primary-500 text-center text-[16px] font-bold">
+          {priceLabel ? (
+            <>
+              <span className="text-sm text-black">월 </span>
+              <span>{priceLabel}</span>
+              <span className="text-sm text-black">원 부터</span>
+            </>
+          ) : (
+            <span className="text-gray-400">상담 시 안내</span>
+          )}
         </div>
         <div className="grid gap-1">
           {product.content?.split(', ').map((text, idx) => (
