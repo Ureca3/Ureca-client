@@ -151,6 +151,7 @@ const Mypage = () => {
 
           <div className="mt-5 grid grid-cols-2 gap-3 px-5 pb-5">
             <button
+              type="button"
               onClick={handleSummary}
               className="rounded-2xl bg-white/70 px-4 py-3 text-center"
             >
@@ -160,6 +161,7 @@ const Mypage = () => {
               <p className="text-[11px] text-gray-600">상담 횟수</p>
             </button>
             <button
+              type="button"
               onClick={handleBookmarks}
               className="rounded-2xl bg-white/70 px-4 py-3 text-center"
             >
