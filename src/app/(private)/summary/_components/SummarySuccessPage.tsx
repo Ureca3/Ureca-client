@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { Bookmark } from 'lucide-react';
-import {BoxText} from "@/assets/icons/summary";
+import BoxText from "@/assets/icons/summary/BoxText.png";
 import GoBack from '@/assets/icons/header/chevron-left.svg';
 import File1 from '@/assets/icons/summary/File1.png';
 import Profile from '@/assets/icons/summary/Profile.png';
