@@ -91,9 +91,9 @@ export default function OAuthCallbackPage() {
   }, [router, searchParams, params?.provider]);
 
   return (
-    <section className="bg-primary-500 flex h-screen flex-col items-center justify-center opacity-20">
+    <main className="bg-primary-500 flex h-screen flex-col items-center justify-center opacity-20">
       <Loading />
       <p className="text-sm text-gray-500">로그인 처리 중입니다...</p>
-    </section>
+    </main>
   );
 }

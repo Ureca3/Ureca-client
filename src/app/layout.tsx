@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         ].join(' ')}
       >
         <Providers>
-          {children}
+          <main>{children}</main>
           <GlobalComponents />
         </Providers>
       </body>

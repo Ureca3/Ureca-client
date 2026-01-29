@@ -31,11 +31,11 @@ async function callMe(cookieHeader: string) {
 }
 
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
-  if (!API) return children;
+  if (!API) return <main>{children}</main>;
 
   const cookieHeader = await buildCookieHeader();
   const meRes = await callMe(cookieHeader);
 
   if (meRes?.ok) redirect('/');
-  return children;
+  return <main>{children}</main>;
 }
