@@ -34,12 +34,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           gowunDodum.variable,
           'bg-[#FBF8FB]',
           'min-h-dvh',
+          'flex',
+          'flex-col',
+          'items-center',
+          'justify-center',
         ].join(' ')}
       >
-        <Providers>
-          {children}
-          <GlobalComponents />
-        </Providers>
+        <div className="w-93.75">
+          <Providers>
+            {children}
+            <GlobalComponents />
+          </Providers>
+        </div>
       </body>
     </html>
   );
