@@ -43,7 +43,7 @@ const QUICK_ACTIONS = [
     hint: 'Near',
     tone: 'from-amber-200 to-amber-50',
     href: 'https://www.lguplus.com/support/store-address?gad_source=1&gad_campaignid=23361299212&gbraid=0AAAAAq0QTp2_fQb5sWRVy9Irg52X_WjJq&gclid=Cj0KCQiAp-zLBhDkARIsABcYc6vhkXVPDHzNk8NohISduuaukR07iinMJholXRQZI1Bdzn7w2tSjVQUaAoslEALw_wcB',
-    kind: 'internal',
+    kind: 'external',
   },
 ];
 
